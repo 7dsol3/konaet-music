@@ -4,7 +4,8 @@
 
 [Open the GitHub entrance](https://7dsol3.github.io/konaet-music/) ·
 [Launch the HTTPS preview](https://emily-catalyst-joint-james.trycloudflare.com) ·
-[Explore the 2.1 contracts](docs/WORKSPACE-2.1.md)
+[Open the Sound Lab](https://emily-catalyst-joint-james.trycloudflare.com/sound-lab) ·
+[Audio methods](docs/SOUND-LAB.md) · [Digital hardware](docs/AUDIO-HARDWARE.md)
 
 The HTTPS preview connects through an accountless Cloudflare tunnel to a local Python/model
 host. The host and tunnel must remain running; this is not a continuously hosted
@@ -25,6 +26,11 @@ case data. No real purchase, stock reservation, refund or charge is executed.
 
 ## Explore the product
 
+[![H-01 reference waveform and exact PCM metrics](docs/graphics/audio-core-trace.gif)](https://emily-catalyst-joint-james.trycloudflare.com/sound-lab)
+
+*Exported integer reference trace. Live analysis is in the Sound Lab; this animation
+is not physical-device telemetry.*
+
 - Browse 65 recorded instruments by category, brand, model, availability and budget.
 - Compare two or three instruments using recorded specifications.
 - Open a product, add it to a session bag and change quantities.
@@ -39,6 +45,19 @@ case data. No real purchase, stock reservation, refund or charge is executed.
 - Try a private test wallet, approve/decline a sandbox transaction and verify its sealed receipt.
 - Export a private opening compatible with the Sovereign receipt SDK, without submitting to a network.
 - Explore a Python/SystemVerilog credit gate and its logical trace in the hardware lab.
+- Play named notes, build triads, use a metronome and export a project-authored four-chord study.
+- Tune a sustained note with explicit microphone permission; analyze a local audio file without uploading it.
+- Ask checked music rules to explain a pitch/triad estimate, with an optional, clearly named model suggestion.
+- Generate phase controls for the H-01 digital audio core, hear its reference voice and inspect exact PCM metrics.
+
+The **2.2 Sound Lab** is a separate, lazy page at `/sound-lab`. Its browser DSP is
+project code, not a trained song-recognition model. H-01 includes synthesizable
+SystemVerilog for three phase voices, exact level/energy meters and I²S transmit
+and receive paths. The live site executes the reference model; no physical FPGA,
+microphone board or DAC is connected to the server.
+
+[Methods and limits](docs/SOUND-LAB.md) · [Hardware interfaces and equations](docs/AUDIO-HARDWARE.md) ·
+[Production gates](docs/PRODUCTION-GATES.md) · [External-runtime comparison protocol](docs/RUNTIME-COMPARISON.md)
 
 The glass design uses CSS gradients, bounded translucency and small original
 SVG illustrations. No external fonts, animation framework, video background or

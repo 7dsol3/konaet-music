@@ -30,6 +30,14 @@ architectural context; their models, assets, game logic and proprietary source
 were not incorporated into this service. The provenance record identifies the
 one frozen source component that is actually used.
 
+Sound Lab DSP, generated study/graphics and H-01 RTL are project-authored MIT
+code. Equal temperament, phase accumulation, Fourier analysis and I²S are
+established methods/protocols, not claimed as new mathematical inventions.
+The I²S timing implementation references NXP UM11732. Icarus Verilog and Yosys
+are development-only validation tools; their binaries are not embedded in the
+application distribution. `FareedKhan-dev/kimi-k3-in-c` was inspected as an
+external comparison reference; none of its source, fixtures or weights is included.
+
 Konaet is the application/orchestration identity here. Qwen remains named as an
 external model; it is not presented as a Konaet-trained neural model. No neural
 training, weight merging or distillation was performed for this prototype.

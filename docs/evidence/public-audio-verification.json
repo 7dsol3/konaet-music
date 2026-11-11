@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "scope": "HTTP delivery and typed contracts, not browser/device audio QA",
+  "checked_at": "2026-11-11T22:49:21.824328+00:00",
+  "origin": "https://emily-catalyst-joint-james.trycloudflare.com",
+  "source_hashes": {
+    "sound-lab.mjs": "a3dc8e016fc0ff3e195907d5c39093b9273f5a85effef82705d01ff9dfe3ccd0",
+    "sound-dsp.mjs": "2c505a30f8132b4f871e321b24fb10ef182e59922a4d6cf8eca924ac77528f86",
+    "sound-lab.css": "d5e899aa401b9d368d869d2c54fe23db1085bc25a1b3eb0a626c18be917e95f2",
+    "audio-core.svg": "97acc6f0c50aec0c48deb88f34ad43eed5c2a3c71fc831ff74e79e2369cc9628"
+  },
+  "program_samples": 512,
+  "meter_blocks": 8,
+  "audio_core_validation": {
+    "status": "source_matched_record",
+    "clock_vectors": 4096,
+    "i2s_frames": 256,
+    "simulator": "Icarus Verilog version 12.0 (stable) ()",
+    "synthesis": "generic_yosys_pass_no_place_and_route",
+    "physical_device_tested": false
+  },
+  "model_state": "responded",
+  "model": "emporio-qwen3-0.6b",
+  "raw_audio_uploaded": false,
+  "physical_device_tested": false,
+  "browser_visual_verified": false
+}

@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "clock_vectors": 4096,
+  "meter_blocks": 51,
+  "i2s_frames": 256,
+  "i2s_received_words": 511,
+  "seed": 20261111,
+  "simulator": "Icarus Verilog version 12.0 (stable) ()",
+  "synthesis": "generic_yosys_pass_no_place_and_route",
+  "sources": {
+    "python_reference": "4e6e74750df41db078784ee0e439428e7f1b0e7a03f713de36b0ee6ca31d733a",
+    "audio_dds": "a232d2838b65dc3b73ce3650afd8ae865bc74caef3cd2864ed9d39e1a51c8fb0",
+    "audio_meter": "15cbf451bba17cbcb43babee95d0ba28c996026422b41e6ecb9583806839158a",
+    "audio_i2s_tx": "55f1b42d8705e73940d25940307a70fc9adc88c2131442bcb794e2e900c6b5aa",
+    "audio_i2s_rx": "b87328bee80ce40a91ce63adb1748f20b6304877a403740b08560f91ab467851",
+    "konaet_audio_core": "68bb888348fa50a3a04c091322f6a3cc0939e319f128cdd175283e056db8618c",
+    "audio_core_tb": "adec1b1b9cffd28ea8c5ad7bbe9ed42c62aa59dd0ca2987dc69b5973f3cf6d5b"
+  },
+  "physical_device_tested": false,
+  "evidence_run": "https://github.com/7dsol3/konaet-music/actions/runs/43113977896",
+  "validated_commit": "5216be8489325bfc68743d059757717215ab1f61"
+}
