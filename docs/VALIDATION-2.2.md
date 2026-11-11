@@ -22,13 +22,13 @@ two checks. No unavailable RTL tool produces a passing substitute.
 
 - New local audio checks: 11 Python tests and 16 JavaScript DSP/DOM tests passed.
 - Existing plus new JavaScript contracts: 32 passed.
-- Full Python suite before the Windows MIME regression was added: 189 passed
-  locally; the final CI matrix includes that extra regression test.
+- Full Python suite: **190 passed in each Windows/Linux, Python 3.11/3.12 CI job**,
+  including the Windows ES-module MIME regression.
 - Home assets: 142,870 raw / 43,780 gzip bytes. Sound Lab's separate lazy assets:
   45,794 raw / 16,910 gzip bytes. Byte budgets are not browser speed measurements.
 - Isolated wheel smoke: 65 catalog products and complete runtime inventory;
   stale build-cache entries rejected. The source-matched audio record adds one
-  packaged JSON file after the initial smoke run.
+  packaged JSON file after the initial smoke run; final packaging is checked in CI.
 - H-01: 4,096 exact integer clock vectors, 51 complete meter blocks, 256 decoded
   stereo I²S frames, 511 received loopback words and connected top-level activity.
   Generic Yosys synthesis and `check -assert` passed; generic cell count 5,982
@@ -41,6 +41,15 @@ two checks. No unavailable RTL tool produces a passing substitute.
 - [Packaged audio record](../emporio/gateware/audio-validation.json) binds normalized
   reference/RTL/testbench hashes. The API reports `source_matched_record` only
   when every hash matches; record availability does not assert a physical board.
+
+The [complete successful CI run](https://github.com/7dsol3/konaet-music/actions/runs/43114704674)
+checks `e2f36da21ef8a2772267fd5481a9e871ee059fae`; all six jobs passed.
+The [public audio check](evidence/public-audio-verification.json) served the new
+page/modules over HTTPS, matched static source hashes, verified 512 reference
+samples and eight meter blocks, rejected inconsistent pitch input and received
+a named optional-model coaching response without raw audio. The existing public
+workspace check also passed two-client QR/quote, single-debit replay, receipt and
+Sovereign-opening checks. These are HTTP tests, not device/browser QA.
 
 See [PR 8](https://github.com/7dsol3/konaet-music/pull/8) for final required-check
 results and the merged source revision. Release assets provide the finished
