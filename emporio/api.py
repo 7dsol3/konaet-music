@@ -25,6 +25,7 @@ from .research import ResearchEngine
 from .payments import TestPayments
 from .shield import RequestShield
 from .hardware import simulate as simulate_gateware, validation as gateware_validation
+from .audio import MusicCoach, program as audio_program, validation as audio_validation
 
 WEB = Path(__file__).parent / "web"
 COOKIE = "emporio_session"
@@ -80,6 +81,23 @@ class HardwareBody(BaseModel):
     burst: int = Field(default=40, ge=1, le=192)
 
 
+class AudioProgramBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    root: int = Field(default=0, ge=0, le=11)
+    quality: Literal["major", "minor", "sus2", "sus4", "diminished"] = "major"
+    octave: int = Field(default=3, ge=2, le=5)
+
+
+class MusicExplainBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True, allow_inf_nan=False)
+    midi: int | None = Field(default=None, ge=24, le=100)
+    hz: float | None = Field(default=None, ge=30, le=3000)
+    reference: float = Field(default=440.0, ge=430, le=450)
+    root: int | None = Field(default=None, ge=0, le=11)
+    quality: Literal["major", "minor", "sus2", "sus4", "diminished"] | None = None
+    neural: bool = False
+
+
 class RateLimiter:
     def __init__(self, max_keys=4096):
         self.events = defaultdict(deque)
@@ -121,9 +139,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.agent = AgentService(settings)
         app.state.research = ResearchEngine(settings)
         app.state.test_payments = TestPayments(app.state.agent.store, app.state.agent.commerce, settings.state_dir)
+        app.state.music_coach = MusicCoach(settings)
         yield
 
-    app = FastAPI(title="KONAET Music", version="2.1.0", lifespan=lifespan,
+    app = FastAPI(title="KONAET Music", version="2.2.0", lifespan=lifespan,
                   docs_url=None, redoc_url=None)
     limiter = RateLimiter()
     app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=6)
@@ -155,7 +174,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         response = await call_next(request)
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Referrer-Policy"] = "no-referrer"
-        response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+        response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+        response.headers["Permissions-Policy"] = "camera=(), geolocation=(), microphone=(self)"
         if request.url.path.startswith("/api/"):
             response.headers["Cache-Control"] = "no-store"
         return response
@@ -163,6 +183,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.get("/", include_in_schema=False)
     def home():
         return FileResponse(WEB / "index.html")
+
+    @app.get("/sound-lab", include_in_schema=False)
+    def sound_lab():
+        return FileResponse(WEB / "sound-lab.html")
 
     @app.get("/service-worker.js", include_in_schema=False)
     def service_worker():
@@ -190,7 +214,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     def health(request: Request):
         agent = request.app.state.agent
         return {"status": "ok", "provider": settings.provider, "counts": agent.data_report["counts"],
-                "product": "KONAET Music", "version": "2.1.0", "commerce_mode": "demo",
+                "product": "KONAET Music", "version": "2.2.0", "commerce_mode": "demo",
                 "human_service": human_service(),
                 "data_fingerprint": agent.data_report["fingerprint"], "policy_sha256": agent.policies.sha,
                 "snapshot_notice": "Supplied case data; no live carrier or inventory connection."}
@@ -209,7 +233,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 model_state = "connected" if settings.model in {m.get("id") for m in found.get("data", [])} else "responding_model_unconfirmed"
             except (ValueError, TypeError, KeyError, OSError, TimeoutError):
                 model_state = "unavailable"
-        return {"product": "KONAET Music", "version": "2.1.0", "backend": "ready",
+        return {"product": "KONAET Music", "version": "2.2.0", "backend": "ready",
                 "catalog": {"count": request.app.state.agent.data_report["counts"]["products"], "mode": "case_snapshot"},
                 "agent": {"provider": settings.provider, "model": settings.model if settings.provider == "openai_compatible" else None,
                           "state": model_state,
@@ -220,7 +244,26 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 "protection": {"body_limit_bytes": 16384, "read_timeout_seconds": 5, "max_inflight_per_process": 24,
                                "edge_ddos": "not_provisioned"},
                 "sovereign": {"mode": "commitment_export", "network_finalized": False},
-                "hardware": {"mode": "simulation", "physical_device_connected": False, "validation": gateware_validation()}}
+                "hardware": {"mode": "simulation", "physical_device_connected": False, "validation": gateware_validation()},
+                "sound_lab": {"mode": "browser_dsp", "audio_upload": False, "microphone": "explicit_opt_in",
+                              "chord_recognition": "heuristic_triads_only", "audio_core": audio_validation()}}
+
+    @app.post("/api/audio/program")
+    def make_audio_program(body: AudioProgramBody, request: Request):
+        limiter.check("audio_program:" + (request.client.host if request.client else "local"), 30)
+        return audio_program(**body.model_dump())
+
+    @app.post("/api/music/explain")
+    def music_explain(body: MusicExplainBody, request: Request):
+        limiter.check("music_explain:" + (request.client.host if request.client else "local"), 10)
+        complete_pitch = body.midi is not None and body.hz is not None
+        complete_chord = body.root is not None and body.quality is not None
+        if complete_pitch == complete_chord or (body.midi is None) != (body.hz is None) or (body.root is None) != (body.quality is None):
+            raise HTTPException(422, "Send exactly one complete pitch pair or chord pair")
+        try:
+            return request.app.state.music_coach.explain(**body.model_dump())
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
 
     @app.post("/api/hardware/simulate")
     def hardware(body: HardwareBody, request: Request):
