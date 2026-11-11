@@ -1,118 +1,101 @@
-# Validation record
+# KONAET Music 2.0 validation
 
-## Automated checks
+Observed on Windows x64, Python 3.12.10 and Node 24.22.2, 11 November 2026.
+The original submission's evidence remains in Git history. The files identified
+below distinguish new tests from historical screenshots and UI captures.
 
-Observed locally on Windows x64, Python 3.12.10:
+## Automated application and interface checks
 
-```text
-python -m pytest
-50 passed, 1 warning in 34.41s
+| Check | Observed result | Scope |
+| --- | --- | --- |
+| Python suite | 87 passed, one upstream TestClient deprecation warning | Existing agent rules plus new commerce, hardening and QR cases |
+| DOM event contracts | 6 passed | Real interface handlers with controlled API/browser doubles |
+| Installed distribution | PASS | Wheel built and installed outside source tree; 65 products imported and a grounded query answered |
+| Static interface checks | PASS | English root, unique IDs, referenced assets, SVG parsing and source byte budgets |
+| Compilation | PASS | Python compileall and Node syntax checks |
+| Actions source lint | PASS | actionlint 1.7.12 |
 
-python -m compileall -q emporio scripts
-exit code 0
-```
+The source budget report measured approximately **97 KB raw / 30 KB gzip** for
+14 active UI asset files, with no font/CDN calls. This is an asset-size measure,
+not a real mobile load-time, battery-use or frame-rate result.
 
-The warning is an upstream Starlette TestClient deprecation notice about its
-HTTPX test transport; it is not an application failure. Exact exercised package
-versions are in `requirements.lock`. The GitHub workflow additionally defines
-Python 3.11/3.12 checks on Windows and Ubuntu; this local result does not claim
-that a remote job has already run.
+QR verification rasterizes the actual branded SVG and decodes it with ZXing-C++
+at 260/520 pixels and 0/90/180 degrees. It tests two URL lengths, error correction H,
+unsafe-target rejection and escaping. It does not guarantee every banking app
+or camera will scan the code under every condition. The code opens a product
+quote; no Pix payment was created.
 
-Coverage includes monetary validation and rounding, exact budget boundaries,
-current snapshot reads, availability status, active/inactive promotion behavior,
-PIX nonstacking, installment minima, exact BRL 500 shipping ambiguity, seven-day
-return boundaries, PDF page references, customer data minimization, ownership
-isolation, invalid verification, audit restart/tampering, session reset,
-cross-origin/Host checks, request bounds, verification throttling, bilingual
-output, holiday-aware scheduled opening, native function-call protocol, safe
-provider fallback, missing receipt facts and conflicting model intent.
+Commerce tests cover session isolation, reset, unavailable quantities, exact
+pricing, promotion/PIX nonstacking, immutable quote retry, expiry, untrusted
+request fields, cross-origin rejection and the full HTTP quote/SVG path.
 
-## Real local model evaluation
+Hardening cases reject missing original packaging in English/Portuguese,
+missing accessories/manuals, widened model budgets/categories/availability,
+private order context sent to the provider and model planning for private orders.
+A number-leading SKU such as `110e` stays selected for a subsequent payment query.
 
-Server: official llama.cpp CPU build `b12024`.
-Model: official Qwen3-0.6B GGUF, Q8_0, pinned revision and SHA-256 in
-`PROVENANCE.md`. No paid API or remote inference was used.
+## Fresh actual local model evaluation
 
-`python scripts/capture_examples.py` captured five actual English conversations
-and asserted their important outcomes. The final report is
-[`live-evaluation.json`](live-evaluation.json).
+Official Qwen3-0.6B GGUF Q8_0 was served by checksum-pinned llama.cpp `b12024`
+on the local CPU. No paid API or remote inference was used. The model and engine
+were verified against their recorded SHA-256 identities before execution.
+
+The five English conversations in `examples/` were recaptured through the running
+2.0 API. [live-evaluation.json](live-evaluation.json) records observed tools and
+latencies; scripted outcome assertions all passed.
 
 | Observation | Result |
-| --- | --- |
-| Stateful scenarios | 5 |
+| --- | ---: |
+| Scenarios | 5 |
 | Customer turns | 13 |
-| Accepted model-selected plans | 8 |
-| Model attempts resolved through the explicit local fallback | 3 |
-| Scope replies handled locally without model inference | 2 |
-| Scenario assertions | PASS |
-| Median model-attempt end-to-end latency | 7,354.1 ms |
-| Model-attempt latency range | 6,763.9-8,621.2 ms |
+| Accepted model-selected plans | 4 |
+| Explicit local fallbacks after model planning | 4 |
+| Local scope/private-order turns | 5 |
+| Median model-attempt end-to-end latency | 6,510.55 ms |
+| Model-attempt range | 6,181.2–6,785.4 ms |
 
-These are thirteen scripted turns over one supplied dataset, not an estimate
-of general language-model accuracy. The three fallbacks are visible in the
-conversation receipts; they are not counted as successful neural plans.
+The three private-order turns intentionally bypass model inference. A fallback
+is not counted as successful neural planning. These thirteen scripted turns
+are not a general accuracy estimate or a comparison with Siri/Alexa.
 
-The checked outcomes include a BRL 1,000 acoustic-guitar filter, resolving the
-first result before an installment question, the 8% Taylor promotion without
-an additional PIX discount, a four-calendar-day online-return example,
-verification before order disclosure, cross-customer access refusal, both
-address and hours, and an unrelated/injection request without tool access.
+The first 2.0 live capture failed a PIX follow-up because the local model-code
+extractor ignored the digit-leading `110e` SKU. A focused regression and code fix
+preceded the successful full recapture. The failed attempt was not presented as
+the final evidence. Earlier 1.0 failure captures remain labeled as historical.
 
-## Observed failures and corrections
+## Verification not completed
 
-1. **Substring product search:** short query tokens matched inside unrelated
-   words. Token-level matching corrected the search; the original focused
-   regression checks passed after the change.
-2. **Unknown model substitution:** an unknown Takamine model fell back to a
-   brand-only search. Model terms are retained so an absent model returns no
-   match rather than silently substituting another product.
-3. **English catalog terminology:** the real model called the correct tool
-   with `acoustic guitar`, but the Portuguese descriptions did not contain that
-   phrase. Shared tool normalization maps category terms before applying model/
-   brand filters. The live budget query now returns the expected instruments.
-4. **Stateful model repetition:** the small model repeated its prior catalog
-   search instead of selecting the first result and then quoting installments.
-   [`evidence/initial-followup.md`](evidence/initial-followup.md) preserves the
-   observed replies and receipts. Explicit locally resolved product/payment
-   intent now takes precedence when a model plan conflicts. A dedicated
-   regression and the repeated live scenario passed, with two honest fallbacks.
-5. **Unsupported/dropped policy topic:** the model originally produced a free
-   text topic, `address and opening hours`, which was not a defined card.
-   [`evidence/initial-policy-topic.md`](evidence/initial-policy-topic.md) preserves
-   that response. Topic arguments are now enumerated, and the execution guard
-   checks that explicit requested topics are retained without adding an unrelated
-   promotion policy. The repeated live
-   conversation includes both the address and opening hours.
+The native app pipe and browser access host were unavailable. No new browser
+screenshot, pixel-layout check, microphone recording, spoken-output listening
+test or iOS/Android install test was performed. `docs/ui-check.json` and
+`docs/screenshots/` are original 1.0 artifacts, not proof of the new glass UI.
+The DOM contracts do not replace those checks.
 
-The initial aggregate receipts remain at
-[`evidence/initial-live-evaluation.json`](evidence/initial-live-evaluation.json).
-That initial capture was not a successful final evaluation.
+No public Python backend has been provisioned by these source tests. The optional
+Render blueprint still requires an account and configured HTTPS origin. No
+merchant account, provider sandbox, bank payment, inventory reservation or
+refund integration was tested. Do not use the case fixtures with real customers.
 
-## Browser and visual checks
+## Reproduce
 
-`scripts/check_ui.py` exercises a fresh isolated Chromium/Chrome test profile.
-It checks initial readiness, grounded chat, catalog/policy views, order
-verification and tracking, session reset, mobile layout, and the Portuguese
-interface and response. The machine's integrated-browser/native-control bridge
-was unavailable; application checks use a dedicated headless test browser,
-without connecting to a personal browser profile.
+```text
+python -m pip install -r requirements.lock
+python -m pip install --no-deps --no-build-isolation -e .
+python -m pytest --junitxml=artifacts/pytest.xml
+python scripts/verify_frontend.py
+python scripts/verify_wheel.py
+python scripts/capture_product_evidence.py
+cd tests/ui
+npm ci --ignore-scripts
+cd ../..
+node --test tests/ui/interface.test.mjs
+```
 
-The observed report and actual screenshots are stored in
-[`ui-check.json`](ui-check.json) and [`screenshots/`](screenshots/). Captures
-cover desktop 1440x1000 and mobile 375x812. The script asserts no horizontal
-overflow and no JavaScript page errors for the exercised flows.
+Run the neural helper first, then `python scripts/capture_examples.py` to repeat
+the five actual conversations. Set `KONAET_CAPTURE_URL` when using another port.
+Model outputs and CPU latency vary; failed assertions must be investigated,
+not removed or silently turned into successful examples.
 
-The submission PDF is rendered and visually inspected after generation. Layout
-checks cover page boundaries, readable code/table wrapping and source links.
-PDF generation/QA dependencies are separate from the application runtime.
-
-## Reproduction limits
-
-CPU latency varies with hardware and background load. The local model cache is
-not committed; use the checksum-pinned setup helper. The live examples depend on
-the supplied fixture and current store-local date. For the illustrated
-2026-10-27 receipt, the four-day outcome is specific to the case date 2026-10-31;
-automated date-boundary tests freeze that date. A later real demo should use a
-recent actual receipt date to demonstrate the same rule honestly. The capture
-script automatically supplies a simulated receipt four days before its current
-store-local capture date so the demonstration can be recaptured later.
+The GitHub workflow defines Python 3.11/3.12 on Ubuntu/Windows and a separate
+Node interface job. Its actual remote outcome is recorded by GitHub, separately
+from the local results above. Review that run for the exact published commit.

@@ -1,0 +1,19 @@
+# Optional demo hosting. Not deployed by this file alone. Free service storage
+# is ephemeral: carts/quotes disappear on restart. Use no real customer data.
+services:
+  - type: web
+    name: konaet-music
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-runtime.lock && pip install --no-deps --no-build-isolation .
+    startCommand: python scripts/serve.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: EMPORIO_PROVIDER
+        value: local
+      - key: EMPORIO_STATE_DIR
+        value: /tmp/konaet-music
+      - key: KONAET_PUBLIC_URL
+        sync: false

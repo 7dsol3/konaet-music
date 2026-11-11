@@ -1,6 +1,6 @@
 # Attribution and licensing
 
-The original Empório application files are distributed under the MIT license in
+The project-authored Empório and KONAET Music application files are distributed under the MIT license in
 `LICENSE`. That grant does not relicense the following materials.
 
 | Component | Origin and terms | Use |
@@ -14,6 +14,10 @@ The original Empório application files are distributed under the MIT license in
 | Pydantic | MIT | Typed input and tool argument validation |
 | Uvicorn | BSD-3-Clause | Local ASGI server |
 | pypdf | BSD-3-Clause | Text extraction from the supplied manual |
+| Segno | BSD-3-Clause | Standard QR matrix encoding; the renderer and checkout binding are project code |
+| Pillow | MIT-CMU | Development-only raster checks |
+| ZXing-C++ | Apache-2.0 | Independent development-only QR decoding |
+| Happy DOM | MIT | Development-only DOM event tests; not browser rendering |
 | Python / SQLite | PSF / public domain | Application runtime and database |
 | pytest / HTTPX | MIT / BSD-3-Clause | Automated development checks |
 | Playwright | Apache-2.0 | Optional isolated-browser development checks |

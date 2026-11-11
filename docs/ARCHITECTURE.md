@@ -1,87 +1,82 @@
-# Architecture and execution boundaries
+# KONAET Music architecture
 
-## A turn from input to evidence
+Python remains the application language. FastAPI serves a buildless English
+HTML/CSS/JavaScript interface and a SQLite-backed API from one origin. There is
+no frontend framework, vector database, client payment secret or browser LLM.
 
-1. FastAPI validates the message and language, resolves an HttpOnly session
-   cookie, applies a client rate limit and rejects unexpected origins/hosts.
-2. The local router identifies common store needs and extracts explicit facts.
-   A configured language model can select native function calls through the
-   same bounded interface. Greetings and rejected scope bypass model inference.
-3. Pydantic validates the allowlisted function name and arguments. At most three
-   tool calls are accepted in one planning round. No generated SQL or code executes.
-4. Transaction-related arguments must agree with explicit local extraction.
-   Return facts come from the customer's stated context, never invented model values.
-5. Structured tools query SQLite with parameters. Order ownership is supplied by
-   the trusted session and applied inside the order query, not by model instruction.
-6. Policy tools combine PDF-derived FTS retrieval with version-pinned reviewed
-   summaries and deterministic business rules. Each answer carries source IDs/pages.
-7. The renderer creates an English or Portuguese answer from those results.
-   Model free text cannot become a price, delivery promise or refund approval.
-8. The application saves bounded, redacted conversation context and an atomic
-   hash-linked audit receipt. The response identifies model/local/fallback mode.
+## Customer flows
 
-## Tools
+1. Public discovery reads the current imported case snapshot and exposes the
+   existing discount/availability rules, translated category labels and filters.
+2. Comparison retrieves two or three explicit distinct IDs. Absent specs remain
+   unrecorded, rather than being supplied by the model.
+3. A cryptographically random HttpOnly session owns its bag. SQL binds every cart
+   query to that server session; request bodies cannot choose another session.
+4. Quote creation rechecks quantities and prices. Per-line totals use integer
+   cents and Decimal rounding. Active promotions take precedence over 5% PIX;
+   no stacking is performed. Shipping is excluded and inventory is not reserved.
+5. The server stores an immutable quote, its request key, a cart/method hash and
+   a fifteen-minute expiry. Same request plus same cart returns the same quote;
+   changed inputs are rejected. A new key creates a new random reference.
+6. The code endpoint creates the original branded SVG from the trusted configured
+   origin and opaque quote reference. The quote contains no private identity.
+   A capability URL can be viewed by its holder until expiry.
 
-| Function | Boundary |
-| --- | --- |
-| `search_products` | Model/brand/category/budget filters, available-only default, at most eight displayed results |
-| `get_product` | Price, active promotion, lifecycle status and alternatives for one recorded product |
-| `search_policies` | Store information and policy summaries, original PDF page references and retrieval metadata |
-| `get_order` | Session-scoped recorded order information; no customer-ID argument or list-all operation |
-| `quote_payment` | Integer-cent discounts, no stacking, quantity/stock checks and installment tiers |
-| `assess_return` | Explicit actual receipt date, purchase channel and condition; preliminary guidance only |
-| `quote_shipping` | Defined metropolitan fee rules; exactly BRL 500 and other cities require review/quote |
+All quote states are preview/not-started. There is no payment state machine,
+refund executor, reservation API or model-authorized financial action in 2.0.
+Payment integration requires separate merchant work described in PAYMENTS.md.
 
-The HTTP API does not expose arbitrary tools directly. The catalog endpoint is
-public; order information is available only through the ownership-checked agent.
-There is no customer-table endpoint. The original fictional manual is available
-at `/manual` so customers/reviewers can follow page references.
+## Agent boundary
 
-## Retrieval and source freshness
+The local bilingual router inherited from the case is the fallback and default.
+The customer UI always requests English. An optional native function-calling
+model can choose bounded read-only functions. Only allowlisted schemas pass;
+no generated SQL or arbitrary source is executed.
 
-`emporio/vendor/konaet_knowledge.py` is the unchanged, frozen Konaet retrieval
-component. It uses SQLite FTS5 `unicode61 remove_diacritics 2`, page-preserving
-chunks, BM25 ranking and AND-then-OR query fallback. Application topic expansion
-maps common English questions onto the Portuguese source vocabulary.
+Catalog category, budget, availability and explicit brand/model constraints
+cannot be broadened by a provider plan. Explicit transaction arguments are
+similarly checked. The deterministic renderer uses tool facts for prices,
+installments, availability and preliminary policy outcomes.
 
-The curated cards complement lexical retrieval for this eight-page manual.
-They are not automatically generated rules. Each card cites the complete
-relevant pages; source text is interpreted as reference data, not executable
-instructions. A pinned PDF hash prevents a source update from silently leaving
-the cards stale. This is a deliberate small-corpus design, not a claim that a
-generic RAG engine can resolve policy contradictions automatically.
+Order requests bypass the external planner. Server-side session ownership
+filters SQL, and number/email fixture verification does not become a claimed
+production account. Only `category` and `last_products` enter provider context.
+Order identifiers in recent user messages are redacted, as are recognizable
+email/phone patterns. This is deliberate minimization, not general PII detection.
 
-CSV hashes, row counts and data warnings are recorded during transactional
-ingestion. A changed source set is replaced atomically on startup. Queries read
-the imported snapshot each turn, so committed database updates are visible;
-editing a CSV requires restarting/reimporting. Importing data does not train a model.
+Private return facts remain local. Missing packaging or materials trigger
+human review. The small model can still choose an ineffective query; model mode,
+fallback, tools, latency and source receipts remain visible.
 
-## Model boundary
+## Voice and PWA
 
-The full Windows demo downloads official Qwen3-0.6B Q8_0 weights and a pinned
-llama.cpp CPU server. The adapter sends tool definitions, a store system prompt,
-redacted recent user turns and minimal public context. Verified identity data,
-tool outputs and assistant order-detail history remain outside that prompt.
+Speech recognition populates an editable draft, with no auto-submit. Speech
+synthesis is separately opt-in. Browser permissions and services are outside
+the Python process; these features are not a proprietary speech model.
 
-Qwen is separate from Konaet's orchestration and retrieval code. No external
-model is renamed as a proprietary Konaet model. No Cauryvo checkpoint was
-available in the inspected workspace; unrelated ARC/anti-cheat models were not
-treated as conversational models.
+The worker caches only the public app shell. No API, checkout, code or private
+content is cached or queued offline. Unavailable API calls must fail visibly.
+The standalone manifest provides installation metadata where supported.
 
-The protocol adapter is tested with a labeled stub and with a real local server.
-A model can still choose a poor retrieval query. Argument validation controls
-capability and data access, not semantic correctness of every intent; that limit
-is reflected in the evaluation and local fallback strategy.
+## State, freshness and deployment
 
-## Operational tradeoffs
+The six original CSVs import transactionally. New source fingerprints invalidate
+sessions so recycled customer IDs cannot preserve old verification. Deleting a
+session cascades its bag; existing product-only quotes expire independently.
+Historical audit receipts remain minimal hash-linked records without a public
+anchor. Policy summaries and decision rules remain tied to the original PDF hash.
 
-SQLite WAL and parameterized reads keep setup small. Audit insertion uses
-`BEGIN IMMEDIATE` so sequence/hash updates are atomic. A process-wide turn lock
-prevents simultaneous requests from overwriting the same conversational context,
-at the cost of serializing turns. This is appropriate to a local prototype;
-it is not a multi-tenant production architecture.
+The original prototype's process-wide turn lock deliberately serializes agent
+and cart mutations. One application process is supported. This prioritizes local
+correctness over throughput and has not been measured as a multi-tenant system.
 
-State and model artifacts live under ignored `var/`. The model helper starts
-its background server without a separate Windows console and terminates the
-child when the application exits. It binds both services to loopback. No
-automatic message, payment, public deployment or form submission occurs.
+The public origin must be configured, rather than inferred from incoming Host.
+Cookies receive Secure on HTTPS configurations; same-origin write checks, Host
+checks, rate limits and typed bodies continue to apply. Compression reduces
+transfer size. Real upstream authentication, encrypted managed storage,
+distributed limits, observability and incident response remain production work.
+
+The optional Render blueprint deploys a **demo** process with ephemeral state.
+No cloud service has been provisioned by this repository alone. GitHub Pages
+and the Sites Worker runtime cannot execute the current Python/SQLite service
+unchanged; publishing only its static files would leave critical controls broken.

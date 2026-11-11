@@ -1,4 +1,8 @@
-"""Optional isolated-browser UI checks; never connects to a personal browser profile."""
+"""Historical 1.0 UI check; not valid for KONAET Music 2.0.
+
+Current event contracts are in tests/ui/interface.test.mjs. A new browser/device
+review is required before claiming visual or microphone QA for the redesign.
+"""
 from __future__ import annotations
 
 import json

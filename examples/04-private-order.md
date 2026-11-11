@@ -3,7 +3,7 @@
 Captured from the running application. These are observed responses, not manually scripted assistant answers.
 Data fingerprint: `4270a5860500ef3d463a1d95a77dbd44dea5948fe4165586df0f8cae501e2976`
 
-Language: English. Store-local capture date: 2026-10-31. The return scenario explicitly supplies a simulated receipt four days earlier.
+Language: English. Store-local capture date: 2026-11-11. The return scenario explicitly supplies a simulated receipt four days earlier.
 
 **Customer:** What is the status of order 8?
 
@@ -11,7 +11,7 @@ Language: English. Store-local capture date: 2026-10-31. The return scenario exp
 
 Sources: No store facts required.
 
-Planner: `openai_compatible`. Tool receipts:
+Planner: `local`. Tool receipts:
 
 ```json
 [
@@ -39,7 +39,7 @@ This is the supplied order snapshot, not a live carrier lookup.
 
 Sources: Verified order #8
 
-Planner: `openai_compatible`. Tool receipts:
+Planner: `local`. Tool receipts:
 
 ```json
 [
@@ -59,7 +59,7 @@ Planner: `openai_compatible`. Tool receipts:
 
 Sources: No store facts required.
 
-Planner: `openai_compatible`. Tool receipts:
+Planner: `local`. Tool receipts:
 
 ```json
 [

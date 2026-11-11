@@ -7,7 +7,7 @@
       "turns": [
         {
           "mode": "openai_compatible",
-          "latency_ms": 7863.2,
+          "latency_ms": 6422.8,
           "tools": [
             {
               "tool": "search_products",
@@ -24,7 +24,7 @@
         },
         {
           "mode": "local_fallback",
-          "latency_ms": 8621.2,
+          "latency_ms": 6749.5,
           "tools": [
             {
               "tool": "get_product",
@@ -37,7 +37,7 @@
         },
         {
           "mode": "local_fallback",
-          "latency_ms": 8030.3,
+          "latency_ms": 6598.3,
           "tools": [
             {
               "tool": "quote_payment",
@@ -56,25 +56,21 @@
       "file": "02-promotional-price.md",
       "turns": [
         {
-          "mode": "openai_compatible",
-          "latency_ms": 7354.1,
+          "mode": "local_fallback",
+          "latency_ms": 6354.0,
           "tools": [
             {
-              "tool": "search_products",
+              "tool": "get_product",
               "status": "checked",
               "arguments": {
-                "query": "Taylor 110e Dreadnought Natural",
-                "category_id": 5,
-                "max_price_brl": null,
-                "available_only": true,
-                "limit": 5
+                "product_id": 94
               }
             }
           ]
         },
         {
           "mode": "openai_compatible",
-          "latency_ms": 6763.9,
+          "latency_ms": 6181.2,
           "tools": [
             {
               "tool": "quote_payment",
@@ -95,7 +91,7 @@
       "turns": [
         {
           "mode": "openai_compatible",
-          "latency_ms": 6770.4,
+          "latency_ms": 6707.4,
           "tools": [
             {
               "tool": "assess_return",
@@ -108,14 +104,14 @@
         },
         {
           "mode": "openai_compatible",
-          "latency_ms": 8074.1,
+          "latency_ms": 6785.4,
           "tools": [
             {
               "tool": "assess_return",
               "status": "within_policy_window",
               "arguments": {
                 "channel": "online",
-                "received_date": "2026-10-27",
+                "received_date": "2026-11-07",
                 "condition": "unused"
               }
             }
@@ -127,8 +123,8 @@
       "file": "04-private-order.md",
       "turns": [
         {
-          "mode": "openai_compatible",
-          "latency_ms": 6917.6,
+          "mode": "local",
+          "latency_ms": 126.0,
           "tools": [
             {
               "tool": "get_order",
@@ -140,8 +136,8 @@
           ]
         },
         {
-          "mode": "openai_compatible",
-          "latency_ms": 6929.6,
+          "mode": "local",
+          "latency_ms": 11.9,
           "tools": [
             {
               "tool": "get_order",
@@ -153,8 +149,8 @@
           ]
         },
         {
-          "mode": "openai_compatible",
-          "latency_ms": 6895.6,
+          "mode": "local",
+          "latency_ms": 11.9,
           "tools": [
             {
               "tool": "get_order",
@@ -172,7 +168,7 @@
       "turns": [
         {
           "mode": "local_fallback",
-          "latency_ms": 7858.7,
+          "latency_ms": 6383.1,
           "tools": [
             {
               "tool": "search_policies",
@@ -186,12 +182,12 @@
         },
         {
           "mode": "local",
-          "latency_ms": 20.6,
+          "latency_ms": 12.8,
           "tools": []
         },
         {
           "mode": "local",
-          "latency_ms": 22.6,
+          "latency_ms": 9.2,
           "tools": []
         }
       ]

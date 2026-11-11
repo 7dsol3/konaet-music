@@ -3,12 +3,13 @@ from __future__ import annotations
 
 import http.cookiejar
 import json
+import os
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-BASE = "http://127.0.0.1:8000"
+BASE = os.getenv("KONAET_CAPTURE_URL", "http://127.0.0.1:8000")
 
 
 def client():

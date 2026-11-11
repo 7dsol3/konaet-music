@@ -1,5 +1,19 @@
 # Component provenance
 
+## Separate product evolution
+
+KONAET Music 2.0 continues the original submitted source at
+`7dsol3/emporio-musica-ai-agent`, revision
+`aefc6f54191eb00c52d7a9f8df85c1c3a201c5b6`, in a separate repository.
+That submitted default branch was not changed for this work. The Python service
+is extended with commerce and guardrails; the English interface, glass layer,
+vector instrument illustrations and checkout composition are new project code.
+Segno encodes the QR standard; its authorship is not attributed to KONAET.
+
+The old screenshot/UI report files are historical records from the original
+case. New event/packaging tests are identified separately and do not claim a
+new browser visual check.
+
 ## Reused Konaet source
 
 - Source repository: `https://github.com/7dsolv/Konaet-IA`.
