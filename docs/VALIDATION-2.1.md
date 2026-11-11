@@ -7,12 +7,12 @@ not relabel old screenshots or original case evidence as proof of this redesign.
 
 | Check | Result | Scope |
 | --- | --- | --- |
-| Full Python suite | 158 passed; one upstream TestClient deprecation warning | Grounded agent, commerce, research, sandbox, request shield and hardware model |
+| Full Python suite | 179 passed; one upstream TestClient deprecation warning | Grounded agent, commerce, research, sandbox, request shield and hardware model |
 | Interface event contracts | 11 passed | Real handlers with controlled browser/API doubles |
 | Optional gateway contracts | 5 passed | Credential/cookie isolation, routes, bounded bodies and failure states |
 | Installed wheel | PASS | Clean source staging, full inventory/byte comparison, retired-asset rejection, isolated install and 65-product query |
-| QR styles | 36 independent decode cases | Three frames × two URLs × two widths × three rotations; no logo covers the symbol |
-| Active UI source size | 142,782 bytes raw / 43,750 gzip | 18 files; not load-time, FPS, battery or mobile performance |
+| QR styles | 54 independent decode cases | Three frames × two URLs × two widths × three rotations; no logo covers the symbol |
+| Active UI source size | 142,815 bytes raw / 43,764 gzip | 18 files; not load-time, FPS, battery or mobile performance |
 | Public HTTPS flow | PASS | Two cookie jars, exact quote URL, three QR decodes and actual decoded-link opens |
 | Sovereign SDK compatibility | PASS in local original Node SDK | Same commitment and exact two decimal `u128` arguments; no validator submission |
 

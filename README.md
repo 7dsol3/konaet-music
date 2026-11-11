@@ -102,6 +102,10 @@ at two widths and three orientations.
 
 Choose **Signature**, **Orbit** or **Studio** artwork. Each keeps the exact same
 quote URL and unobstructed symbol. The drawings sit outside the quiet zone.
+The data itself has three source-generated treatments: horizontal circuit traces,
+connected constellation dots and vertical studio ribbons. Finder, alignment,
+timing, format and version modules retain their exact square geometry. No custom
+scanner is required; compatibility is checked with an independent QR decoder.
 The server uses a versioned unit-rounding rule consistently in bag and quote;
 fractional-cent regression tests and every available catalog product are checked.
 

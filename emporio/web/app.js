@@ -205,7 +205,7 @@ function showQuote(quote) {
   const links = make("div", "code-actions"), download = make("a", "", "Download SVG"); download.href = img.src; download.download = "konaet-" + quote.id.slice(-10) + ".svg";
   const themeLabel = make("label", "code-style-picker", "Choose your frame "), theme = make("select");
   theme.setAttribute("aria-label", "KONAET Code artwork");
-  for (const [value, label] of [["signature","Signature / cube"],["orbit","Orbit / science"],["studio","Studio / guitar"]]) { const option = make("option", "", label); option.value = value; theme.append(option); }
+  for (const [value, label] of [["signature","Signature / circuit"],["orbit","Orbit / constellation"],["studio","Studio / ribbons"]]) { const option = make("option", "", label); option.value = value; theme.append(option); }
   theme.addEventListener("change", () => { img.src = "/api/checkout/" + quote.id + "/code.svg?theme=" + theme.value; download.href = img.src; }); themeLabel.append(theme); visual.append(themeLabel);
   const copy = action("Copy checkout link", "", async () => { try { await navigator.clipboard.writeText(quote.checkout_url); toast("Checkout link copied."); } catch { toast("Copy the checkout link shown below."); } }); links.append(download, copy); visual.append(links);
   const link = make("a", "checkout-link", quote.checkout_url); link.href = quote.checkout_url; link.target = "_blank"; link.rel = "noopener"; info.append(link);

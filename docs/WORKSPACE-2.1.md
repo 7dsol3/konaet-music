@@ -48,6 +48,13 @@ fifteen-minute quote. Its content is the exact trusted checkout URL; it is not a
 bank-issued Pix request. The current session can approve or decline a test
 transaction and inspect a sealed test receipt.
 
+Checkout QR artwork changes the data modules into circuit traces, constellation
+dots or studio ribbons. Function modules are classified through Segno's typed
+matrix API and retain their exact original square positions and dimensions;
+the logo and illustrations remain outside the four-module quiet zone. The QR
+still carries a standard HTTPS URL for ordinary scanners, not a proprietary
+payment protocol. Artwork does not change the quote amount or ownership.
+
 The private opening export has the exact three-field
 `konaet.social-receipt-opening.v1` shape accepted by the original Sovereign SDK.
 It binds the test receipt and server seal to a random-salt SHA-256 commitment.
