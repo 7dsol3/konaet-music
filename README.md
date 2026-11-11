@@ -105,6 +105,13 @@ quote URL and unobstructed symbol. The drawings sit outside the quiet zone.
 The server uses a versioned unit-rounding rule consistently in bag and quote;
 fractional-cent regression tests and every available catalog product are checked.
 
+| Orbit / science | Studio / guitar |
+| --- | --- |
+| ![Orbit source-link demonstration](docs/graphics/konaet-code-orbit.png) | ![Studio source-link demonstration](docs/graphics/konaet-code-studio.png) |
+
+These two documentation codes open the GitHub entrance. Active checkout codes
+are generated separately for their unique expiring quote.
+
 The link is a capability: anyone holding it can view its **public product
 quote** until expiry. No email, customer ID, chat or session cookie is encoded.
 Shipping is excluded. Stock is not reserved. The QR itself never proves payment.

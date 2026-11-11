@@ -54,6 +54,12 @@ recorded. The UI shows `record_unavailable` rather than claiming approval when
 the record is missing or mismatched. No physical FPGA board or packet throughput
 measurement is part of this validation.
 
+[The RTL run completed successfully](https://github.com/7dsol3/konaet-music/actions/runs/43106791990/job/130812101825).
+The downloaded report's three source hashes matched the current local sources
+before it was added to the package. All 1,536 vectors agreed using Icarus 12.0.
+The refreshed public HTTP exercise observed the source-matched record in the
+hardware panel's API response.
+
 ## Limits still visible
 
 The browser/native control host was unavailable. DOM contract tests do not prove

@@ -1,6 +1,6 @@
 {
   "schema": "konaet.music.public-verification.v1",
-  "checked_at": "2026-11-11T21:49:00.893452+00:00",
+  "checked_at": "2026-11-11T21:53:32.510212+00:00",
   "origin": "https://emily-catalyst-joint-james.trycloudflare.com",
   "status": "PASS",
   "version": "2.1.0",
@@ -16,9 +16,10 @@
   "research_sources": 4,
   "hardware_logical_cycles": 96,
   "hardware_validation": {
-    "status": "record_unavailable",
-    "vectors": 0,
-    "notice": "Run scripts/verify_gateware.py with Icarus Verilog"
+    "status": "source_matched_record",
+    "vectors": 1536,
+    "simulator": "Icarus Verilog version 12.0 (stable) ()",
+    "notice": "Recorded RTL/reference agreement; no physical device tested"
   },
   "physical_hardware_connected": false,
   "session_reset_revokes_wallet": true,
