@@ -1,0 +1,15 @@
+{
+  "id": "/",
+  "name": "KONAET Music",
+  "short_name": "KONAET",
+  "description": "Your personal instrument discovery desk",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eef4f4",
+  "theme_color": "#153d39",
+  "icons": [
+    {"src": "/static/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}

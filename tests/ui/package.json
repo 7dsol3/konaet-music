@@ -1,0 +1,7 @@
+{
+  "name": "konaet-music-interface-tests",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=24.22.2 <25"},
+  "devDependencies": {"happy-dom": "21.0.4"}
+}
