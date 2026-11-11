@@ -2,7 +2,9 @@
 cd /d "%~dp0"
 if not exist ".venv\Scripts\python.exe" py -3 -m venv .venv
 if errorlevel 1 goto failed
-".venv\Scripts\python.exe" -m pip install -e . --disable-pip-version-check
+".venv\Scripts\python.exe" -m pip install -r requirements-runtime.lock --disable-pip-version-check
+if errorlevel 1 goto failed
+".venv\Scripts\python.exe" -m pip install --no-deps --no-build-isolation -e . --disable-pip-version-check
 if errorlevel 1 goto failed
 if not exist "var\model\manifest.json" ".venv\Scripts\python.exe" scripts\local_model.py setup
 if errorlevel 1 goto failed

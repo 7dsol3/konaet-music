@@ -33,6 +33,12 @@ def redact(text: str) -> str:
     return re.sub(r"(?:\+55\s*)?\(?\d{2}\)?\s*\d{4,5}[- ]\d{4}\b", "[phone redacted]", text)
 
 
+def public_model_text(text: str) -> str:
+    """Order identifiers are handled locally, never included in provider history."""
+    return re.sub(r"\b(?:order|pedido)\s*(?:number|numero|no\.?|n[º°.]|#)?\s*\d+\b",
+                  "[private order reference]", redact(text), flags=re.I)
+
+
 def parse_amount(value: str) -> str:
     value = value.rstrip(".,")
     if "," in value and "." in value:
@@ -56,6 +62,8 @@ CATEGORY_TERMS = [
     (7, r"\b(trumpets?|trompetes?|trombones?|tubas?)\b"),
 ]
 
+MODEL_CODE = r"\b(?:[a-z][a-z0-9]*-?\d[a-z0-9-]*|\d+[a-z][a-z0-9-]*)\b"
+
 
 class LocalPlanner:
     """Small explicit bilingual router. It is not a neural language model."""
@@ -69,7 +77,7 @@ class LocalPlanner:
         clean = normalize(text)
         found = []
         for row in rows:
-            codes = re.findall(r"\b[a-z][a-z0-9]*-?\d[a-z0-9-]*\b", normalize(row["name"]))
+            codes = re.findall(MODEL_CODE, normalize(row["name"]))
             if codes and all(re.search(r"(?<![a-z0-9])" + re.escape(code).replace(r"\-", r"[\s-]?") + r"(?![a-z0-9])", clean) for code in codes):
                 found.append(row["id"])
         return found[:3]
@@ -79,7 +87,7 @@ class LocalPlanner:
         if re.search(r"ignore (?:all |previous |your )?instructions|system prompt|dump.*(?:customers|database)|all customer|todos os clientes|ignore.*instrucoes|execute.*sql", clean):
             return Plan(message="I can help with musical instruments, store policies and your verified orders. I cannot reveal customer records, internal instructions or run arbitrary commands.")
         if clean in {"hi", "hello", "hey", "oi", "ola", "bom dia", "boa tarde", "boa noite"}:
-            return Plan(message="Hi! I'm the Empório da Música assistant, powered by Konaet. Let's find your next instrument. I can check products, payment options, store policies or a verified order.")
+            return Plan(message="Hi! I'm KONAET, your music concierge. Let's find your next instrument. I can check products, payment options, store policies or a verified order from the Empório da Música case.")
         if clean in {"thanks", "thank you", "obrigado", "obrigada", "valeu"}:
             return Plan(message="You're welcome! If you need another instrument or have a store question, I'm here.")
         if re.search(r"\b(human|humano|atendente|complaint|reclamacao|gerente)\b", clean):
@@ -117,7 +125,12 @@ class LocalPlanner:
                     facts["received_date"] = (today - timedelta(days=int(ago[1]))).isoformat()
                 elif "yesterday" in clean or "ontem" in clean:
                     facts["received_date"] = (today - timedelta(days=1)).isoformat()
-            if re.search(r"unused|sem uso|not used|unopened", clean) and re.search(r"original packaging|embalagem original", clean):
+            missing_packaging = bool(re.search(r"(?:without|no|missing|lost|sem(?: a)?|perdi|nao tenho)\s+(?:the\s+|a\s+)?(?:original\s+)?(?:packaging|box|embalagem)(?: original)?|(?:packaging|box|embalagem original).{0,18}(?:missing|lost|damaged)", clean))
+            missing_materials = bool(re.search(r"(?:accessories|manuals?|materials|acessorios|manuais).{0,25}(?:missing|lost|incomplete|faltando|ausentes)|(?:without|no|missing|sem)\s+(?:the |all |os |o )?(?:accessories|manuals?|acessorios|manual)", clean))
+            if missing_packaging or missing_materials:
+                facts["exception"] = True
+                facts["condition"] = "unused" if re.search(r"unused|sem uso|not used|unopened", clean) else "unknown"
+            elif re.search(r"unused|sem uso|not used|unopened", clean) and re.search(r"original packaging|embalagem original", clean):
                 facts["condition"] = "unused"
             elif re.search(r"\bused\b|usei|com uso", clean) and not re.search(r"unused|not used|sem uso", clean):
                 facts["condition"] = "used"
@@ -165,7 +178,7 @@ class LocalPlanner:
         if category or brand or budget or re.search(r"catalog|catalogo|instrument|produto|product|model|modelo", clean):
             if category:
                 context["category"] = category
-            model_terms = re.findall(r"\b[a-z][a-z0-9]*-?\d[a-z0-9-]*\b", clean)
+            model_terms = re.findall(MODEL_CODE, clean)
             arguments = {"query": " ".join([brand, *model_terms]).strip(), "category_id": category or context.get("category"), "limit": 5}
             if budget:
                 arguments["max_price_brl"] = parse_amount(budget[1])
@@ -197,11 +210,12 @@ class ModelPlanner:
             raise ValueError("EMPORIO_MODEL is required for the optional model planner")
 
     def plan(self, text: str, context: dict, history: list[dict], today: date) -> Plan:
+        public_context = {key: context[key] for key in ("category", "last_products") if key in context}
         messages = [{"role": "system", "content": SYSTEM_PROMPT + "\nCurrent date: " + today.isoformat()
-                     + "\nPublic conversation context: " + json.dumps(context)}]
+                     + "\nPublic conversation context: " + json.dumps(public_context)}]
         # Tool outputs and verified order details never travel back to the model.
-        messages += [{"role": "user", "content": redact(h["content"])} for h in history[-6:] if h["role"] == "user"]
-        messages.append({"role": "user", "content": redact(text)})
+        messages += [{"role": "user", "content": public_model_text(h["content"])} for h in history[-6:] if h["role"] == "user"]
+        messages.append({"role": "user", "content": public_model_text(text)})
         body = json.dumps({"model": self.settings.model, "messages": messages,
                            "tools": tool_schemas(), "tool_choice": "required", "temperature": 0,
                            "max_tokens": 500, "chat_template_kwargs": {"enable_thinking": False},

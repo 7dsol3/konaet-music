@@ -9,3 +9,6 @@ tmp/
 dist/
 build/
 output/
+node_modules/
+artifacts/
+.openai/

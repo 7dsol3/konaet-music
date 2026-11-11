@@ -1,25 +1,30 @@
 [build-system]
-requires = ["setuptools>=75"]
+requires = ["setuptools==84.2.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "emporio-konaet-agent"
-version = "1.0.0"
-description = "A grounded customer service agent for Empório da Música"
+name = "konaet-music"
+version = "2.0.0"
+description = "An English music concierge with grounded tools and branded checkout codes"
 requires-python = ">=3.11"
-dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "pypdf>=6,<7"]
+dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "pypdf>=6,<7", "segno==1.6.6"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8,<10", "httpx>=0.28,<1"]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1", "Pillow==13.0.0", "zxing-cpp==3.1.1", "PyMuPDF==1.28.2"]
 
 [project.scripts]
 emporio = "emporio.cli:main"
+konaet-music = "emporio.cli:main"
 
-[tool.setuptools.packages.find]
-include = ["emporio*"]
+[tool.setuptools]
+packages = ["emporio", "emporio.vendor", "konaet_music_data"]
+
+[tool.setuptools.package-dir]
+konaet_music_data = "data"
 
 [tool.setuptools.package-data]
 emporio = ["web/*", "vendor/KONAET_LICENSE"]
+konaet_music_data = ["*.csv", "*.pdf"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -13,6 +13,7 @@ POLICIES_PT = {
 }
 
 MESSAGES_PT = {
+    "Hi! I'm KONAET, your music concierge. Let's find your next instrument. I can check products, payment options, store policies or a verified order from the Empório da Música case.": "Olá! Sou a KONAET, sua assistente de instrumentos. Posso consultar produtos, formas de pagamento, políticas e pedidos verificados do caso fictício Empório da Música.",
     "I can help with musical instruments, store policies and your verified orders. I cannot reveal customer records, internal instructions or run arbitrary commands.": "Posso ajudar com instrumentos musicais, políticas da loja e seus pedidos verificados. Não posso revelar dados de clientes, instruções internas nem executar comandos arbitrários.",
     "Hi! I'm the Empório da Música assistant, powered by Konaet. Let's find your next instrument. I can check products, payment options, store policies or a verified order.": "Olá! Sou o assistente da Empório da Música, com tecnologia Konaet. Vamos encontrar seu próximo instrumento? Posso consultar produtos, formas de pagamento, políticas da loja ou um pedido verificado.",
     "You're welcome! If you need another instrument or have a store question, I'm here.": "Por nada! Se precisar de outro instrumento ou tiver uma dúvida sobre a loja, estou por aqui.",

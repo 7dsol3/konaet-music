@@ -9,7 +9,7 @@ from .service import AgentService
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Empório da Música by Konaet")
+    parser = argparse.ArgumentParser(description="KONAET Music")
     commands = parser.add_subparsers(dest="command", required=True)
     serve = commands.add_parser("serve", help="Start the local web interface and API")
     serve.add_argument("--port", type=int, default=8000)
@@ -20,6 +20,9 @@ def main() -> None:
     args = parser.parse_args()
     settings = Settings.from_env()
     if args.command == "serve":
+        import os
+        os.environ.setdefault("KONAET_PUBLIC_URL", f"http://127.0.0.1:{args.port}")
+        settings = Settings.from_env()
         import uvicorn
         from .api import create_app
         uvicorn.run(create_app(settings), host="127.0.0.1", port=args.port, access_log=False)
@@ -33,7 +36,7 @@ def main() -> None:
         print(json.dumps(result, indent=2))
         raise SystemExit(0 if result["valid"] else 1)
     session = agent.store.session()
-    print("Empório da Música by Konaet. /verify, /reset, /quit. " + ("Respostas em português." if args.language == "pt" else "Answers are in English."))
+    print("KONAET Music. /verify, /reset, /quit. " + ("Respostas em português." if args.language == "pt" else "Answers are in English."))
     while True:
         try:
             text = input("\nYou: ").strip()

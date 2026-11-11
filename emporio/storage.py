@@ -99,6 +99,8 @@ class Store:
         warnings = []
         with self.connect() as db:
             # Replacement is transactional; a malformed fixture never leaves a partial catalog.
+            # A changed dataset cannot inherit verification from reused customer IDs.
+            db.execute("DELETE FROM sessions")
             for table in ("order_items", "promotions", "orders", "products", "customers", "categories"):
                 db.execute(f"DELETE FROM {table}")  # Internal fixed identifiers, never user input.
             db.executemany("INSERT INTO categories VALUES(?,?)",

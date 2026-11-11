@@ -15,7 +15,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CACHE = ROOT / "var" / "model"
+CACHE = Path(os.getenv("KONAET_MODEL_CACHE", str(ROOT / "var" / "model")))
 MODEL_REV = "23749fefcc72300e3a2ad315e1317431b06b590a"
 MODEL_NAME = "Qwen3-0.6B-Q8_0.gguf"
 MODEL_SHA = "9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031"
@@ -90,6 +90,19 @@ def start_backend() -> subprocess.Popen:
         raise SystemExit("Run python scripts/local_model.py setup first")
     if sha(model) != MODEL_SHA:
         raise SystemExit("Model checksum changed. Refusing to load it.")
+    # The archive is pinned too. Recheck extracted executable and every DLL
+    # before launch; checking only the model does not authenticate the engine.
+    archive = CACHE / "llama-cpu.zip"
+    if not archive.exists() or sha(archive) != ENGINE_SHA:
+        raise SystemExit("Engine archive checksum changed. Run setup again.")
+    with zipfile.ZipFile(archive) as package:
+        expected = {m.filename for m in package.infolist() if not m.is_dir()}
+        actual = {p.relative_to(CACHE / "engine").as_posix() for p in (CACHE / "engine").rglob("*") if p.is_file()}
+        if actual != expected:
+            raise SystemExit("Engine inventory changed. Run setup again in a clean cache.")
+        for name in expected:
+            if sha(CACHE / "engine" / name) != hashlib.sha256(package.read(name)).hexdigest():
+                raise SystemExit("Engine binary checksum changed. Refusing to execute it.")
     log = (CACHE / "server.log").open("ab")
     command = [str(binaries[0]), "-m", str(model), "--host", "127.0.0.1", "--port", "8081",
                "--ctx-size", "8192", "--parallel", "1", "--threads", str(min(os.cpu_count() or 4, 8)),
@@ -132,6 +145,7 @@ def main() -> None:
             child.wait()
         else:
             configure()
+            os.environ.setdefault("KONAET_PUBLIC_URL", f"http://127.0.0.1:{args.port}")
             from emporio.api import create_app
             import uvicorn
             print(f"Assistant ready at http://127.0.0.1:{args.port}", flush=True)

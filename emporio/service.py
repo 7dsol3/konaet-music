@@ -12,6 +12,7 @@ from .policies import PolicyBook, topics_for
 from .renderer import render
 from .storage import Store
 from .tools import Tools
+from .commerce import Commerce
 
 
 class AgentService:
@@ -21,6 +22,7 @@ class AgentService:
         self.data_report = self.store.import_data(settings.data_dir)
         self.policies = PolicyBook(settings.data_dir, settings.state_dir / "policies.sqlite3")
         self.tools = Tools(self.store, self.policies)
+        self.commerce = Commerce(self.store, self.tools, settings)
         self.local = LocalPlanner(self.store)
         self.model = ModelPlanner(settings) if settings.provider != "local" else None
         self.lock = threading.RLock()
@@ -36,14 +38,28 @@ class AgentService:
             session = self.store.session(session_id)
             text = redact(text.strip())
             plan = self.local.plan(text, session["context"], today)
-            if self.model and plan.calls:
+            # Private order requests do not need an external planning round.
+            if self.model and plan.calls and not any(c.name == "get_order" for c in plan.calls):
                 try:
                     model_plan = self.model.plan(text, session["context"], session["history"], today)
-                    explicit_tools = {c.name for c in plan.calls} & {"get_product", "get_order", "quote_payment", "quote_shipping", "assess_return"}
+                    explicit_tools = {c.name for c in plan.calls} & {"search_products", "get_product", "get_order", "quote_payment", "quote_shipping", "assess_return"}
                     if explicit_tools and any(c.name not in explicit_tools for c in model_plan.calls):
                         raise ValueError("Model plan conflicts with an explicitly resolved customer intent")
                     # The model may plan retrieval, but cannot supply missing customer facts.
                     for model_call in model_plan.calls:
+                        if model_call.name == "search_products":
+                            expected_calls = [c for c in plan.calls if c.name == "search_products"]
+                            if not expected_calls:
+                                raise ValueError("Unrequested catalog intent")
+                            expected = self.tools_argument_defaults(expected_calls[0])
+                            supplied = self.tools_argument_defaults(model_call)
+                            for field in ("category_id", "max_price_brl"):
+                                if expected[field] is not None and supplied[field] != expected[field]:
+                                    raise ValueError("Model changed an explicit catalog filter")
+                            if expected["query"] and supplied["query"] != expected["query"]:
+                                raise ValueError("Model changed an explicit brand or model")
+                            if expected["available_only"] and not supplied["available_only"]:
+                                raise ValueError("Model dropped availability")
                         if model_call.name == "search_policies":
                             expected = set(topics_for(text))
                             supplied = set(topics_for(model_call.arguments.get("query", "")))
