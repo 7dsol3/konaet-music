@@ -99,3 +99,17 @@ not removed or silently turned into successful examples.
 The GitHub workflow defines Python 3.11/3.12 on Ubuntu/Windows and a separate
 Node interface job. Its actual remote outcome is recorded by GitHub, separately
 from the local results above. Review that run for the exact published commit.
+
+## Distribution inventory
+
+The final release gate found a retired `language.js` file left in a local build
+cache. That package was not published. `scripts/build_distribution.py` now builds
+from fresh source staging, compares every packaged runtime file with current
+source bytes, and rejects extra or missing entries. `verify_wheel.py` also checks
+that an injected stale asset is rejected before exercising the isolated install.
+
+Build a distributable with the checked path:
+
+```text
+python scripts/build_distribution.py --out-dir artifacts/distribution
+```

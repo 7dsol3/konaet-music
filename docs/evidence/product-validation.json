@@ -19,7 +19,9 @@
   "installed_wheel": {
     "status": "PASS",
     "isolated_install": true,
-    "products": 65
+    "products": 65,
+    "runtime_source_files_verified": 41,
+    "stale_runtime_rejected": true
   },
   "actual_model": {
     "status": "PASS",
