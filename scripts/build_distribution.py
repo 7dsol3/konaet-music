@@ -17,7 +17,8 @@ def runtime_sources():
         if path.is_file() and (
             path.suffix == ".py"
             or path.parent == ROOT / "emporio/web"
-            or path == ROOT / "emporio/vendor/KONAET_LICENSE"
+            or path.name in {"KONAET_LICENSE", "SOVEREIGN_LICENSE"}
+            or path.parent == ROOT / "emporio/gateware" and path.suffix in {".sv", ".json"}
         ):
             sources[path.relative_to(ROOT).as_posix()] = path
     for path in (ROOT / "data").iterdir():

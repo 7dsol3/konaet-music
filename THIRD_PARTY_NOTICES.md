@@ -6,6 +6,7 @@ The project-authored Empório and KONAET Music application files are distributed
 | Component | Origin and terms | Use |
 | --- | --- | --- |
 | Frozen `emporio/vendor/konaet_knowledge.py` | Adilson Oliveira / Konaet, Konaet Research and Commercial License 1.0; full text in `emporio/vendor/KONAET_LICENSE` | SQLite FTS5 policy indexing and retrieval; noncommercial evaluation is permitted |
+| Frozen `emporio/vendor/sovereign_receipt.py` | `7dsol3/konaet-sovereign-spec`, commit `3ccf7a96b701b3b17e58694ef227af4e83cb7d22`, `polyglot/python/receipt.py`; ISC, full text in `emporio/vendor/SOVEREIGN_LICENSE` | Exact commitment frame compatibility; no validator or wallet runtime copied |
 | Supplied CSVs and `políticas_da_loja.pdf` | Fictional Artefact technical-case inputs; no independent ownership or general redistribution license claimed | Evaluation fixtures, preserved unchanged |
 | Qwen3-0.6B-GGUF, Q8_0 | [Qwen model repository](https://huggingface.co/Qwen/Qwen3-0.6B-GGUF), Apache-2.0 | Optional external language-model inference; weights are downloaded locally, not committed |
 | llama.cpp | [Official project](https://github.com/ggml-org/llama.cpp), MIT | Optional local inference server; binaries are downloaded locally, not committed |

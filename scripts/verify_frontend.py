@@ -34,6 +34,10 @@ def main():
     script = (WEB / "app.js").read_text(encoding="utf-8")
     for target in re.findall(r'\$\("#([a-z][a-z0-9-]*)"\)', script): assert target in parser.ids, target
     assert "innerHTML" not in script and "eval(" not in script
+    workspace = (WEB / "workspace.js").read_text(encoding="utf-8")
+    for target in re.findall(r'q\("#([a-z][a-z0-9-]*)"\)',workspace):
+        assert target in parser.ids,target
+    assert "innerHTML" not in workspace and "eval(" not in workspace
     for file in WEB.glob("*.svg"): ElementTree.parse(file)
     manifest = json.loads((WEB / "app.webmanifest").read_text(encoding="utf-8"))
     assert manifest["lang"] == "en" and manifest["display"] == "standalone"

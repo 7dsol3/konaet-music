@@ -2,7 +2,7 @@
   "id": "/",
   "name": "KONAET Music",
   "short_name": "KONAET",
-  "description": "Your personal instrument discovery desk",
+  "description": "Music discovery, source-backed research and KONAET sandbox checkout",
   "lang": "en",
   "start_url": "/",
   "scope": "/",

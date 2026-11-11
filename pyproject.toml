@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "konaet-music"
-version = "2.0.0"
+version = "2.1.0"
 description = "An English music concierge with grounded tools and branded checkout codes"
 requires-python = ">=3.11"
 dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.34,<1", "pypdf>=6,<7", "segno==1.6.6"]
@@ -23,7 +23,7 @@ packages = ["emporio", "emporio.vendor", "konaet_music_data"]
 konaet_music_data = "data"
 
 [tool.setuptools.package-data]
-emporio = ["web/*", "vendor/KONAET_LICENSE"]
+emporio = ["web/*", "vendor/KONAET_LICENSE", "vendor/SOVEREIGN_LICENSE", "gateware/*.sv", "gateware/*.json"]
 konaet_music_data = ["*.csv", "*.pdf"]
 
 [tool.pytest.ini_options]

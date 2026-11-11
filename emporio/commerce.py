@@ -86,7 +86,7 @@ class Commerce:
         items = []
         for row in rows:
             p = self.product(row["product_id"])
-            total = int((Decimal(p["price_cents"] * row["quantity"]) * (100-p["discount_percent"]) / 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
+            total = p["sale_cents"] * row["quantity"]
             items.append({"product": p, "quantity": row["quantity"], "line_total_cents": total,
                           "available": p["available"] and p["stock"] >= row["quantity"]})
         return {"items": items, "quantity": sum(i["quantity"] for i in items),
@@ -123,10 +123,11 @@ class Commerce:
         for i in cart["items"]:
             p, qty = i["product"], i["quantity"]
             discount = p["discount_percent"] or (5 if method == "pix" else 0)
-            total = int((Decimal(p["price_cents"] * qty) * (100 - discount) / 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
+            unit = int((Decimal(p["price_cents"]) * (100 - discount) / 100).quantize(Decimal(1), rounding=ROUND_HALF_UP))
+            total = unit * qty
             items.append({"product_id": p["id"], "name": p["name"], "quantity": qty,
                           "list_total_cents": p["price_cents"] * qty, "discount_percent": discount,
-                          "line_total_cents": total, "promotion_applied": bool(p["discount_percent"])})
+                          "unit_total_cents": unit, "line_total_cents": total, "promotion_applied": bool(p["discount_percent"])})
         cart_hash = hashlib.sha256(canonical({"items": items, "method": method}).encode()).hexdigest()
         current = datetime.now(timezone.utc)
         with self.store.connect() as db:
@@ -138,6 +139,7 @@ class Commerce:
                 return self.get_checkout(existing["id"])
             checkout_id = secrets.token_urlsafe(24)
             snapshot = {"id": checkout_id, "items": items, "method": method, "currency": "BRL",
+                        "schema": "konaet.quote.v2", "pricing_policy": "unit_round_v1",
                         "subtotal_cents": sum(i["line_total_cents"] for i in items),
                         "created_at": current.isoformat(), "expires_at": (current+timedelta(minutes=15)).isoformat(),
                         "status": "quote", "payment_status": "not_started", "demo": True,

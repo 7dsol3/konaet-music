@@ -1,0 +1,29 @@
+{
+  "schema": "konaet.music.public-verification.v1",
+  "checked_at": "2026-11-11T21:56:58.893937+00:00",
+  "origin": "https://emily-catalyst-joint-james.trycloudflare.com",
+  "status": "PASS",
+  "version": "2.1.0",
+  "model_connection": "connected",
+  "two_client_quote_open": true,
+  "qr_themes_decoded_and_opened": 3,
+  "foreign_test_spend_rejected": true,
+  "duplicate_confirmation_single_debit": true,
+  "server_seal_verified": true,
+  "sovereign_opening_verified": true,
+  "funds_moved": false,
+  "real_bank_payment": false,
+  "research_sources": 4,
+  "hardware_logical_cycles": 96,
+  "hardware_validation": {
+    "status": "source_matched_record",
+    "vectors": 1536,
+    "simulator": "Icarus Verilog version 12.0 (stable) ()",
+    "notice": "Recorded RTL/reference agreement; no physical device tested"
+  },
+  "physical_hardware_connected": false,
+  "session_reset_revokes_wallet": true,
+  "browser_layout_verified": false,
+  "microphone_verified": false,
+  "availability": "Local Python/model host and temporary tunnel must remain running"
+}

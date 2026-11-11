@@ -107,3 +107,40 @@ def test_full_http_shop_cart_quote_svg_reset(settings):
 def test_arbitrary_checkout_references_are_rejected(agent, bad):
     with pytest.raises(ValueError):
         agent.commerce.get_checkout(bad)
+
+
+def test_every_available_product_has_independently_recomputed_card_and_pix_totals(agent):
+    products=agent.commerce.catalog(available_only=True)["products"]
+    assert products
+    for product in products:
+        for method in ("card","pix"):
+            sid=agent.store.session()["id"]
+            quantity=min(product["stock"],3)
+            agent.commerce.set_item(sid,product["id"],quantity)
+            quote=agent.commerce.checkout(sid,"enumerated_quote_key",method)
+            discount=product["discount_percent"] or (5 if method=="pix" else 0)
+            unit=int((Decimal(product["price_cents"])*Decimal(100-discount)/100).quantize(Decimal("1"),rounding=ROUND_HALF_UP))
+            assert quote["subtotal_cents"]==quantity*unit
+            assert quote["items"][0]["unit_total_cents"]==unit
+
+
+def test_fractional_cent_promotion_uses_the_same_unit_rounding_in_bag_and_quote(agent):
+    product=next(p for p in agent.commerce.catalog(available_only=True)["products"] if not p["discount_percent"] and p["stock"]>=3)
+    with agent.store.connect() as db:
+        db.execute("UPDATE products SET price_cents=1002 WHERE id=?",(product["id"],))
+        db.execute("INSERT INTO promotions VALUES(99999,?,20,'Rounding regression fixture',1)",(product["id"],))
+    sid=agent.store.session()["id"]
+    bag=agent.commerce.set_item(sid,product["id"],3)
+    assert bag["subtotal_cents"]==2406
+    for method in ("card","pix"):
+        quote=agent.commerce.checkout(sid,"rounding_regression_"+method,method)
+        assert quote["subtotal_cents"]==2406
+        assert quote["items"][0]["unit_total_cents"]==802
+        assert quote["pricing_policy"]=="unit_round_v1"
+
+
+def test_unavailable_quote_is_a_readable_page_and_never_a_payment_confirmation(settings):
+    with TestClient(create_app(settings)) as c:
+        response=c.get("/checkout/"+"z"*32)
+        assert response.status_code==404 and "text/html" in response.headers["content-type"]
+        assert "This quote is" in response.text and "does not confirm a payment" in response.text

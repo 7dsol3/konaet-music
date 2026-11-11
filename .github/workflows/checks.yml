@@ -1,6 +1,7 @@
 name: Python checks
 on:
   push:
+    branches: [main]
   pull_request:
 permissions:
   contents: read
@@ -46,3 +47,22 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund
         working-directory: tests/ui
       - run: node --test tests/ui/interface.test.mjs
+      - run: node --test tests/gateway.test.mjs
+  gateware:
+    name: RTL / Python agreement
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -qq && sudo apt-get install -y iverilog
+      - run: python scripts/verify_gateware.py
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: gateware-validation
+          path: artifacts/gateware-validation.json
+          retention-days: 7

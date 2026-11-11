@@ -203,6 +203,10 @@ function showQuote(quote) {
   const expiry = make("span", "checkout-expiry"); info.append(expiry);
   const img = make("img"); img.src = "/api/checkout/" + quote.id + "/code.svg"; img.alt = "Unique KONAET Code that opens this checkout preview"; visual.append(img);
   const links = make("div", "code-actions"), download = make("a", "", "Download SVG"); download.href = img.src; download.download = "konaet-" + quote.id.slice(-10) + ".svg";
+  const themeLabel = make("label", "code-style-picker", "Choose your frame "), theme = make("select");
+  theme.setAttribute("aria-label", "KONAET Code artwork");
+  for (const [value, label] of [["signature","Signature / circuit"],["orbit","Orbit / constellation"],["studio","Studio / ribbons"]]) { const option = make("option", "", label); option.value = value; theme.append(option); }
+  theme.addEventListener("change", () => { img.src = "/api/checkout/" + quote.id + "/code.svg?theme=" + theme.value; download.href = img.src; }); themeLabel.append(theme); visual.append(themeLabel);
   const copy = action("Copy checkout link", "", async () => { try { await navigator.clipboard.writeText(quote.checkout_url); toast("Checkout link copied."); } catch { toast("Copy the checkout link shown below."); } }); links.append(download, copy); visual.append(links);
   const link = make("a", "checkout-link", quote.checkout_url); link.href = quote.checkout_url; link.target = "_blank"; link.rel = "noopener"; info.append(link);
   if (["localhost", "127.0.0.1", "::1"].includes(new URL(quote.checkout_url).hostname)) info.append(make("p", "small", "This link uses a local address. A public HTTPS domain is needed to scan it from a different device."));
@@ -210,14 +214,18 @@ function showQuote(quote) {
   const tick = () => {
     const remaining = Math.max(0, Math.ceil((Date.parse(quote.expires_at) - Date.now()) / 1000));
     expiry.textContent = remaining ? "Expires in " + Math.floor(remaining / 60) + ":" + String(remaining % 60).padStart(2, "0") + " · Reference " + quote.id.slice(-10).toUpperCase() : "This quote has expired. Prepare a new checkout.";
-    if (!remaining) { clearInterval(state.quoteTimer); img.hidden = true; download.removeAttribute("href"); link.removeAttribute("href"); state.checkoutAttempt = null; }
+    if (!remaining) { clearInterval(state.quoteTimer); img.hidden = true; theme.disabled = true; download.removeAttribute("href"); link.removeAttribute("href"); state.checkoutAttempt = null; }
   }; tick(); state.quoteTimer = setInterval(tick, 1000);
+  document.dispatchEvent(new CustomEvent("konaet:quote", {detail:quote}));
 }
 
 function openAssistant() { openDialog("assistant-dialog"); $("#message-input").focus(); }
 function sourceNode(source) {
-  const node = make(source.type === "policy" ? "a" : "span", "source-chip", source.label);
+  let online = null;
+  if (source.type === "online") { try { const u = new URL(source.url); if (u.protocol === "https:" && !u.username && !u.password) online = u.href; } catch { /* Render invalid targets as plain text. */ } }
+  const node = make(source.type === "policy" || online ? "a" : "span", "source-chip", source.label);
   if (source.type === "policy" && Number.isInteger(source.page)) { node.href = "/manual#page=" + source.page; node.target = "_blank"; node.rel = "noopener"; }
+  if (online) { node.href = online; node.target = "_blank"; node.rel = "noopener noreferrer"; }
   return node;
 }
 function appendMessage(role, text, result) {
@@ -236,6 +244,7 @@ function appendMessage(role, text, result) {
     const detail = make("details", "tool-details"); detail.append(make("summary", "", "See what was checked"), make("p", "", result.tools.map(t => t.tool.replaceAll("_", " ") + ": " + t.status.replaceAll("_", " ")).join(" · ")),
       make("p", "", (result.mode === "openai_compatible" ? "Model-selected, validated tools" : result.mode === "local_fallback" ? "Local fallback after model planning" : "Local rules") + " · " + Math.round(result.latency_ms) + " ms · Receipt " + result.audit_hash.slice(0, 12))); item.append(detail);
   }
+  if (result?.providers) { const detail = make("details", "tool-details"); detail.append(make("summary", "", "See source coverage"), make("p", "", result.coverage), make("p", "", result.providers.map(p => p.name + ": " + p.status.replaceAll("_", " ")).join(" · ")), make("p", "", result.notice)); item.append(detail); }
   $("#messages").append(item); $("#messages").scrollTop = $("#messages").scrollHeight; return item;
 }
 function speak(text) {
@@ -264,15 +273,17 @@ async function localCommand(text) {
 async function send(text) {
   text = text.trim(); if (!text || state.busy) return;
   state.busy = true;
-  try { if (await localCommand(text)) { state.busy = false; $("#message-input").value = ""; return; } }
+  const scope = $("#assistant-scope").value;
+  try { if (scope === "shop" && await localCommand(text)) { state.busy = false; $("#message-input").value = ""; return; } }
   catch (error) { state.busy = false; toast(error.message); return; }
   openAssistant(); $("#send-button").disabled = true; $("#new-chat").disabled = true; $("#chat-error").hidden = true;
   $("#message-input").value = ""; const userItem = appendMessage("user", text); state.history.push({ role: "user", content: text });
-  const thinking = make("div", "thinking", "Checking the catalog and store guide…"); $("#messages").append(thinking);
+  const thinking = make("div", "thinking", scope === "shop" ? "Checking the catalog and store guide…" : "Retrieving the selected public sources…"); $("#messages").append(thinking);
   try {
-    const result = await api("/api/chat", { method: "POST", body: JSON.stringify({ message: text, locale: "en" }) });
+    const result = scope === "shop" ? await api("/api/chat", { method: "POST", body: JSON.stringify({ message: text, locale: "en" }) }) : await api("/api/research", {method:"POST",body:JSON.stringify({query:text,scope,synthesize:$("#workspace-synthesize").checked})});
     thinking.remove(); appendMessage("assistant", result.message, result); state.history.push({ role: "assistant", content: result.message });
-    $("#assistant-mode").textContent = result.mode === "openai_compatible" ? "MODEL + VERIFIED TOOLS" : result.mode === "local_fallback" ? "LOCAL FALLBACK" : "LOCAL RULES + VERIFIED TOOLS"; speak(result.message);
+    $("#assistant-mode").textContent = result.mode === "research_model" ? "MODEL + RETRIEVED SOURCES" : result.mode === "research_excerpts" ? "LIVE SOURCE BRIEF" : result.mode === "openai_compatible" ? "MODEL + VERIFIED TOOLS" : result.mode === "local_fallback" ? "LOCAL FALLBACK" : "LOCAL RULES + VERIFIED TOOLS"; speak(result.message);
+    if (scope !== "shop") document.dispatchEvent(new CustomEvent("konaet:research-result", {detail:result}));
   } catch (error) { thinking.remove(); userItem.remove(); state.history.pop(); $("#chat-error").textContent = error.name === "AbortError" ? "That took too long. Please try again." : error.message; $("#chat-error").hidden = false; $("#message-input").value = text; if (!state.history.length) $("#assistant-welcome").hidden = false; }
   finally { state.busy = false; $("#send-button").disabled = false; $("#new-chat").disabled = false; }
 }
@@ -311,7 +322,10 @@ $("#load-more").addEventListener("click", () => { state.shown += 12; renderCatal
 $("#checkout-button").addEventListener("click", checkout);
 $("#chat-form").addEventListener("submit", e => { e.preventDefault(); send($("#message-input").value); });
 $("#message-input").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(e.target.value); } });
-for (const b of document.querySelectorAll("[data-command]")) b.addEventListener("click", () => send(b.dataset.command));
+for (const b of document.querySelectorAll("[data-command]")) b.addEventListener("click", () => { $("#assistant-scope").value = "shop"; send(b.dataset.command); });
+document.addEventListener("konaet:ask", e => { $("#assistant-scope").value = ["shop","open","knowledge","science","code","web"].includes(e.detail.scope) ? e.detail.scope : "shop"; send(e.detail.message); });
+document.addEventListener("konaet:open-assistant", e => { $("#assistant-scope").value = ["shop","open","knowledge","science","code","web"].includes(e.detail.scope) ? e.detail.scope : "shop"; openAssistant(); });
+$("#assistant-scope").addEventListener("change", () => { const shop = $("#assistant-scope").value === "shop"; $("#message-input").maxLength = shop ? 2000 : 240; $("#message-input").placeholder = shop ? "Ask about an instrument…" : "Ask a public research question…"; });
 $("#read-aloud").addEventListener("change", () => { if (!$("#read-aloud").checked) window.speechSynthesis?.cancel(); if (!("speechSynthesis" in window)) { $("#read-aloud").checked = false; toast("Spoken replies are not supported in this browser."); } });
 $("#verify-button").addEventListener("click", () => { $("#verify-result").textContent = ""; openDialog("verify-dialog"); });
 $("#verify-form").addEventListener("submit", async e => {
@@ -319,12 +333,12 @@ $("#verify-form").addEventListener("submit", async e => {
   try {
     const id = Number($("#order-id").value), r = await api("/api/verify", { method: "POST", body: JSON.stringify({ order_id: id, email: $("#purchase-email").value }) });
     $("#purchase-email").value = ""; $("#verify-result").textContent = r.message;
-    if (r.verified) { $("#verify-dialog").close(); await send("What is the status of order #" + id + "?"); }
+    if (r.verified) { $("#verify-dialog").close(); $("#assistant-scope").value = "shop"; await send("What is the status of order #" + id + "?"); }
   } catch (error) { $("#verify-result").textContent = error.message; } finally { button.disabled = false; }
 });
 $("#new-chat").addEventListener("click", async () => {
   if (state.busy) return;
-  try { await api("/api/session", { method: "DELETE" }); state.history = []; state.lastProducts = []; state.checkoutAttempt = null; $("#messages").replaceChildren(); $("#assistant-welcome").hidden = false; $("#chat-error").hidden = true; await refreshBag(); toast("New conversation. Your previous session and bag were cleared."); }
+  try { await api("/api/session", { method: "DELETE" }); state.history = []; state.lastProducts = []; state.checkoutAttempt = null; $("#messages").replaceChildren(); $("#assistant-welcome").hidden = false; $("#chat-error").hidden = true; await refreshBag(); document.dispatchEvent(new CustomEvent("konaet:reset")); toast("New conversation. Your previous session and bag were cleared."); }
   catch (error) { toast(error.message); }
 });
 $("#export-button").addEventListener("click", () => {
@@ -345,5 +359,7 @@ async function initialize() {
     const match = location.pathname.match(/^\/checkout\/([A-Za-z0-9_-]{32})$/);
     if (match) showQuote(await api("/api/checkout/" + match[1]));
   } catch (error) { $("#assistant-mode").textContent = "CONNECTION UNAVAILABLE"; toast(error.message); }
+  document.documentElement.dataset.konaetReady = "true";
+  document.dispatchEvent(new CustomEvent("konaet:ready"));
 }
 initialize();

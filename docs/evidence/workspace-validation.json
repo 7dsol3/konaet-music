@@ -1,0 +1,81 @@
+{
+  "schema": "konaet.music.workspace-validation.v1",
+  "python_tests": 179,
+  "python_failures": 0,
+  "dom_event_tests": 11,
+  "optional_gateway_tests": 5,
+  "frontend": {
+    "status": "PASS",
+    "static_ids": 121,
+    "files": 18,
+    "raw_bytes": 142815,
+    "gzip_bytes": 43764,
+    "external_font_requests": 0,
+    "browser_layout_verified": false,
+    "voice_hardware_verified": false,
+    "scope": "Static references, SVG parsing and source-byte budgets"
+  },
+  "installed_wheel": {
+    "status": "PASS",
+    "isolated_install": true,
+    "products": 65,
+    "runtime_source_files_verified": 55,
+    "stale_runtime_rejected": true
+  },
+  "gateware": {
+    "status": "PASS",
+    "vectors": 1536,
+    "capacities": [
+      1,
+      8,
+      32
+    ],
+    "seed": 20261111,
+    "simulator": "Icarus Verilog version 12.0 (stable) ()",
+    "sources": {
+      "python_reference": "ae1ceccc56aac5d6f9a8a1ce5f07459253c6fe259a5538040e141642086ca86a",
+      "systemverilog": "b726137664824303a12f11836363971fea22037f64f606eeb3de82b075a82a93",
+      "testbench": "777157f76c778bdf2a279b6570162f2a162236112c7e2df8a38a5198330b4c30"
+    },
+    "physical_device_tested": false,
+    "execution": "https://github.com/7dsol3/konaet-music/actions/runs/43106791990",
+    "validated_commit": "48bfe21d06e98f693375023ec7962276efb7f6c9"
+  },
+  "public_preview": {
+    "schema": "konaet.music.public-verification.v1",
+    "checked_at": "2026-11-11T21:56:58.893937+00:00",
+    "origin": "https://emily-catalyst-joint-james.trycloudflare.com",
+    "status": "PASS",
+    "version": "2.1.0",
+    "model_connection": "connected",
+    "two_client_quote_open": true,
+    "qr_themes_decoded_and_opened": 3,
+    "foreign_test_spend_rejected": true,
+    "duplicate_confirmation_single_debit": true,
+    "server_seal_verified": true,
+    "sovereign_opening_verified": true,
+    "funds_moved": false,
+    "real_bank_payment": false,
+    "research_sources": 4,
+    "hardware_logical_cycles": 96,
+    "hardware_validation": {
+      "status": "source_matched_record",
+      "vectors": 1536,
+      "simulator": "Icarus Verilog version 12.0 (stable) ()",
+      "notice": "Recorded RTL/reference agreement; no physical device tested"
+    },
+    "physical_hardware_connected": false,
+    "session_reset_revokes_wallet": true,
+    "browser_layout_verified": false,
+    "microphone_verified": false,
+    "availability": "Local Python/model host and temporary tunnel must remain running"
+  },
+  "general_web_key_configured": false,
+  "neural_weights_trained": false,
+  "physical_fpga_tested": false,
+  "real_bank_payment": false,
+  "browser_visual_verified": false,
+  "microphone_verified": false,
+  "qr_independent_decode_cases": 54,
+  "qr_function_geometry_cases": 3
+}
