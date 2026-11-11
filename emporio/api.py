@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import threading
 import time
+import hmac
+import ipaddress
 from collections import defaultdict, deque
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -19,6 +21,10 @@ from .hours import human_service
 from .service import AgentService
 from .konaet_code import render_checkout_svg
 from .tools import money
+from .research import ResearchEngine
+from .payments import TestPayments
+from .shield import RequestShield
+from .hardware import simulate as simulate_gateware, validation as gateware_validation
 
 WEB = Path(__file__).parent / "web"
 COOKIE = "emporio_session"
@@ -48,24 +54,55 @@ class CheckoutBody(BaseModel):
     method: Literal["pix", "card"] = "pix"
 
 
+class ResearchBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    query: str = Field(min_length=3, max_length=240)
+    scope: Literal["open", "knowledge", "science", "code", "web"] = "open"
+    synthesize: bool = False
+
+
+class TestIntentBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    checkout_id: str = Field(pattern=r"^[A-Za-z0-9_-]{32}$")
+    request_key: str = Field(pattern=r"^[A-Za-z0-9_-]{16,80}$")
+
+
+class TestConfirmBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    decision: Literal["approve", "decline"]
+
+
+class HardwareBody(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    cycles: int = Field(default=96, ge=16, le=192)
+    capacity: int = Field(default=8, ge=1, le=32)
+    refill_every: int = Field(default=5, ge=1, le=32)
+    burst: int = Field(default=40, ge=1, le=192)
+
+
 class RateLimiter:
-    def __init__(self):
+    def __init__(self, max_keys=4096):
         self.events = defaultdict(deque)
         self.lock = threading.Lock()
+        self.max_keys = max_keys
+        self.next_cleanup = 0
 
     def check(self, key: str, limit: int) -> None:
         current = time.monotonic()
         with self.lock:
+            if key not in self.events and len(self.events) >= self.max_keys:
+                if current >= self.next_cleanup:
+                    for old in [k for k,v in self.events.items() if not v or current-v[-1] >= 60]:
+                        del self.events[old]
+                    self.next_cleanup = current + 1
+                if len(self.events) >= self.max_keys:
+                    raise HTTPException(503, "Request tracking is at capacity. Please retry shortly.", headers={"Retry-After":"5"})
             bucket = self.events[key]
             while bucket and current-bucket[0] >= 60:
                 bucket.popleft()
             if len(bucket) >= limit:
                 raise HTTPException(429, "Too many requests. Please wait a minute.", headers={"Retry-After": "60"})
             bucket.append(current)
-            # Bound inactive keys for a long-running local service.
-            if len(self.events) > 4096:
-                for old in [k for k, v in self.events.items() if not v or current-v[-1] > 60]:
-                    del self.events[old]
 
 
 def set_cookie(response: Response, session_id: str) -> None:
@@ -82,15 +119,26 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         app.state.agent = AgentService(settings)
+        app.state.research = ResearchEngine(settings)
+        app.state.test_payments = TestPayments(app.state.agent.store, app.state.agent.commerce, settings.state_dir)
         yield
 
-    app = FastAPI(title="KONAET Music", version="2.0.0", lifespan=lifespan,
+    app = FastAPI(title="KONAET Music", version="2.1.0", lifespan=lifespan,
                   docs_url=None, redoc_url=None)
     limiter = RateLimiter()
     app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=6)
 
     @app.middleware("http")
     async def request_boundary(request: Request, call_next):
+        if settings.gateway_secret:
+            if not hmac.compare_digest(request.headers.get("x-konaet-gateway", ""), settings.gateway_secret):
+                return JSONResponse({"detail":"Use the published KONAET workspace URL."},403,headers={"Cache-Control":"no-store"})
+            # This header is accepted only after authenticating our gateway.
+            try:
+                client_ip = str(ipaddress.ip_address(request.headers.get("x-konaet-client-ip", "")))
+                request.scope["client"] = (client_ip, 0)
+            except ValueError:
+                pass
         # Local prototype: reject cross-site writes and DNS rebinding to an unexpected Host.
         if request.url.hostname not in {"127.0.0.1", "localhost", "::1", "testserver", urlparse(settings.public_url).hostname}:
             return JSONResponse({"detail": "This demo only accepts loopback hosts."}, 400)
@@ -126,7 +174,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         try:
             request.app.state.agent.commerce.get_checkout(checkout_id)
         except ValueError as exc:
-            raise HTTPException(404, str(exc)) from exc
+            return FileResponse(WEB / "checkout-unavailable.html", status_code=410 if "expired" in str(exc).lower() else 404,
+                                headers={"Cache-Control":"no-store"})
         return FileResponse(WEB / "index.html")
 
     @app.get("/docs", include_in_schema=False)
@@ -141,13 +190,102 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     def health(request: Request):
         agent = request.app.state.agent
         return {"status": "ok", "provider": settings.provider, "counts": agent.data_report["counts"],
-                "product": "KONAET Music", "version": "2.0.0", "commerce_mode": "demo",
+                "product": "KONAET Music", "version": "2.1.0", "commerce_mode": "demo",
                 "human_service": human_service(),
                 "data_fingerprint": agent.data_report["fingerprint"], "policy_sha256": agent.policies.sha,
                 "snapshot_notice": "Supplied case data; no live carrier or inventory connection."}
 
+    @app.get("/api/capabilities")
+    def capabilities(request: Request, probe_model: bool = False):
+        model_state = "configured_not_probed" if settings.provider == "openai_compatible" else "local_tools_ready"
+        if probe_model and settings.provider == "openai_compatible":
+            limiter.check("model_probe:" + (request.client.host if request.client else "local"), 10)
+            from .research import request_json
+            try:
+                if not settings.model_url.endswith("/chat/completions"):
+                    raise ValueError("This model endpoint has no supported discovery route")
+                headers = {"Authorization": "Bearer " + settings.model_key} if settings.model_key else {}
+                found = request_json(settings.model_url.removesuffix("/chat/completions") + "/models", timeout=2, headers=headers)
+                model_state = "connected" if settings.model in {m.get("id") for m in found.get("data", [])} else "responding_model_unconfirmed"
+            except (ValueError, TypeError, KeyError, OSError, TimeoutError):
+                model_state = "unavailable"
+        return {"product": "KONAET Music", "version": "2.1.0", "backend": "ready",
+                "catalog": {"count": request.app.state.agent.data_report["counts"]["products"], "mode": "case_snapshot"},
+                "agent": {"provider": settings.provider, "model": settings.model if settings.provider == "openai_compatible" else None,
+                          "state": model_state,
+                          "training": "No neural weight training is performed by this application"},
+                "research": request.app.state.research.capabilities(),
+                "checkout": {"mode": "sandbox", "can_charge_real_money": False, "receipt_seal": "HMAC-SHA256; server verification only",
+                             "links_shareable": settings.public_url.startswith("https://")},
+                "protection": {"body_limit_bytes": 16384, "read_timeout_seconds": 5, "max_inflight_per_process": 24,
+                               "edge_ddos": "not_provisioned"},
+                "sovereign": {"mode": "commitment_export", "network_finalized": False},
+                "hardware": {"mode": "simulation", "physical_device_connected": False, "validation": gateware_validation()}}
+
+    @app.post("/api/hardware/simulate")
+    def hardware(body: HardwareBody, request: Request):
+        limiter.check("hardware:" + (request.client.host if request.client else "local"), 20)
+        try:
+            return simulate_gateware(body.cycles, body.capacity, body.refill_every, body.burst)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+
+    @app.post("/api/research")
+    def research(body: ResearchBody, request: Request):
+        limiter.check("research:" + (request.client.host if request.client else "local"), 6)
+        try:
+            return request.app.state.research.query(body.query, body.scope, body.synthesize)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+
+    def owned_session(request):
+        agent = request.app.state.agent
+        session_id = request.cookies.get(COOKIE, "")
+        from datetime import datetime, timezone
+        with agent.store.connect() as db:
+            state = db.execute("SELECT id FROM sessions WHERE id=? AND expires>?", (session_id, datetime.now(timezone.utc).isoformat())).fetchone() if len(session_id) <= 128 else None
+        if not state:
+            raise HTTPException(401, "Open a workspace session first")
+        return state["id"]
+
+    @app.get("/api/sandbox/wallet")
+    def test_wallet(request: Request):
+        return request.app.state.test_payments.wallet(owned_session(request))
+
+    @app.post("/api/sandbox/wallet/topup")
+    def test_topup(request: Request):
+        limiter.check("test_topup:" + (request.client.host if request.client else "local"), 5)
+        try:
+            return request.app.state.test_payments.wallet(owned_session(request), topup=True)
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+
+    @app.post("/api/sandbox/intents")
+    def test_intent(body: TestIntentBody, request: Request):
+        limiter.check("test_intent:" + (request.client.host if request.client else "local"), 10)
+        try:
+            return request.app.state.test_payments.create(owned_session(request), body.checkout_id, body.request_key)
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+
+    @app.post("/api/sandbox/intents/{intent_id}/confirm")
+    def test_confirm(intent_id: str, body: TestConfirmBody, request: Request):
+        limiter.check("test_confirm:" + (request.client.host if request.client else "local"), 10)
+        try:
+            return request.app.state.test_payments.confirm(owned_session(request), intent_id, body.decision)
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+
+    @app.get("/api/sandbox/intents/{intent_id}")
+    def read_test_intent(intent_id: str, request: Request):
+        try:
+            return request.app.state.test_payments.get(owned_session(request), intent_id)
+        except ValueError as exc:
+            raise HTTPException(404, str(exc)) from exc
+
     @app.get("/api/session")
     def session(request: Request, response: Response):
+        limiter.check("session:" + (request.client.host if request.client else "local"), 20)
         agent = request.app.state.agent
         with agent.lock:
             state = agent.store.session(request.cookies.get(COOKIE))
@@ -268,14 +406,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             raise HTTPException(404, str(exc)) from exc
 
     @app.get("/api/checkout/{checkout_id}/code.svg")
-    def checkout_code(checkout_id: str, request: Request):
+    def checkout_code(checkout_id: str, request: Request, theme: Literal["signature", "orbit", "studio"] = "signature"):
         try:
             quote = request.app.state.agent.commerce.get_checkout(checkout_id)
         except ValueError as exc:
             raise HTTPException(404, str(exc)) from exc
-        svg = render_checkout_svg(quote["checkout_url"], quote["id"], money(quote["subtotal_cents"]))
+        svg = render_checkout_svg(quote["checkout_url"], quote["id"], money(quote["subtotal_cents"]), theme)
         return Response(svg, media_type="image/svg+xml", headers={"Cache-Control": "no-store",
                         "Content-Disposition": 'inline; filename="konaet-checkout.svg"'})
 
     app.mount("/static", StaticFiles(directory=WEB), name="static")
+    app.add_middleware(RequestShield)
     return app

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 from importlib.resources import files
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -25,9 +25,12 @@ class Settings:
     provider: str = "local"
     model_url: str = ""
     model: str = ""
-    model_key: str = ""
+    model_key: str = field(default="", repr=False)
     model_timeout: float = 15.0
     public_url: str = "http://127.0.0.1:8000"
+    brave_search_key: str = field(default="", repr=False)
+    research_timeout: float = 6.0
+    gateway_secret: str = field(default="", repr=False)
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -46,4 +49,7 @@ class Settings:
             model_key=os.getenv("EMPORIO_MODEL_KEY", ""),
             model_timeout=timeout,
             public_url=os.getenv("KONAET_PUBLIC_URL", "http://127.0.0.1:8000").rstrip("/"),
+            brave_search_key=os.getenv("KONAET_BRAVE_SEARCH_KEY", ""),
+            research_timeout=6.0,
+            gateway_secret=os.getenv("KONAET_GATEWAY_SECRET", ""),
         )

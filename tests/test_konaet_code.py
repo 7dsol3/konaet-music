@@ -15,8 +15,9 @@ from emporio.konaet_code import render_checkout_svg, checkout_matrix
 ])
 @pytest.mark.parametrize("width", [260, 520])
 @pytest.mark.parametrize("rotation", [0, 90, 180])
-def test_independent_decoder_reads_actual_branded_svg(url, width, rotation):
-    svg = render_checkout_svg(url, "a"*32, "BRL 2,089.05")
+@pytest.mark.parametrize("theme", ["signature", "orbit", "studio"])
+def test_independent_decoder_reads_actual_branded_svg(url, width, rotation, theme):
+    svg = render_checkout_svg(url, "a"*32, "BRL 2,089.05", theme)
     ET.fromstring(svg)
     with pymupdf.open(stream=svg.encode(), filetype="svg") as document:
         page = document[0]
@@ -25,6 +26,10 @@ def test_independent_decoder_reads_actual_branded_svg(url, width, rotation):
     result = zxingcpp.read_barcode(image)
     assert result is not None and result.text == url
     assert checkout_matrix(url).error == "H"
+
+
+def test_unknown_artwork_is_not_interpolated_into_svg():
+    with pytest.raises(ValueError):render_checkout_svg("https://example.org/checkout/"+"a"*32,"a"*32,"BRL 1.00",'<script>bad</script>')
 
 
 @pytest.mark.parametrize("url", ["javascript:alert(1)", "http://evil.example/checkout/id", "https://user:password@example.com/", "https://example.com/#fragment"])

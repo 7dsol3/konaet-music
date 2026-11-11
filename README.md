@@ -1,6 +1,15 @@
 # KONAET Music
 
-**A personal music desk. Instruments, grounded answers, voice and a checkout code of your own.**
+**A connected workspace. Music, public research, voice and a checkout code of your own.**
+
+[Open the GitHub entrance](https://7dsol3.github.io/konaet-music/) ·
+[Launch the HTTPS preview](https://emily-catalyst-joint-james.trycloudflare.com) ·
+[Explore the 2.1 contracts](docs/WORKSPACE-2.1.md)
+
+The HTTPS preview connects through an accountless Cloudflare tunnel to a local Python/model
+host. The host and tunnel must remain running; this is not a continuously hosted
+production backend. GitHub Pages hosts the permanent entrance. Checkout QR links
+use the public HTTPS workspace origin. Payments and wallets use sandbox credits only.
 
 [![Checks](https://github.com/7dsol3/konaet-music/actions/workflows/checks.yml/badge.svg)](https://github.com/7dsol3/konaet-music/actions/workflows/checks.yml)
 
@@ -24,6 +33,12 @@ case data. No real purchase, stock reservation, refund or charge is executed.
 - Ask KONAET about instruments, prices, installments, store policies and a verified fixture order.
 - Dictate English commands, review the transcript and send it. Spoken replies are opt-in.
 - Install the responsive PWA on supported devices. Every command also works by typing.
+- Research public knowledge, scholarly metadata and code with dated source links.
+- Switch the voice/text assistant between the music desk and explicit research scopes.
+- Inspect actual connection states and export source briefs from the current tab.
+- Try a private test wallet, approve/decline a sandbox transaction and verify its sealed receipt.
+- Export a private opening compatible with the Sovereign receipt SDK, without submitting to a network.
+- Explore a Python/SystemVerilog credit gate and its logical trace in the hardware lab.
 
 The glass design uses CSS gradients, bounded translucency and small original
 SVG illustrations. No external fonts, animation framework, video background or
@@ -85,6 +100,11 @@ cover the finder patterns or data. No third-party QR image service receives
 the checkout URL. An independent ZXing decoder tests the actual rendered SVG
 at two widths and three orientations.
 
+Choose **Signature**, **Orbit** or **Studio** artwork. Each keeps the exact same
+quote URL and unobstructed symbol. The drawings sit outside the quiet zone.
+The server uses a versioned unit-rounding rule consistently in bag and quote;
+fractional-cent regression tests and every available catalog product are checked.
+
 The link is a capability: anyone holding it can view its **public product
 quote** until expiry. No email, customer ID, chat or session cookie is encoded.
 Shipping is excluded. Stock is not reserved. The QR itself never proves payment.
@@ -93,6 +113,11 @@ For real commerce, the merchant needs an authorized store backend and payment
 account. The researched next integration is a provider-issued Pix request with
 idempotency and verified server-side confirmation. It is **not implemented or
 enabled by a payment key in this release**. [Payment boundary and research](docs/PAYMENTS.md).
+
+KONAET's new [sandbox checkout](docs/CHECKOUT-SANDBOX.md) is implemented separately:
+test credits, typed intent creation, an atomic terminal outcome, exactly-once
+debit on retries/concurrent confirmation, and server-sealed receipts. It does
+not create a Pix payment, reserve stock or replace a regulated payment network.
 
 ## Voice and commands
 
@@ -161,6 +186,8 @@ treated as fully satisfied. Ambiguous claims remain preliminary guidance.
 | `EMPORIO_STATE_DIR` | Writable private state directory; defaults to the user's local state folder |
 | `KONAET_PUBLIC_URL` | Trusted HTTPS origin used for checkout links; loopback is allowed for local use |
 | `KONAET_MODEL_CACHE` | Optional directory holding verified neural-model assets |
+| `KONAET_BRAVE_SEARCH_KEY` | Optional backend-only key for the general Web index; other documented public indexes work without it |
+| `KONAET_GATEWAY_SECRET` | Preview-origin authentication, supplied only at runtime to the gateway and Python origin |
 
 Variables are read from the process environment. `.env.example` is documentation,
 not a file loader. A packaged wheel includes the case data and the web assets;
@@ -214,7 +241,7 @@ These execute DOM events with API doubles. They do not render pixels or prove
 physical microphone behavior. The native/browser-control bridge was unavailable
 during implementation, so a new browser visual review is still outstanding.
 
-See [validation and exact evidence](docs/VALIDATION.md) for the measured scope,
+See [2.1 validation and exact evidence](docs/VALIDATION-2.1.md) for the measured scope,
 fresh model conversations, package tests and known limits. Historical screenshots
 and `docs/ui-check.json` came from the original case and do not depict this redesign.
 
@@ -232,5 +259,5 @@ optional model planning. No claim of consciousness, general superiority,
 original QR encoding, or outperforming Siri/Alexa is made.
 
 Next: real browser/device accessibility and voice trials; authorized live-store
-adapters; merchant payment sandbox; broader unseen paraphrase evaluation;
+adapters; a payment-provider sandbox; broader unseen paraphrase evaluation;
 measured concurrent-load testing and a production identity/storage architecture.
