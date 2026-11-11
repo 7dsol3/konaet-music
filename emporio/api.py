@@ -31,6 +31,16 @@ WEB = Path(__file__).parent / "web"
 COOKIE = "emporio_session"
 
 
+class WebStaticFiles(StaticFiles):
+    async def get_response(self, path, scope):
+        response = await super().get_response(path, scope)
+        # Windows registry MIME associations differ between developer/CI hosts.
+        # ES modules require a JavaScript MIME with nosniff enabled.
+        if path.endswith(".mjs") and response.status_code in {200, 206, 304}:
+            response.headers["Content-Type"] = "text/javascript; charset=utf-8"
+        return response
+
+
 class MessageBody(BaseModel):
     model_config = ConfigDict(extra="forbid")
     message: str = Field(min_length=1, max_length=2000)
@@ -458,6 +468,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return Response(svg, media_type="image/svg+xml", headers={"Cache-Control": "no-store",
                         "Content-Disposition": 'inline; filename="konaet-checkout.svg"'})
 
-    app.mount("/static", StaticFiles(directory=WEB), name="static")
+    app.mount("/static", WebStaticFiles(directory=WEB), name="static")
     app.add_middleware(RequestShield)
     return app

@@ -1,5 +1,6 @@
 import json
 import math
+import mimetypes
 from dataclasses import replace
 
 import pytest
@@ -69,6 +70,19 @@ def test_coach_checks_complete_pairs_and_pitch_consistency(settings):
         assert 'A4' in result['facts'][0]
         for body in ({}, {'midi': 69}, {'midi': 69, 'hz': 100.0}, {'root': 0}, {'root': 0, 'quality': 'major', 'midi': 69, 'hz': 440.0}, {'filename': 'private.wav'}, {'midi': True, 'hz': 440.0}):
             assert client.post('/api/music/explain', json=body).status_code == 422
+
+
+def test_modules_keep_a_browser_executable_mime_when_the_os_association_is_wrong(settings, monkeypatch):
+    mimetypes.init()
+    monkeypatch.setitem(mimetypes.types_map, '.mjs', 'text/plain')
+    # Python 3.13+ may use guess_file_type; the response contract is independent.
+    with TestClient(create_app(settings)) as client:
+        for path in ('/static/sound-lab.mjs', '/static/sound-dsp.mjs'):
+            response = client.get(path)
+            assert response.status_code == 200
+            assert response.headers['content-type'] == 'text/javascript; charset=utf-8'
+            assert response.headers['x-content-type-options'] == 'nosniff'
+        assert client.get('/static/missing.mjs').status_code == 404
 
 
 def test_neural_coach_receives_public_music_facts_only(settings, monkeypatch):

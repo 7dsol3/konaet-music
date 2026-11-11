@@ -26,6 +26,11 @@ case data. No real purchase, stock reservation, refund or charge is executed.
 
 ## Explore the product
 
+[![H-01 reference waveform and exact PCM metrics](docs/graphics/audio-core-trace.gif)](https://emily-catalyst-joint-james.trycloudflare.com/sound-lab)
+
+*Exported integer reference trace. Live analysis is in the Sound Lab; this animation
+is not physical-device telemetry.*
+
 - Browse 65 recorded instruments by category, brand, model, availability and budget.
 - Compare two or three instruments using recorded specifications.
 - Open a product, add it to a session bag and change quantities.
