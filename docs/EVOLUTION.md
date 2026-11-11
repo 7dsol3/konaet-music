@@ -1,9 +1,12 @@
 # KONAET Music 2.0
 
 This is a separate product evolution of the submitted Empório da Música case.
-The submitted repository and its default branch are preserved at
-`7dsol3/emporio-musica-ai-agent`, revision
-`aefc6f54191eb00c52d7a9f8df85c1c3a201c5b6`.
+The starting submission snapshot is
+`7dsol3/emporio-musica-ai-agent` at revision
+`aefc6f54191eb00c52d7a9f8df85c1c3a201c5b6`. No product changes are pushed
+back to that repository by this evolution. A later GitHub web-flow commit,
+`7724b508431221b1cb75b0609629274a13b483c8`, added only a README link to this
+repository on 11 November 2026; the original application code was unchanged.
 
 The original case requires Python as the principal language, grounded text
 support, clear scope, a public history, documented choices and 3–5 conversations.

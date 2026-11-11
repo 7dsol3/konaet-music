@@ -42,5 +42,10 @@
   "microphone_hardware_verified": false,
   "real_payments": false,
   "public_backend_deployed": false,
-  "original_submission_sha": "aefc6f54191eb00c52d7a9f8df85c1c3a201c5b6"
+  "original_submission_sha": "aefc6f54191eb00c52d7a9f8df85c1c3a201c5b6",
+  "original_remote_observation": {
+    "sha": "7724b508431221b1cb75b0609629274a13b483c8",
+    "changed_files_since_submission": ["README.md"],
+    "change": "GitHub web-flow added a link to the separate evolution; application code unchanged."
+  }
 }
