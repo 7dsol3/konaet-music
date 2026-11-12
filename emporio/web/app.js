@@ -22,6 +22,7 @@ window.addEventListener("beforeinstallprompt", event => { event.preventDefault()
 window.addEventListener("appinstalled", () => { installPrompt = null; $("#install-app").hidden = true; });
 
 async function api(path, options = {}) {
+  if (window.KonaetRuntime) return window.KonaetRuntime.request(path, options);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 65000);
   const abort = () => controller.abort();
@@ -201,12 +202,13 @@ function showQuote(quote) {
   const total = make("div", "checkout-total"); total.append(make("span", "", "Instrument total"), make("strong", "", money(quote.subtotal_cents)));
   info.append(lines, total, make("p", "", quote.method === "pix" ? "PIX pricing is included where eligible. Promotional offers are never combined with an extra PIX discount." : "List or active promotional prices. No card details are collected."), make("p", "", quote.shipping), make("p", "", "This is a demonstration quote, not a purchase, payment request or stock reservation."));
   const expiry = make("span", "checkout-expiry"); info.append(expiry);
-  const img = make("img"); img.src = "/api/checkout/" + quote.id + "/code.svg"; img.alt = "Unique KONAET Code that opens this checkout preview"; visual.append(img);
+  const codeURL = theme => window.KonaetRuntime ? window.KonaetRuntime.codeURL(quote, theme) : "/api/checkout/" + quote.id + "/code.svg?theme=" + theme;
+  const img = make("img"); img.src = codeURL("signature"); img.alt = "Unique KONAET Code that opens this checkout preview"; visual.append(img);
   const links = make("div", "code-actions"), download = make("a", "", "Download SVG"); download.href = img.src; download.download = "konaet-" + quote.id.slice(-10) + ".svg";
   const themeLabel = make("label", "code-style-picker", "Choose your frame "), theme = make("select");
   theme.setAttribute("aria-label", "KONAET Code artwork");
   for (const [value, label] of [["signature","Signature / circuit"],["orbit","Orbit / constellation"],["studio","Studio / ribbons"]]) { const option = make("option", "", label); option.value = value; theme.append(option); }
-  theme.addEventListener("change", () => { img.src = "/api/checkout/" + quote.id + "/code.svg?theme=" + theme.value; download.href = img.src; }); themeLabel.append(theme); visual.append(themeLabel);
+  theme.addEventListener("change", () => { img.src = codeURL(theme.value); download.href = img.src; }); themeLabel.append(theme); visual.append(themeLabel);
   const copy = action("Copy checkout link", "", async () => { try { await navigator.clipboard.writeText(quote.checkout_url); toast("Checkout link copied."); } catch { toast("Copy the checkout link shown below."); } }); links.append(download, copy); visual.append(links);
   const link = make("a", "checkout-link", quote.checkout_url); link.href = quote.checkout_url; link.target = "_blank"; link.rel = "noopener"; info.append(link);
   if (["localhost", "127.0.0.1", "::1"].includes(new URL(quote.checkout_url).hostname)) info.append(make("p", "small", "This link uses a local address. A public HTTPS domain is needed to scan it from a different device."));
@@ -357,7 +359,8 @@ async function initialize() {
     await refreshBag(); const health = await api("/api/health");
     $("#assistant-mode").textContent = health.provider === "local" ? "LOCAL RULES + VERIFIED TOOLS" : "MODEL PLANNER CONFIGURED";
     const match = location.pathname.match(/^\/checkout\/([A-Za-z0-9_-]{32})$/);
-    if (match) showQuote(await api("/api/checkout/" + match[1]));
+    const checkoutId = window.KonaetRuntime?.checkoutId() || match?.[1];
+    if (checkoutId) showQuote(await api("/api/checkout/" + checkoutId));
   } catch (error) { $("#assistant-mode").textContent = "CONNECTION UNAVAILABLE"; toast(error.message); }
   document.documentElement.dataset.konaetReady = "true";
   document.dispatchEvent(new CustomEvent("konaet:ready"));

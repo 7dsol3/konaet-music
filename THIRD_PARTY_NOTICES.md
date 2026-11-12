@@ -16,6 +16,7 @@ The project-authored Empório and KONAET Music application files are distributed
 | Uvicorn | BSD-3-Clause | Local ASGI server |
 | pypdf | BSD-3-Clause | Text extraction from the supplied manual |
 | Segno | BSD-3-Clause | Standard QR matrix encoding; the renderer and checkout binding are project code |
+| qrcode-generator 2.0.4 / Kazuhiko Arase | MIT | Vendored browser QR matrix encoder; license and pinned package integrity in `deploy/browser/vendor/` |
 | Pillow | MIT-CMU | Development-only raster checks |
 | ZXing-C++ | Apache-2.0 | Independent development-only QR decoding |
 | Happy DOM | MIT | Development-only DOM event tests; not browser rendering |

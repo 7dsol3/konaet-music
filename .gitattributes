@@ -6,3 +6,4 @@ hardware/h01-audio/fabrication/* -text
 hardware/h01-audio/placement.csv -text
 *.cmd text eol=crlf
 data/* -text
+deploy/browser/vendor/qrcode.js -text

@@ -1,9 +1,9 @@
-name: Publish GitHub entrance
+name: Publish standalone GitHub store
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['deploy/pages/**', '.github/workflows/pages.yml']
+    paths: ['deploy/browser/**', 'emporio/web/**', 'scripts/build_pages.py', '.github/workflows/pages.yml']
 permissions:
   contents: read
 concurrency:
@@ -25,8 +25,13 @@ jobs:
         with:
           persist-credentials: false
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Build browser store without an API server
+        run: python scripts/build_pages.py
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
         with:
-          path: deploy/pages
+          path: dist/pages
       - id: deploy
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
