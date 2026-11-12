@@ -27,6 +27,8 @@ def test_standalone_build_routes_assets_and_contains_no_customer_data():
     for name in ['index.html','sound-lab/index.html','docs/index.html']:
         text=(out/name).read_text(encoding='utf-8');assert 'trycloudflare.com' not in text;Links().feed(text)
     report=json.loads((out/'pages-build.json').read_text())
+    assert not any(Path(path).name.startswith('.') for path in report['files'])
+    assert '.nojekyll' not in (out/'service-worker.js').read_text()
     for path,sha in report['files'].items():assert hashlib.sha256((out/path).read_bytes()).hexdigest()==sha
     assert not list(out.rglob('*customers*')) and not list(out.rglob('*orders*'))
     with pytest.raises(ValueError):builder.build(ROOT,base='/')
