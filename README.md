@@ -26,6 +26,12 @@ case data. No real purchase, stock reservation, refund or charge is executed.
 
 ## Explore the product
 
+[![H-01A PCB rendered in KiCad](hardware/h01-audio/board-3d.png)](hardware/h01-audio/README.md)
+
+**[Explore the H-01A KiCad project](hardware/h01-audio/README.md)** — editable
+schematic, routed PCB, STEP/GLB, BOM and review Gerbers. Zero ERC/DRC/parity
+violations; external FPGA required, physical bring-up not performed.
+
 [![H-01 reference waveform and exact PCM metrics](docs/graphics/audio-core-trace.gif)](https://emily-catalyst-joint-james.trycloudflare.com/sound-lab)
 
 *Exported integer reference trace. Live analysis is in the Sound Lab; this animation

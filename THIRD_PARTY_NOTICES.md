@@ -41,3 +41,10 @@ external comparison reference; none of its source, fixtures or weights is includ
 Konaet is the application/orchestration identity here. Qwen remains named as an
 external model; it is not presented as a Konaet-trained neural model. No neural
 training, weight merging or distillation was performed for this prototype.
+
+The H-01A KiCad footprint and STEP model subsets retain the KiCad library
+contributors' CC-BY-SA 4.0 license with the design exception. See
+`hardware/h01-audio/LIBRARIES.md` and the included license texts. These library
+files are not relicensed MIT. Original schematic/PCB integration and scripts
+remain MIT. Manufacturer datasheets are linked for circuit review. Freerouting
+2.5.0 and KiCad 10.0.8 are development tools, not application dependencies.

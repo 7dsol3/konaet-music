@@ -1,0 +1,811 @@
+{
+  "revision": "A",
+  "board_mm": [
+    85,
+    65,
+    1.6
+  ],
+  "parts": [
+    {
+      "ref": "J1",
+      "value": "5V IN / 5.25V MAX",
+      "footprint": "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+      "xy": [
+        60,
+        62
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "5V_IN",
+        "2": "GND"
+      },
+      "mpn": "B2B-XH-A(LF)(SN)",
+      "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "D1",
+      "value": "SS14 / reverse polarity",
+      "footprint": "Diode_SMD:D_SMA",
+      "xy": [
+        69,
+        62
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "5V_PROTECTED",
+        "2": "5V_IN"
+      },
+      "mpn": "SS14",
+      "source": "https://www.vishay.com/docs/88746/ss12.pdf",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "U1",
+      "value": "TLV75533PDBVR",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "xy": [
+        79,
+        62
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "5V_PROTECTED",
+        "2": "GND",
+        "3": "5V_PROTECTED",
+        "4": null,
+        "5": "+3V3"
+      },
+      "mpn": "TLV75533PDBVR",
+      "source": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "names": {
+        "1": "IN",
+        "2": "GND",
+        "3": "EN",
+        "4": "NC",
+        "5": "OUT"
+      },
+      "types": {
+        "1": "power_in",
+        "2": "power_in",
+        "3": "input",
+        "4": "no_connect",
+        "5": "power_out"
+      }
+    },
+    {
+      "ref": "C1",
+      "value": "2.2uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        74,
+        65
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "5V_PROTECTED",
+        "2": "GND"
+      },
+      "mpn": "2.2uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C2",
+      "value": "2.2uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        83,
+        65
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "2.2uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C3",
+      "value": "10uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        87,
+        65
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "10uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C4",
+      "value": "100nF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        74,
+        76
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "100nF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C5",
+      "value": "2.2uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        95,
+        79
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "CAPP",
+        "2": "CAPM"
+      },
+      "mpn": "2.2uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C6",
+      "value": "2.2uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        95,
+        84
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "VNEG",
+        "2": "GND"
+      },
+      "mpn": "2.2uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C7",
+      "value": "100nF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        100,
+        73
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "100nF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C8",
+      "value": "10uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        96,
+        73
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "10uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C9",
+      "value": "100nF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        100,
+        89
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "100nF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C10",
+      "value": "10uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        96,
+        89
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "10uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C11",
+      "value": "100nF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        110,
+        73
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "100nF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C12",
+      "value": "10uF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        114,
+        73
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "10uF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C13",
+      "value": "100nF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        113,
+        78
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "LDOO",
+        "2": "GND"
+      },
+      "mpn": "100nF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C14",
+      "value": "2.2nF / 50V C0G",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        120,
+        85
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "LINE_L",
+        "2": "GND"
+      },
+      "mpn": "2.2nF / 50V C0G",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C15",
+      "value": "2.2nF / 50V C0G",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        120,
+        91
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "LINE_R",
+        "2": "GND"
+      },
+      "mpn": "2.2nF / 50V C0G",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "C16",
+      "value": "100nF / 16V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "xy": [
+        74,
+        97
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND"
+      },
+      "mpn": "100nF / 16V X7R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "Y1",
+      "value": "12.288MHz / 3V3",
+      "footprint": "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm",
+      "xy": [
+        78,
+        76
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND",
+        "3": "CLK_RAW",
+        "4": "+3V3"
+      },
+      "mpn": "ASE-12.288MHZ-L-C-T",
+      "source": "https://abracon.com/Oscillators/ASEseries.pdf",
+      "names": {
+        "1": "EN",
+        "2": "GND",
+        "3": "OUT",
+        "4": "VDD"
+      },
+      "types": {
+        "1": "input",
+        "2": "power_in",
+        "3": "output",
+        "4": "power_in"
+      }
+    },
+    {
+      "ref": "U2",
+      "value": "PCM5102APWR",
+      "footprint": "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm",
+      "xy": [
+        105,
+        82
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "CAPP",
+        "3": "GND",
+        "4": "CAPM",
+        "5": "VNEG",
+        "6": "DAC_L",
+        "7": "DAC_R",
+        "8": "+3V3",
+        "9": "GND",
+        "10": "GND",
+        "11": "GND",
+        "12": "GND",
+        "13": "BCLK",
+        "14": "DAC_SD",
+        "15": "LRCLK",
+        "16": "GND",
+        "17": "DAC_UNMUTE",
+        "18": "LDOO",
+        "19": "GND",
+        "20": "+3V3"
+      },
+      "mpn": "PCM5102APWR",
+      "source": "https://www.ti.com/lit/ds/symlink/pcm5102a.pdf",
+      "names": {
+        "1": "CPVDD",
+        "2": "CAPP",
+        "3": "CPGND",
+        "4": "CAPM",
+        "5": "VNEG",
+        "6": "OUTL",
+        "7": "OUTR",
+        "8": "AVDD",
+        "9": "AGND",
+        "10": "DEMP",
+        "11": "FLT",
+        "12": "SCK",
+        "13": "BCK",
+        "14": "DIN",
+        "15": "LRCK",
+        "16": "FMT",
+        "17": "XSMT",
+        "18": "LDOO",
+        "19": "DGND",
+        "20": "DVDD"
+      },
+      "types": {
+        "1": "power_in",
+        "2": "output",
+        "3": "power_in",
+        "4": "output",
+        "5": "output",
+        "6": "output",
+        "7": "output",
+        "8": "power_in",
+        "9": "power_in",
+        "10": "input",
+        "11": "input",
+        "12": "input",
+        "13": "input",
+        "14": "input",
+        "15": "input",
+        "16": "input",
+        "17": "input",
+        "18": "output",
+        "19": "power_in",
+        "20": "power_in"
+      }
+    },
+    {
+      "ref": "J2",
+      "value": "FPGA 3V3 IO / NOT PMOD",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical",
+      "xy": [
+        62,
+        75
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "MCLK",
+        "2": "GND",
+        "3": "HOST_BCLK",
+        "4": "GND",
+        "5": "HOST_LRCLK",
+        "6": "GND",
+        "7": "HOST_DAC_SD",
+        "8": "GND",
+        "9": "ADC_SD",
+        "10": "GND",
+        "11": "DAC_UNMUTE",
+        "12": "GND"
+      },
+      "mpn": "2x6 2.54mm header",
+      "source": "",
+      "names": {
+        "1": "CLK to FPGA",
+        "3": "BCLK from FPGA",
+        "5": "WS from FPGA",
+        "7": "DATA from FPGA",
+        "9": "MIC to FPGA",
+        "11": "UNMUTE from FPGA"
+      },
+      "types": {
+        "1": "input",
+        "3": "output",
+        "5": "output",
+        "7": "output",
+        "9": "input",
+        "11": "output"
+      }
+    },
+    {
+      "ref": "J3",
+      "value": "MIC I2S / LEFT / 3V3",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+      "xy": [
+        62,
+        94
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "GND",
+        "3": "BCLK",
+        "4": "LRCLK",
+        "5": "ADC_SD",
+        "6": "GND"
+      },
+      "mpn": "1x6 2.54mm header",
+      "source": "",
+      "names": {
+        "1": "3V3 OUT",
+        "2": "GND",
+        "3": "SCK",
+        "4": "WS",
+        "5": "SD",
+        "6": "LR LOW"
+      },
+      "types": {
+        "5": "output"
+      }
+    },
+    {
+      "ref": "J4",
+      "value": "LINE OUT / NOT SPEAKER",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+      "xy": [
+        127,
+        85
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "LINE_L",
+        "2": "GND",
+        "3": "LINE_R"
+      },
+      "mpn": "1x3 2.54mm header",
+      "source": "",
+      "names": {
+        "1": "LEFT",
+        "2": "GND",
+        "3": "RIGHT"
+      },
+      "types": {}
+    },
+    {
+      "ref": "R1",
+      "value": "33R",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        74,
+        80
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "CLK_RAW",
+        "2": "MCLK"
+      },
+      "mpn": "33R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R2",
+      "value": "33R",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        71,
+        83
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "HOST_BCLK",
+        "2": "BCLK"
+      },
+      "mpn": "33R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R3",
+      "value": "33R",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        75,
+        87
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "HOST_LRCLK",
+        "2": "LRCLK"
+      },
+      "mpn": "33R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R4",
+      "value": "33R",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        71,
+        91
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "HOST_DAC_SD",
+        "2": "DAC_SD"
+      },
+      "mpn": "33R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R5",
+      "value": "100k",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        78,
+        101
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "ADC_SD",
+        "2": "GND"
+      },
+      "mpn": "100k",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R6",
+      "value": "100k",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        112,
+        97
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "DAC_UNMUTE",
+        "2": "GND"
+      },
+      "mpn": "100k",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R7",
+      "value": "470R",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        115,
+        85
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "DAC_L",
+        "2": "LINE_L"
+      },
+      "mpn": "470R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R8",
+      "value": "470R",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        115,
+        91
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "DAC_R",
+        "2": "LINE_R"
+      },
+      "mpn": "470R",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "R9",
+      "value": "2.2k",
+      "footprint": "Resistor_SMD:R_0805_2012Metric",
+      "xy": [
+        92,
+        62
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "+3V3",
+        "2": "LED_A"
+      },
+      "mpn": "2.2k",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "D2",
+      "value": "GREEN / power",
+      "footprint": "LED_SMD:LED_0805_2012Metric",
+      "xy": [
+        97,
+        62
+      ],
+      "angle": 0,
+      "pins": {
+        "1": "GND",
+        "2": "LED_A"
+      },
+      "mpn": "0805 green LED",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "H1",
+      "value": "M3 / NPTH",
+      "footprint": "MountingHole:MountingHole_3.2mm_M3",
+      "xy": [
+        55,
+        55
+      ],
+      "angle": 0,
+      "pins": {},
+      "mpn": "M3 / NPTH",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "H2",
+      "value": "M3 / NPTH",
+      "footprint": "MountingHole:MountingHole_3.2mm_M3",
+      "xy": [
+        130,
+        55
+      ],
+      "angle": 0,
+      "pins": {},
+      "mpn": "M3 / NPTH",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "H3",
+      "value": "M3 / NPTH",
+      "footprint": "MountingHole:MountingHole_3.2mm_M3",
+      "xy": [
+        55,
+        110
+      ],
+      "angle": 0,
+      "pins": {},
+      "mpn": "M3 / NPTH",
+      "source": "",
+      "names": {},
+      "types": {}
+    },
+    {
+      "ref": "H4",
+      "value": "M3 / NPTH",
+      "footprint": "MountingHole:MountingHole_3.2mm_M3",
+      "xy": [
+        130,
+        110
+      ],
+      "angle": 0,
+      "pins": {},
+      "mpn": "M3 / NPTH",
+      "source": "",
+      "names": {},
+      "types": {}
+    }
+  ]
+}

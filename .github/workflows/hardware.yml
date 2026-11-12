@@ -1,0 +1,38 @@
+name: H-01 KiCad
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  pcb:
+    name: KiCad ERC / DRC / parity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      KICAD_IMAGE: ghcr.io/kicad/kicad:10.0.8@sha256:05f6ac957e351bbbd9e1f9c996be997f61948ed9f94e0c3cab336bfcaf60161c
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Pull pinned official KiCad
+        run: docker pull "$KICAD_IMAGE"
+      - name: Check source integrity before executing CAD
+        run: python3 scripts/hardware/check_h01_record.py
+      - name: Validate actual schematic and board
+        run: |
+          docker run --rm --network=none --cap-drop=ALL --security-opt=no-new-privileges \
+            --user "$(id -u):$(id -g)" --env HOME=/tmp \
+            --mount "type=bind,src=$PWD,dst=/work" --workdir /work \
+            --entrypoint /usr/bin/python3 "$KICAD_IMAGE" \
+            scripts/hardware/verify_h01.py --cli /usr/bin/kicad-cli
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: h01-kicad-validation
+          path: |
+            hardware/h01-audio/erc.json
+            hardware/h01-audio/drc.json
+            hardware/h01-audio/validation.json
+          retention-days: 14

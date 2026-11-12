@@ -1,0 +1,28 @@
+{
+  "source_pcb_sha256": "d914b51e12e529348ead45eb0f0d8647e293afbe7738eb2cee1a7db4b81a6b46",
+  "source_schematic_sha256": "be23a1cb9ff08874c7f2be3491653924b17d470ffe65cbe604ae05a4f3f5d525",
+  "kicad": "10.0.8",
+  "physical_tested": false,
+  "fabrication_approved": false,
+  "exports": {
+    "schematic.pdf": "57ffaa5cf7a527bad402354189fc1ad0dcd64314b8ed81040bf9fcb02e191a2f",
+    "layout.pdf": "0417abe32606f945f73b2f0559c08d8d564c94f44dc6414bdd4872e5d85f8a7d",
+    "placement.csv": "3bdeaf72de5f8e466ff057483c6c815a3d85ed467f9880e8248db64cc3c6d5df",
+    "konaet-h01.step": "2247bab7bd2f3e4a8e4140fb09960df4286b24a36b8bf38412fcae141a3a1420",
+    "konaet-h01.glb": "f7e3ceba7f544f00af7a396c74bbf61e5fb07b11a7f7cc2dc2ea87e409fddaa2",
+    "board-3d.png": "d4c9cb901c5abc33beb3ad8a22fab7937787975e9ac00ee3cddebc243d2c5c18",
+    "board-top.png": "89541373eaa4c1fb99d2e084dcbb878c79acfc3b43f9711a6e15653086ae35f0",
+    "board-bottom.png": "5550633c458bb72dc21754c042865f8ecdf9938342242b633ca3b526a6f137d3",
+    "fabrication/konaet-h01-B_Cu.gbl": "1df244d86752e581cf71c0bea6ed98c77b505efcbf5cbe56e0fb94930246befe",
+    "fabrication/konaet-h01-B_Mask.gbs": "3d64192edaab40d0aef5c5f97ba2a4b0a1bec95fbad6366669e875788aada353",
+    "fabrication/konaet-h01-B_Silkscreen.gbo": "3c9620b906af4467a07aa9f7b3ddce54eadfbd797a003014d43ef8f254ad6b95",
+    "fabrication/konaet-h01-drl_map.pdf": "de8d518165065b7fcfbf81a1d644abf72ccc18b53ec83cd66be5429da47673e2",
+    "fabrication/konaet-h01-Edge_Cuts.gm1": "d1bf2dbe5f2bfc116155961ff14400f08c3d9e5428dac858fdcf0cce86c24b88",
+    "fabrication/konaet-h01-F_Cu.gtl": "e829adfd9551b8d86b09777935683c5d8cc8aa0ec6f5e13303232b9b48546bf8",
+    "fabrication/konaet-h01-F_Mask.gts": "6125ed5bf16db64c80f8b0b76a62a84553ff068e7a3dbe6c7e0536add2121e9a",
+    "fabrication/konaet-h01-F_Paste.gtp": "5c397f4918ea358dcd0c56e3005fea3b682b460537abd3996f23ea34f7f6678d",
+    "fabrication/konaet-h01-F_Silkscreen.gto": "8e4c3c8fa05803b885cce495c1ef4bf30886d7716ee45d15f03635a9746397a9",
+    "fabrication/konaet-h01-job.gbrjob": "bbf96f9104423337e43de9b6b9c02e745187dcb4029f261f2ac9b2fa37427d7a",
+    "fabrication/konaet-h01.drl": "e73950c935480a8c95201d8f7edaf7b3a19743e8166de43fda9b748c9bd7a049"
+  }
+}

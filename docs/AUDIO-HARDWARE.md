@@ -5,6 +5,12 @@ testbenches. It is portable digital logic, not a fabricated board, a CPU replace
 or a trained language-model accelerator. The website runs a reference model.
 No connected ADC, DAC, physical microphone or FPGA is asserted.
 
+The [H-01A KiCad carrier](../hardware/h01-audio/README.md) now supplies an editable
+schematic, routed two-layer board, local 3D models, STEP/GLB, BOM and review
+fabrication outputs. It connects an external FPGA to a PCM5102A line DAC and an
+external I²S microphone module. ERC, DRC and schematic parity pass with zero
+violations; physical bring-up, target FPGA constraints and host bridge remain open.
+
 ![H-01 audio design](../emporio/web/audio-core.svg)
 
 ## Modules and interfaces
@@ -77,12 +83,12 @@ audio-fidelity benchmark is claimed without that separate evidence.
 | Part / connection | Requirement | Status |
 | --- | --- | --- |
 | FPGA / development carrier | Sufficient logic and multipliers, 3.3 V-compatible digital I/O, supported toolchain | Not selected or tested on a physical board |
-| Audio clock | Stable 12.288 MHz source or validated PLL / clock-enable architecture | Proposed; jitter and timing unmeasured |
+| Audio clock | Stable 12.288 MHz source or validated PLL / clock-enable architecture | ASE oscillator in H-01A design; jitter and timing unmeasured |
 | Audio ADC / digital microphone | Controller-clocked I²S, 16 MSBs in 32-bit slots; compatible voltage | Proposed; not a PDM microphone input |
-| Audio DAC / output stage | Compatible I²S controller timing, proper analog filtering / mute | Proposed; never attach a speaker directly to FPGA pins |
-| Power | Regulated low-voltage supply, local decoupling and documented ground / analog routing | Requires component-specific circuit review |
+| Audio DAC / output stage | Compatible I²S controller timing, proper analog filtering / mute | PCM5102A with default mute and RC line filters designed; not powered or measured |
+| Power | Regulated low-voltage supply, local decoupling and documented ground / analog routing | 5 V input, SS14 and TLV75533P with decoupling designed; bench review pending |
 | Host | Board control bridge plus authenticated application interface | Browser/Python reference exists; no live bridge implemented |
-| Enclosure / PCB | Connector geometry, thermal and EMC review, schematic, layout, DRC and bench measurements | Not manufactured or represented as fabrication-ready |
+| Enclosure / PCB | Connector geometry, thermal and EMC review, schematic, layout, DRC and bench measurements | H-01A PCB/3D and checks supplied; enclosure and physical tests pending |
 
 There is no dependency on a Raspberry Pi to use the browser or synthesize this
 portable core. A selected embedded host would need its own inference deployment,
