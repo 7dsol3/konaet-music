@@ -7,6 +7,7 @@
   const stamp = value => { const d = new Date(value); return Number.isNaN(d.valueOf()) ? "Date not provided" : d.toLocaleString("en-US", {dateStyle:"medium",timeStyle:"short"}); };
   const state = {busy:false, generation:0, recent:[], result:null, caps:null};
   async function request(path, options={}) {
+    if (window.KonaetRuntime) return window.KonaetRuntime.request(path, options);
     const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 40000);
     try {
       const response = await fetch(path, {credentials:"same-origin",...options,headers:{"Content-Type":"application/json",...(options.headers||{})},signal:controller.signal});
@@ -78,7 +79,7 @@
   q("#connections-refresh").addEventListener("click",()=>connections(true));
   function receiptControls(root,intent) {
     root.replaceChildren();
-    root.append(node("p","sandbox-receipt",(intent.status==="paid_test"?"TEST APPROVED":"TEST DECLINED")+"\n"+funds(intent.amount_cents)+" · sandbox credits\nServer seal: "+(intent.seal_verified?"verified":"not yet available")+"\nNo money moved. No bank settlement. No stock reservation."));
+    root.append(node("p","sandbox-receipt",(intent.status==="paid_test"?"TEST APPROVED":"TEST DECLINED")+"\n"+funds(intent.amount_cents)+" · sandbox credits\n"+(window.KonaetRuntime?"Browser-only record; no server seal":"Server seal: "+(intent.seal_verified?"verified":"not yet available"))+"\nNo money moved. No bank settlement. No stock reservation."));
     const actions=node("div","sandbox-actions");
     if(intent.receipt)actions.append(button("Download test receipt ↓","button secondary",()=>{const copy={...intent};delete copy.sovereign_opening;download("konaet-test-receipt.json",JSON.stringify(copy,null,2));}));
     if(intent.sovereign_opening)actions.append(button("Export private Sovereign opening ↓","button secondary",()=>download("konaet-private-test-opening.json",JSON.stringify(intent.sovereign_opening.private_opening,null,2))));

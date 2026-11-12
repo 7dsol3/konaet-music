@@ -2,15 +2,24 @@
 
 **A connected workspace. Music, public research, voice and a checkout code of your own.**
 
-[Open the GitHub entrance](https://7dsol3.github.io/konaet-music/) ·
-[Launch the HTTPS preview](https://emily-catalyst-joint-james.trycloudflare.com) ·
-[Open the Sound Lab](https://emily-catalyst-joint-james.trycloudflare.com/sound-lab) ·
+[Open KONAET Music on GitHub Pages](https://7dsol3.github.io/konaet-music/) ·
+[Open the Sound Lab](https://7dsol3.github.io/konaet-music/sound-lab/) ·
 [Audio methods](docs/SOUND-LAB.md) · [Digital hardware](docs/AUDIO-HARDWARE.md)
 
-The HTTPS preview connects through an accountless Cloudflare tunnel to a local Python/model
-host. The host and tunnel must remain running; this is not a continuously hosted
-production backend. GitHub Pages hosts the permanent entrance. Checkout QR links
-use the public HTTPS workspace origin. Payments and wallets use sandbox credits only.
+The GitHub Pages edition runs the catalog, comparison, bag, local music assistant,
+checkout quotes, three QR artworks, test credits, logic lab and Sound Lab in the
+visitor's browser. It does not depend on the author's PC or a temporary tunnel.
+QR links carry a compact item selection and expiry; another device recomputes
+the amount from the same bundled catalog. Quotes and receipts in this edition
+are **unsigned browser demonstrations**, not bank requests or server-sealed records.
+Public research calls selected external APIs and depends on network access.
+No private customer/order fixtures or neural model keys are bundled.
+
+Download the source and double-click **Run Browser Demo.cmd** on Windows, or run
+`python scripts/serve_browser.py` on any supported PC. Python 3.11+ is required;
+this browser launcher needs no pip packages. See [browser delivery](docs/GITHUB-PAGES.md).
+The full Python edition remains available for server sessions, private fixture
+order verification, sealed sandbox receipts and an optional local model.
 
 [![Checks](https://github.com/7dsol3/konaet-music/actions/workflows/checks.yml/badge.svg)](https://github.com/7dsol3/konaet-music/actions/workflows/checks.yml)
 
@@ -32,7 +41,7 @@ case data. No real purchase, stock reservation, refund or charge is executed.
 schematic, routed PCB, STEP/GLB, BOM and review Gerbers. Zero ERC/DRC/parity
 violations; external FPGA required, physical bring-up not performed.
 
-[![H-01 reference waveform and exact PCM metrics](docs/graphics/audio-core-trace.gif)](https://emily-catalyst-joint-james.trycloudflare.com/sound-lab)
+[![H-01 reference waveform and exact PCM metrics](docs/graphics/audio-core-trace.gif)](https://7dsol3.github.io/konaet-music/sound-lab/)
 
 *Exported integer reference trace. Live analysis is in the Sound Lab; this animation
 is not physical-device telemetry.*
@@ -83,6 +92,8 @@ py -3.12 -m venv .venv
 ```
 
 Open **http://127.0.0.1:8000**. Alternatively, double-click **Run Offline.cmd**.
+For the standalone browser edition instead, use **Run Browser Demo.cmd**; it
+starts at **http://127.0.0.1:8040** and keeps working while that window is open.
 The default agent uses explicit local rules and the same authoritative tools.
 It is a deterministic router, not a neural language model.
 

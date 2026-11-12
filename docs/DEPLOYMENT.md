@@ -1,8 +1,12 @@
 # Deployment and admission boundaries
 
-The source is public on GitHub; the complete application needs a Python host.
-GitHub Pages cannot run this API, session store or local neural engine. It hosts
-the entrance at `https://7dsol3.github.io/konaet-music/`.
+The standalone browser demo is hosted directly on GitHub Pages at
+`https://7dsol3.github.io/konaet-music/`, including `/sound-lab/`. It has no Python
+origin or tunnel dependency. The build and its different checkout trust boundary
+are documented in [GITHUB-PAGES.md](GITHUB-PAGES.md).
+
+The full server application needs a Python host. GitHub Pages does not execute
+the Python API, private session store or optional neural inference engine.
 The included Render blueprint is an optional demo deployment recipe, not an
 active production deployment. Its ephemeral storage is unsuitable for real orders.
 
@@ -32,9 +36,9 @@ across replicas. A production distributed service requires appropriate shared
 coordination, storage and infrastructure verification. No DNS, WAF, TLS, cloud
 account or edge configuration was created by the source-only tests.
 
-## Public preview used for 2.1
+## Historical temporary preview used for 2.1 and 2.2
 
-The current linked preview uses an accountless `trycloudflare.com` tunnel to a
+The former preview used an accountless `trycloudflare.com` tunnel to a
 Python process bound to loopback. Its public origin is set as `KONAET_PUBLIC_URL`
 before launch, so QR codes point to HTTPS rather than localhost. The tunnel,
 Python runtime and neural engine must remain running. The address is temporary;
