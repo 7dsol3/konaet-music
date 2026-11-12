@@ -2,16 +2,16 @@
 <export version="E">
   <design>
     <source>C:\Users\pc\Desktop\peojeto\konaet-music\hardware\h01-audio\konaet-h01.kicad_sch</source>
-    <date>2026-11-11T21:44:57</date>
+    <date>2026-11-11T21:50:13</date>
     <tool>Eeschema 10.0.8</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
-        <title/>
-        <company/>
-        <rev/>
-        <date/>
+        <title>KONAET H-01A audio carrier</title>
+        <company>KONAET</company>
+        <rev>A - review prototype</rev>
+        <date>2026-11-11</date>
         <source>konaet-h01.kicad_sch</source>
-        <comment number="1" value=""/>
+        <comment number="1" value="External 3.3V FPGA required; physical tests pending"/>
         <comment number="2" value=""/>
         <comment number="3" value=""/>
         <comment number="4" value=""/>

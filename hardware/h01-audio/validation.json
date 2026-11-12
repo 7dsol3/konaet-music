@@ -23,7 +23,7 @@
   "hash_encoding": "UTF-8 source/STEP with LF newlines",
   "sha256": {
     "hardware/h01-audio/konaet-h01.kicad_pro": "3bdd8e1cdbd108113d795a91c9226f998eb0ef3609dbcc41b5ff82b15d54def1",
-    "hardware/h01-audio/konaet-h01.kicad_sch": "32a40759cf50bcce5d1aa20664b7007fc773c563cc80ddf187f38f7a8b8099d2",
+    "hardware/h01-audio/konaet-h01.kicad_sch": "b90e0f5d60aa2d914a77556dd8def861959262237e1737062ab2c7384dd1a4ef",
     "hardware/h01-audio/konaet-h01.kicad_pcb": "d914b51e12e529348ead45eb0f0d8647e293afbe7738eb2cee1a7db4b81a6b46",
     "hardware/h01-audio/H01.kicad_sym": "43e6568e6ff2e2383862c1639bf8afd99d3ee0eec95f14974c52e46ced85f140",
     "hardware/h01-audio/fp-lib-table": "9c1b9588aab135920df8bc966abdfb4c4f9d8d01dbf3bfcd782c8b2d35070218",
