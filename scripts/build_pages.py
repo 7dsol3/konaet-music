@@ -88,7 +88,7 @@ def build(out: Path, base="/konaet-music/"):
     for icon in manifest["icons"]:icon["src"]=base+"static/"+Path(icon["src"]).name
     (static / "app.webmanifest").write_text(json.dumps(manifest,indent=2),encoding="utf-8")
     (out/'.nojekyll').touch()
-    assets=sorted(p.relative_to(out).as_posix() for p in out.rglob('*') if p.is_file() and p.name not in {'service-worker.js','pages-build.json'})
+    assets=sorted(p.relative_to(out).as_posix() for p in out.rglob('*') if p.is_file() and not p.name.startswith('.') and p.name not in {'service-worker.js','pages-build.json'})
     hashes={name:hashlib.sha256((out/name).read_bytes()).hexdigest() for name in assets}
     revision=hashlib.sha256(json.dumps(hashes,sort_keys=True).encode()).hexdigest()[:16]
     worker='''"use strict";
