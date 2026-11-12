@@ -12,3 +12,10 @@ output/
 node_modules/
 artifacts/
 .openai/
+en/freerouting.log
+hardware/**/erc-initial.json
+hardware/**/drc-initial.json
+hardware/**/*.dsn
+hardware/**/*.ses
+hardware/**/*.kicad_prl
+hardware/**/*-backups/

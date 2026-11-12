@@ -1,0 +1,1650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>C:\Users\pc\Desktop\peojeto\konaet-music\hardware\h01-audio\konaet-h01.kicad_sch</source>
+    <date>2026-11-11T21:44:57</date>
+    <tool>Eeschema 10.0.8</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>konaet-h01.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>2.2uF / 16V X7R</value>
+      <footprint>H01:C1</footprint>
+      <fields>
+        <field name="MPN">2.2uF / 16V X7R</field>
+        <field name="Footprint">H01:C1</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C1" description=""/>
+      <property name="MPN" value="2.2uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8426ce65-5636-5605-9893-62328c4b8c15</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C2">
+      <value>2.2uF / 16V X7R</value>
+      <footprint>H01:C2</footprint>
+      <fields>
+        <field name="MPN">2.2uF / 16V X7R</field>
+        <field name="Footprint">H01:C2</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C2" description=""/>
+      <property name="MPN" value="2.2uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d0ccb24f-6978-5ae2-9e6b-4706c5be271e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C3">
+      <value>10uF / 16V X7R</value>
+      <footprint>H01:C3</footprint>
+      <fields>
+        <field name="MPN">10uF / 16V X7R</field>
+        <field name="Footprint">H01:C3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C3" description=""/>
+      <property name="MPN" value="10uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2a883385-bc9a-59b3-8142-a5a4058e134c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C4">
+      <value>100nF / 16V X7R</value>
+      <footprint>H01:C4</footprint>
+      <fields>
+        <field name="MPN">100nF / 16V X7R</field>
+        <field name="Footprint">H01:C4</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C4" description=""/>
+      <property name="MPN" value="100nF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>49c9bee4-080f-5fc5-8c60-ac1fb6db9583</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C5">
+      <value>2.2uF / 16V X7R</value>
+      <footprint>H01:C5</footprint>
+      <fields>
+        <field name="MPN">2.2uF / 16V X7R</field>
+        <field name="Footprint">H01:C5</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C5" description=""/>
+      <property name="MPN" value="2.2uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8a0ad8ef-ce2c-59ea-90e0-9fffbb7e795e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C6">
+      <value>2.2uF / 16V X7R</value>
+      <footprint>H01:C6</footprint>
+      <fields>
+        <field name="MPN">2.2uF / 16V X7R</field>
+        <field name="Footprint">H01:C6</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C6" description=""/>
+      <property name="MPN" value="2.2uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9dd26ea0-476e-5f02-a178-9db9098ac553</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C7">
+      <value>100nF / 16V X7R</value>
+      <footprint>H01:C7</footprint>
+      <fields>
+        <field name="MPN">100nF / 16V X7R</field>
+        <field name="Footprint">H01:C7</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C7" description=""/>
+      <property name="MPN" value="100nF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>788ce843-b521-5c0e-aa2d-82f7e75e593b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C8">
+      <value>10uF / 16V X7R</value>
+      <footprint>H01:C8</footprint>
+      <fields>
+        <field name="MPN">10uF / 16V X7R</field>
+        <field name="Footprint">H01:C8</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C8" description=""/>
+      <property name="MPN" value="10uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>80d393c4-3e38-5878-a112-9ff20fbf2de6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C9">
+      <value>100nF / 16V X7R</value>
+      <footprint>H01:C9</footprint>
+      <fields>
+        <field name="MPN">100nF / 16V X7R</field>
+        <field name="Footprint">H01:C9</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C9" description=""/>
+      <property name="MPN" value="100nF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8ad6967a-a6b0-5a81-bd9f-94e649fd6dbd</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C10">
+      <value>10uF / 16V X7R</value>
+      <footprint>H01:C10</footprint>
+      <fields>
+        <field name="MPN">10uF / 16V X7R</field>
+        <field name="Footprint">H01:C10</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C10" description=""/>
+      <property name="MPN" value="10uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ce1b76cd-4c6c-500b-b5f8-ebd57fcfa305</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C11">
+      <value>100nF / 16V X7R</value>
+      <footprint>H01:C11</footprint>
+      <fields>
+        <field name="MPN">100nF / 16V X7R</field>
+        <field name="Footprint">H01:C11</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C11" description=""/>
+      <property name="MPN" value="100nF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3641b9c3-b441-5712-870d-242a2155458e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C12">
+      <value>10uF / 16V X7R</value>
+      <footprint>H01:C12</footprint>
+      <fields>
+        <field name="MPN">10uF / 16V X7R</field>
+        <field name="Footprint">H01:C12</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C12" description=""/>
+      <property name="MPN" value="10uF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d33a1802-9cc9-59f6-a9b3-b643b2e464e3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C13">
+      <value>100nF / 16V X7R</value>
+      <footprint>H01:C13</footprint>
+      <fields>
+        <field name="MPN">100nF / 16V X7R</field>
+        <field name="Footprint">H01:C13</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C13" description=""/>
+      <property name="MPN" value="100nF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7731410a-44e1-57f1-b752-ce2abbf3bce6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C14">
+      <value>2.2nF / 50V C0G</value>
+      <footprint>H01:C14</footprint>
+      <fields>
+        <field name="MPN">2.2nF / 50V C0G</field>
+        <field name="Footprint">H01:C14</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C14" description=""/>
+      <property name="MPN" value="2.2nF / 50V C0G"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dfc1361e-74c6-59f3-81df-9088f001689f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C15">
+      <value>2.2nF / 50V C0G</value>
+      <footprint>H01:C15</footprint>
+      <fields>
+        <field name="MPN">2.2nF / 50V C0G</field>
+        <field name="Footprint">H01:C15</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C15" description=""/>
+      <property name="MPN" value="2.2nF / 50V C0G"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6557edc5-5b35-5ead-a5e1-1a1196c0ace6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C16">
+      <value>100nF / 16V X7R</value>
+      <footprint>H01:C16</footprint>
+      <fields>
+        <field name="MPN">100nF / 16V X7R</field>
+        <field name="Footprint">H01:C16</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="C16" description=""/>
+      <property name="MPN" value="100nF / 16V X7R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>473f1593-292c-50f0-a6ed-c5341332cd0c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D1">
+      <value>SS14 / reverse polarity</value>
+      <footprint>H01:D1</footprint>
+      <datasheet>https://www.vishay.com/docs/88746/ss12.pdf</datasheet>
+      <fields>
+        <field name="MPN">SS14</field>
+        <field name="Footprint">H01:D1</field>
+        <field name="Datasheet">https://www.vishay.com/docs/88746/ss12.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="D1" description=""/>
+      <property name="MPN" value="SS14"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e1dbfe10-88d3-51a6-be24-c33fe12f4839</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D2">
+      <value>GREEN / power</value>
+      <footprint>H01:D2</footprint>
+      <fields>
+        <field name="MPN">0805 green LED</field>
+        <field name="Footprint">H01:D2</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="D2" description=""/>
+      <property name="MPN" value="0805 green LED"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>53f86261-7f4f-58ef-9424-2784e8323c93</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H1">
+      <value>M3 / NPTH</value>
+      <footprint>H01:H1</footprint>
+      <fields>
+        <field name="MPN">M3 / NPTH</field>
+        <field name="Footprint">H01:H1</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="H1" description=""/>
+      <property name="MPN" value="M3 / NPTH"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>984e1b50-fb52-5e8c-8af7-bd3d2d116970</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H2">
+      <value>M3 / NPTH</value>
+      <footprint>H01:H2</footprint>
+      <fields>
+        <field name="MPN">M3 / NPTH</field>
+        <field name="Footprint">H01:H2</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="H2" description=""/>
+      <property name="MPN" value="M3 / NPTH"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>430d22fa-3192-5ac7-98bf-7e35361c732f</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H3">
+      <value>M3 / NPTH</value>
+      <footprint>H01:H3</footprint>
+      <fields>
+        <field name="MPN">M3 / NPTH</field>
+        <field name="Footprint">H01:H3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="H3" description=""/>
+      <property name="MPN" value="M3 / NPTH"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>60bfbf69-384a-5bde-8064-bfe721e3d293</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="H4">
+      <value>M3 / NPTH</value>
+      <footprint>H01:H4</footprint>
+      <fields>
+        <field name="MPN">M3 / NPTH</field>
+        <field name="Footprint">H01:H4</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="H4" description=""/>
+      <property name="MPN" value="M3 / NPTH"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>02ecc303-9fca-505b-89d2-9d25802b5c70</tstamps>
+      <units>
+        <unit name="A">
+          <pins/>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J1">
+      <value>5V IN / 5.25V MAX</value>
+      <footprint>H01:J1</footprint>
+      <datasheet>https://www.jst-mfg.com/product/pdf/eng/eXH.pdf</datasheet>
+      <fields>
+        <field name="MPN">B2B-XH-A(LF)(SN)</field>
+        <field name="Footprint">H01:J1</field>
+        <field name="Datasheet">https://www.jst-mfg.com/product/pdf/eng/eXH.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="J1" description=""/>
+      <property name="MPN" value="B2B-XH-A(LF)(SN)"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1864cced-e3d2-526e-828d-e81af8355137</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J2">
+      <value>FPGA 3V3 IO / NOT PMOD</value>
+      <footprint>H01:J2</footprint>
+      <fields>
+        <field name="MPN">2x6 2.54mm header</field>
+        <field name="Footprint">H01:J2</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="J2" description=""/>
+      <property name="MPN" value="2x6 2.54mm header"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>995e38f1-c0ab-5520-9fec-21829599eab5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J3">
+      <value>MIC I2S / LEFT / 3V3</value>
+      <footprint>H01:J3</footprint>
+      <fields>
+        <field name="MPN">1x6 2.54mm header</field>
+        <field name="Footprint">H01:J3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="J3" description=""/>
+      <property name="MPN" value="1x6 2.54mm header"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a08136ae-0e99-5ff2-aba4-6e0e47327412</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J4">
+      <value>LINE OUT / NOT SPEAKER</value>
+      <footprint>H01:J4</footprint>
+      <fields>
+        <field name="MPN">1x3 2.54mm header</field>
+        <field name="Footprint">H01:J4</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="J4" description=""/>
+      <property name="MPN" value="1x3 2.54mm header"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>270b9af8-758e-5a0f-9116-692bc15f6ac6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R1">
+      <value>33R</value>
+      <footprint>H01:R1</footprint>
+      <fields>
+        <field name="MPN">33R</field>
+        <field name="Footprint">H01:R1</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R1" description=""/>
+      <property name="MPN" value="33R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1f45ed92-97a0-5bc3-805c-4b6bc40c7ba6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R2">
+      <value>33R</value>
+      <footprint>H01:R2</footprint>
+      <fields>
+        <field name="MPN">33R</field>
+        <field name="Footprint">H01:R2</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R2" description=""/>
+      <property name="MPN" value="33R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f3250b82-5773-51fe-88da-696b7d7826f0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R3">
+      <value>33R</value>
+      <footprint>H01:R3</footprint>
+      <fields>
+        <field name="MPN">33R</field>
+        <field name="Footprint">H01:R3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R3" description=""/>
+      <property name="MPN" value="33R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>566d3539-7270-5566-ab50-6715ed0e203f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R4">
+      <value>33R</value>
+      <footprint>H01:R4</footprint>
+      <fields>
+        <field name="MPN">33R</field>
+        <field name="Footprint">H01:R4</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R4" description=""/>
+      <property name="MPN" value="33R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>866063f7-3de2-5fd5-8312-7da3e72e453b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R5">
+      <value>100k</value>
+      <footprint>H01:R5</footprint>
+      <fields>
+        <field name="MPN">100k</field>
+        <field name="Footprint">H01:R5</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R5" description=""/>
+      <property name="MPN" value="100k"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f129c90b-0606-5e49-905e-3cd096c4751a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R6">
+      <value>100k</value>
+      <footprint>H01:R6</footprint>
+      <fields>
+        <field name="MPN">100k</field>
+        <field name="Footprint">H01:R6</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R6" description=""/>
+      <property name="MPN" value="100k"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>304954a0-abce-5eef-a6d6-fbfc53f2a1f2</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R7">
+      <value>470R</value>
+      <footprint>H01:R7</footprint>
+      <fields>
+        <field name="MPN">470R</field>
+        <field name="Footprint">H01:R7</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R7" description=""/>
+      <property name="MPN" value="470R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>468b0071-b1f5-5d9b-bacd-c12e31b8dc47</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R8">
+      <value>470R</value>
+      <footprint>H01:R8</footprint>
+      <fields>
+        <field name="MPN">470R</field>
+        <field name="Footprint">H01:R8</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R8" description=""/>
+      <property name="MPN" value="470R"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>285f2303-ba33-53a0-8c3e-87b0948a693a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R9">
+      <value>2.2k</value>
+      <footprint>H01:R9</footprint>
+      <fields>
+        <field name="MPN">2.2k</field>
+        <field name="Footprint">H01:R9</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="R9" description=""/>
+      <property name="MPN" value="2.2k"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>037a15c9-86e2-5e0c-ab18-f248f6891577</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U1">
+      <value>TLV75533PDBVR</value>
+      <footprint>H01:U1</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/tlv755p.pdf</datasheet>
+      <fields>
+        <field name="MPN">TLV75533PDBVR</field>
+        <field name="Footprint">H01:U1</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/tlv755p.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="U1" description=""/>
+      <property name="MPN" value="TLV75533PDBVR"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5a04f688-abe1-563c-8ddc-f9233468d7fd</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U2">
+      <value>PCM5102APWR</value>
+      <footprint>H01:U2</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/pcm5102a.pdf</datasheet>
+      <fields>
+        <field name="MPN">PCM5102APWR</field>
+        <field name="Footprint">H01:U2</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/pcm5102a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="U2" description=""/>
+      <property name="MPN" value="PCM5102APWR"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>aede5b78-5a81-5850-99de-e85f05927c3f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+            <pin num="16"/>
+            <pin num="17"/>
+            <pin num="18"/>
+            <pin num="19"/>
+            <pin num="20"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="Y1">
+      <value>12.288MHz / 3V3</value>
+      <footprint>H01:Y1</footprint>
+      <datasheet>https://abracon.com/Oscillators/ASEseries.pdf</datasheet>
+      <fields>
+        <field name="MPN">ASE-12.288MHZ-L-C-T</field>
+        <field name="Footprint">H01:Y1</field>
+        <field name="Datasheet">https://abracon.com/Oscillators/ASEseries.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="H01" part="Y1" description=""/>
+      <property name="MPN" value="ASE-12.288MHZ-L-C-T"/>
+      <property name="Sheetname" value="konaet-h01"/>
+      <property name="Sheetfile" value="konaet-h01.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5a3e9b36-25ef-5d31-94f7-a367196809fb</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="H01" part="C1">
+      <fields>
+        <field name="Reference">C1</field>
+        <field name="Value">2.2uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C10">
+      <fields>
+        <field name="Reference">C10</field>
+        <field name="Value">10uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C11">
+      <fields>
+        <field name="Reference">C11</field>
+        <field name="Value">100nF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C12">
+      <fields>
+        <field name="Reference">C12</field>
+        <field name="Value">10uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C13">
+      <fields>
+        <field name="Reference">C13</field>
+        <field name="Value">100nF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C14">
+      <fields>
+        <field name="Reference">C14</field>
+        <field name="Value">2.2nF / 50V C0G</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C15">
+      <fields>
+        <field name="Reference">C15</field>
+        <field name="Value">2.2nF / 50V C0G</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C16">
+      <fields>
+        <field name="Reference">C16</field>
+        <field name="Value">100nF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C2">
+      <fields>
+        <field name="Reference">C2</field>
+        <field name="Value">2.2uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C3">
+      <fields>
+        <field name="Reference">C3</field>
+        <field name="Value">10uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C4">
+      <fields>
+        <field name="Reference">C4</field>
+        <field name="Value">100nF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C5">
+      <fields>
+        <field name="Reference">C5</field>
+        <field name="Value">2.2uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C6">
+      <fields>
+        <field name="Reference">C6</field>
+        <field name="Value">2.2uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C7">
+      <fields>
+        <field name="Reference">C7</field>
+        <field name="Value">100nF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C8">
+      <fields>
+        <field name="Reference">C8</field>
+        <field name="Value">10uF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="C9">
+      <fields>
+        <field name="Reference">C9</field>
+        <field name="Value">100nF / 16V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="D1">
+      <fields>
+        <field name="Reference">D1</field>
+        <field name="Value">SS14 / reverse polarity</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="D2">
+      <fields>
+        <field name="Reference">D2</field>
+        <field name="Value">GREEN / power</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="H1">
+      <fields>
+        <field name="Reference">H1</field>
+        <field name="Value">M3 / NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="H01" part="H2">
+      <fields>
+        <field name="Reference">H2</field>
+        <field name="Value">M3 / NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="H01" part="H3">
+      <fields>
+        <field name="Reference">H3</field>
+        <field name="Value">M3 / NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="H01" part="H4">
+      <fields>
+        <field name="Reference">H4</field>
+        <field name="Value">M3 / NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="H01" part="J1">
+      <fields>
+        <field name="Reference">J1</field>
+        <field name="Value">5V IN / 5.25V MAX</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="J2">
+      <fields>
+        <field name="Reference">J2</field>
+        <field name="Value">FPGA 3V3 IO / NOT PMOD</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="CLK_to_FPGA" type="input"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="BCLK_from_FPGA" type="output"/>
+        <pin num="4" name="4" type="passive"/>
+        <pin num="5" name="WS_from_FPGA" type="output"/>
+        <pin num="6" name="6" type="passive"/>
+        <pin num="7" name="DATA_from_FPGA" type="output"/>
+        <pin num="8" name="8" type="passive"/>
+        <pin num="9" name="MIC_to_FPGA" type="input"/>
+        <pin num="10" name="10" type="passive"/>
+        <pin num="11" name="UNMUTE_from_FPGA" type="output"/>
+        <pin num="12" name="12" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="J3">
+      <fields>
+        <field name="Reference">J3</field>
+        <field name="Value">MIC I2S / LEFT / 3V3</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="3V3_OUT" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="SCK" type="passive"/>
+        <pin num="4" name="WS" type="passive"/>
+        <pin num="5" name="SD" type="output"/>
+        <pin num="6" name="LR_LOW" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="J4">
+      <fields>
+        <field name="Reference">J4</field>
+        <field name="Value">LINE OUT / NOT SPEAKER</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="LEFT" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="RIGHT" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R1">
+      <fields>
+        <field name="Reference">R1</field>
+        <field name="Value">33R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R2">
+      <fields>
+        <field name="Reference">R2</field>
+        <field name="Value">33R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R3">
+      <fields>
+        <field name="Reference">R3</field>
+        <field name="Value">33R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R4">
+      <fields>
+        <field name="Reference">R4</field>
+        <field name="Value">33R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R5">
+      <fields>
+        <field name="Reference">R5</field>
+        <field name="Value">100k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R6">
+      <fields>
+        <field name="Reference">R6</field>
+        <field name="Value">100k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R7">
+      <fields>
+        <field name="Reference">R7</field>
+        <field name="Value">470R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R8">
+      <fields>
+        <field name="Reference">R8</field>
+        <field name="Value">470R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="R9">
+      <fields>
+        <field name="Reference">R9</field>
+        <field name="Value">2.2k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="U1">
+      <fields>
+        <field name="Reference">U1</field>
+        <field name="Value">TLV75533PDBVR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="EN" type="input"/>
+        <pin num="4" name="NC" type="no_connect"/>
+        <pin num="5" name="OUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="U2">
+      <fields>
+        <field name="Reference">U2</field>
+        <field name="Value">PCM5102APWR</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="CPVDD" type="power_in"/>
+        <pin num="2" name="CAPP" type="output"/>
+        <pin num="3" name="CPGND" type="power_in"/>
+        <pin num="4" name="CAPM" type="output"/>
+        <pin num="5" name="VNEG" type="output"/>
+        <pin num="6" name="OUTL" type="output"/>
+        <pin num="7" name="OUTR" type="output"/>
+        <pin num="8" name="AVDD" type="power_in"/>
+        <pin num="9" name="AGND" type="power_in"/>
+        <pin num="10" name="DEMP" type="input"/>
+        <pin num="11" name="FLT" type="input"/>
+        <pin num="12" name="SCK" type="input"/>
+        <pin num="13" name="BCK" type="input"/>
+        <pin num="14" name="DIN" type="input"/>
+        <pin num="15" name="LRCK" type="input"/>
+        <pin num="16" name="FMT" type="input"/>
+        <pin num="17" name="XSMT" type="input"/>
+        <pin num="18" name="LDOO" type="output"/>
+        <pin num="19" name="DGND" type="power_in"/>
+        <pin num="20" name="DVDD" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="H01" part="Y1">
+      <fields>
+        <field name="Reference">Y1</field>
+        <field name="Value">12.288MHz / 3V3</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="EN" type="input"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="OUT" type="output"/>
+        <pin num="4" name="VDD" type="power_in"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="H01">
+      <uri>${KIPRJMOD}/H01.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="+3V3" class="Default">
+      <node ref="C10" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C11" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C12" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C16" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C3" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C4" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C7" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C8" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C9" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="J3" pin="1" pinfunction="3V3_OUT_1" pintype="passive"/>
+      <node ref="R9" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U1" pin="5" pinfunction="OUT_5" pintype="power_out"/>
+      <node ref="U2" pin="1" pinfunction="CPVDD_1" pintype="power_in"/>
+      <node ref="U2" pin="20" pinfunction="DVDD_20" pintype="power_in"/>
+      <node ref="U2" pin="8" pinfunction="AVDD_8" pintype="power_in"/>
+      <node ref="Y1" pin="1" pinfunction="EN_1" pintype="input"/>
+      <node ref="Y1" pin="4" pinfunction="VDD_4" pintype="power_in"/>
+    </net>
+    <net code="2" name="5V_IN" class="Default">
+      <node ref="D1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="J1" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="3" name="5V_PROTECTED" class="Default">
+      <node ref="C1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="IN_1" pintype="power_in"/>
+      <node ref="U1" pin="3" pinfunction="EN_3" pintype="input"/>
+    </net>
+    <net code="4" name="ADC_SD" class="Default">
+      <node ref="J2" pin="9" pinfunction="MIC_to_FPGA_9" pintype="input"/>
+      <node ref="J3" pin="5" pinfunction="SD_5" pintype="output"/>
+      <node ref="R5" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="5" name="BCLK" class="Default">
+      <node ref="J3" pin="3" pinfunction="SCK_3" pintype="passive"/>
+      <node ref="R2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U2" pin="13" pinfunction="BCK_13" pintype="input"/>
+    </net>
+    <net code="6" name="CAPM" class="Default">
+      <node ref="C5" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="CAPM_4" pintype="output"/>
+    </net>
+    <net code="7" name="CAPP" class="Default">
+      <node ref="C5" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="2" pinfunction="CAPP_2" pintype="output"/>
+    </net>
+    <net code="8" name="CLK_RAW" class="Default">
+      <node ref="R1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="Y1" pin="3" pinfunction="OUT_3" pintype="output"/>
+    </net>
+    <net code="9" name="DAC_L" class="Default">
+      <node ref="R7" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="OUTL_6" pintype="output"/>
+    </net>
+    <net code="10" name="DAC_R" class="Default">
+      <node ref="R8" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="7" pinfunction="OUTR_7" pintype="output"/>
+    </net>
+    <net code="11" name="DAC_SD" class="Default">
+      <node ref="R4" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U2" pin="14" pinfunction="DIN_14" pintype="input"/>
+    </net>
+    <net code="12" name="DAC_UNMUTE" class="Default">
+      <node ref="J2" pin="11" pinfunction="UNMUTE_from_FPGA_11" pintype="output"/>
+      <node ref="R6" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="17" pinfunction="XSMT_17" pintype="input"/>
+    </net>
+    <net code="13" name="GND" class="Default">
+      <node ref="C1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C10" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C11" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C12" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C13" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C14" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C15" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C16" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C3" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C4" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C6" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C7" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C8" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C9" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="D2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="J1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="J2" pin="10" pinfunction="10_10" pintype="passive"/>
+      <node ref="J2" pin="12" pinfunction="12_12" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="J2" pin="4" pinfunction="4_4" pintype="passive"/>
+      <node ref="J2" pin="6" pinfunction="6_6" pintype="passive"/>
+      <node ref="J2" pin="8" pinfunction="8_8" pintype="passive"/>
+      <node ref="J3" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="J3" pin="6" pinfunction="LR_LOW_6" pintype="passive"/>
+      <node ref="J4" pin="2" pinfunction="GND_2" pintype="passive"/>
+      <node ref="R5" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R6" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U2" pin="10" pinfunction="DEMP_10" pintype="input"/>
+      <node ref="U2" pin="11" pinfunction="FLT_11" pintype="input"/>
+      <node ref="U2" pin="12" pinfunction="SCK_12" pintype="input"/>
+      <node ref="U2" pin="16" pinfunction="FMT_16" pintype="input"/>
+      <node ref="U2" pin="19" pinfunction="DGND_19" pintype="power_in"/>
+      <node ref="U2" pin="3" pinfunction="CPGND_3" pintype="power_in"/>
+      <node ref="U2" pin="9" pinfunction="AGND_9" pintype="power_in"/>
+      <node ref="Y1" pin="2" pinfunction="GND_2" pintype="power_in"/>
+    </net>
+    <net code="14" name="HOST_BCLK" class="Default">
+      <node ref="J2" pin="3" pinfunction="BCLK_from_FPGA_3" pintype="output"/>
+      <node ref="R2" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="15" name="HOST_DAC_SD" class="Default">
+      <node ref="J2" pin="7" pinfunction="DATA_from_FPGA_7" pintype="output"/>
+      <node ref="R4" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="16" name="HOST_LRCLK" class="Default">
+      <node ref="J2" pin="5" pinfunction="WS_from_FPGA_5" pintype="output"/>
+      <node ref="R3" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="17" name="LDOO" class="Default">
+      <node ref="C13" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="18" pinfunction="LDOO_18" pintype="output"/>
+    </net>
+    <net code="18" name="LED_A" class="Default">
+      <node ref="D2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R9" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="19" name="LINE_L" class="Default">
+      <node ref="C14" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="J4" pin="1" pinfunction="LEFT_1" pintype="passive"/>
+      <node ref="R7" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="20" name="LINE_R" class="Default">
+      <node ref="C15" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="J4" pin="3" pinfunction="RIGHT_3" pintype="passive"/>
+      <node ref="R8" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="21" name="LRCLK" class="Default">
+      <node ref="J3" pin="4" pinfunction="WS_4" pintype="passive"/>
+      <node ref="R3" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U2" pin="15" pinfunction="LRCK_15" pintype="input"/>
+    </net>
+    <net code="22" name="MCLK" class="Default">
+      <node ref="J2" pin="1" pinfunction="CLK_to_FPGA_1" pintype="input"/>
+      <node ref="R1" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="23" name="VNEG" class="Default">
+      <node ref="C6" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="5" pinfunction="VNEG_5" pintype="output"/>
+    </net>
+    <net code="24" name="unconnected-(U1-NC-Pad4)" class="Default">
+      <node ref="U1" pin="4" pinfunction="NC_4" pintype="no_connect"/>
+    </net>
+  </nets>
+</export>

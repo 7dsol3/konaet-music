@@ -1,5 +1,8 @@
 * text=auto eol=lf
 *.pdf binary
 *.png binary
+*.glb binary
+hardware/h01-audio/fabrication/* -text
+hardware/h01-audio/placement.csv -text
 *.cmd text eol=crlf
 data/* -text
