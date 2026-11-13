@@ -6,6 +6,7 @@ import { Window } from 'happy-dom';
 const html = fs.readFileSync(new URL('../../emporio/web/index.html', import.meta.url), 'utf8');
 const script = fs.readFileSync(new URL('../../emporio/web/app.js', import.meta.url), 'utf8');
 const workspaceScript = fs.readFileSync(new URL('../../emporio/web/workspace.js', import.meta.url), 'utf8');
+const shellScript = fs.readFileSync(new URL('../../emporio/web/studio-shell.js', import.meta.url), 'utf8');
 const first = { id:83, name:'Memphis AC-39', category_id:5, category:'Acoustic guitars', available:true, status:'active', stock:9,
   price_cents:65000, sale_cents:65000, discount_percent:0, specs:{strings:6,material:'Nylon'} };
 const second = {...first,id:85,name:'Tagima TW-25',price_cents:89000,sale_cents:89000};
@@ -55,10 +56,51 @@ async function environment({recognition=true, message='Two acoustic guitars meet
     else throw Error('Unexpected route: '+url);
     return {ok:true,json:async()=>structuredClone(data)};
   };
-  window.eval(script);window.eval(workspaceScript);await flush();
+  window.eval(script);window.eval(workspaceScript);window.eval(shellScript);await flush();
   return {window,document:window.document,requests,get chats(){return chats;},get speechStarts(){return speechStarts;},get recognition(){return recognitionInstance;},async close(){await window.happyDOM.close();}};
 }
 async function flush(){for(let i=0;i<6;i++)await new Promise(resolve=>setTimeout(resolve,5));}
+
+test('studio search returns from research to the filtered instrument shelf without contacting chat',async()=>{
+  const e=await environment();try{
+    e.document.querySelector('[data-desk-view-button="research"]').click();
+    assert.equal(e.document.body.dataset.deskView,'research');
+    assert.equal(e.document.activeElement.id,'workspace-query');
+    e.document.querySelector('#studio-query').value='Memphis';
+    e.document.querySelector('#studio-search').dispatchEvent(new e.window.Event('submit',{cancelable:true}));await flush();
+    assert.equal(e.document.body.dataset.deskView,'discover');
+    const query=new URLSearchParams(e.requests.filter(r=>r.path==='/api/shop').at(-1).query);
+    assert.equal(query.get('query'),'Memphis');assert.equal(e.chats,0);
+  }finally{await e.close();}
+});
+
+test('studio rail reaches existing wallet, guide and keyboard search; lighting follows its control',async()=>{
+  const e=await environment();try{
+    e.document.querySelector('[data-studio-target="wallet-open"]').click();await flush();
+    assert.equal(e.document.querySelector('#wallet-dialog').hasAttribute('open'),true);
+    e.document.querySelector('#wallet-dialog').close();
+    e.document.querySelector('[data-desk-view-button="guide"]').click();
+    assert.equal(e.document.body.dataset.deskView,'guide');
+    e.document.activeElement?.blur();
+    e.document.dispatchEvent(new e.window.KeyboardEvent('keydown',{key:'/',bubbles:true,cancelable:true}));
+    assert.equal(e.document.activeElement.id,'studio-query');
+    e.document.querySelector('#studio-light').click();
+    assert.equal(e.document.body.classList.contains('ambient'),true);
+    assert.equal(e.document.querySelector('#studio-light').getAttribute('aria-pressed'),'true');
+    e.document.querySelector('#studio-light').click();assert.equal(e.document.body.classList.contains('ambient'),false);
+  }finally{await e.close();}
+});
+
+test('voice research reveals the research desk while the instrument shelf is selected',async()=>{
+  const e=await environment();try{
+    e.document.querySelector('#assistant-scope').value='knowledge';
+    e.document.querySelector('#message-input').value='acoustic resonance';
+    e.document.querySelector('#chat-form').dispatchEvent(new e.window.Event('submit',{cancelable:true}));await flush();
+    assert.equal(e.document.body.dataset.deskView,'research');
+    assert.equal(e.document.querySelector('#research-panel').hidden,false);
+    assert.ok(e.requests.some(r=>r.path==='/api/research'));
+  }finally{await e.close();}
+});
 
 test('catalog renders checked prices and family illustrations with accessible controls',async()=>{
   const e=await environment();try{
