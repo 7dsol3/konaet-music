@@ -45,6 +45,9 @@ def build(out: Path, base="/konaet-music/"):
     def paths(text):
         return text.replace('"/static/', '"' + base + 'static/').replace("'/static/", "'" + base + "static/")
     for source in WEB.iterdir():
+        if source.suffix in {".webp", ".png"}:
+            shutil.copyfile(source, static / source.name)
+            continue
         if source.name!='service-worker.js' and source.suffix in {".css", ".js", ".mjs", ".svg"}:
             (static / source.name).write_text(paths(source.read_text(encoding="utf-8")), encoding="utf-8")
     for name in ("bootstrap.js", "browser-runtime.mjs"):

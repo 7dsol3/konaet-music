@@ -74,11 +74,15 @@ microphone board or DAC is connected to the server.
 [Methods and limits](docs/SOUND-LAB.md) · [Hardware interfaces and equations](docs/AUDIO-HARDWARE.md) ·
 [Production gates](docs/PRODUCTION-GATES.md) · [External-runtime comparison protocol](docs/RUNTIME-COMPARISON.md)
 
-The glass design uses CSS gradients, bounded translucency and small original
-SVG illustrations. No external fonts, animation framework, video background or
-per-frame rendering loop is loaded. Mobile layouts and reduced-motion and
-reduced-transparency preferences have dedicated styles. These are implemented
-features, not a claim of verified performance on every phone.
+The listening-room design uses a floating glass shell, a tool rail, catalog
+search and separate Discover, Research and Guide areas. The Sound Lab shares
+the material and typography. The room artwork is an original generated WebP
+of about 18 KB; no external fonts, animation framework, video background or
+per-frame rendering loop is loaded. Text assets are checked against a 50 KB
+gzip budget, with a separate 30 KB bitmap budget. Mobile layouts and
+reduced-motion and reduced-transparency preferences have dedicated styles.
+[Art direction and checks](docs/LISTENING-ROOM.md). Browser rendering across
+devices is not certified by the DOM tests.
 
 ## Run locally
 

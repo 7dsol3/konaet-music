@@ -13,7 +13,7 @@ from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "emporio" / "web"
-SOUND = {"sound-lab.html", "sound-lab.css", "sound-lab.mjs", "sound-dsp.mjs", "audio-core.svg"}
+SOUND = {"sound-lab.html", "sound-lab.css", "sound-glass.css", "sound-lab.mjs", "sound-dsp.mjs", "audio-core.svg"}
 
 class SourceParser(HTMLParser):
     def __init__(self):
@@ -39,7 +39,16 @@ def main():
     for target in re.findall(r'q\("#([a-z][a-z0-9-]*)"\)',workspace):
         assert target in parser.ids,target
     assert "innerHTML" not in workspace and "eval(" not in workspace
+    shell = (WEB / "studio-shell.js").read_text(encoding="utf-8")
+    for target in re.findall(r'q\("#([a-z][a-z0-9-]*)"\)', shell):
+        assert target in parser.ids, target
+    assert "innerHTML" not in shell and "eval(" not in shell
     for file in WEB.glob("*.svg"): ElementTree.parse(file)
+    for file in WEB.glob("*.css"):
+        for ref in re.findall(r'url\([\'"]?([^\'"\)]+)[\'"]?\)', file.read_text(encoding="utf-8")):
+            if ref.startswith(("data:", "https:", "#")): continue
+            target = ref.split("#")[0].split("?")[0]
+            assert (WEB / target.removeprefix("/static/")).is_file(), (file.name, target)
     sound_parser = SourceParser(); sound_parser.feed((WEB / "sound-lab.html").read_text(encoding="utf-8"))
     assert sound_parser.lang == "en" and sound_parser.inline_scripts == 0
     assert not [i for i,n in Counter(sound_parser.ids).items() if n > 1]
@@ -54,13 +63,17 @@ def main():
     assets = [p for p in WEB.iterdir() if p.suffix in {".html", ".js", ".mjs", ".css", ".svg", ".webmanifest"} and p.name not in {"api.html", "language.js"} | SOUND]
     raw = sum(p.stat().st_size for p in assets)
     compressed = sum(len(gzip.compress(p.read_bytes(), compresslevel=6, mtime=0)) for p in assets)
-    assert raw < 150_000, f"UI source budget exceeded: {raw}"
-    assert compressed < 45_000, f"UI compressed budget exceeded: {compressed}"
+    # The glass studio adds explicit view navigation and a small room image.
+    # Track the bitmap separately instead of hiding it in the text transfer budget.
+    raster = sum(p.stat().st_size for p in WEB.iterdir() if p.suffix in {".webp", ".png"})
+    assert raw < 170_000, f"UI source budget exceeded: {raw}"
+    assert compressed < 50_000, f"UI compressed budget exceeded: {compressed}"
+    assert raster < 30_000, f"UI raster budget exceeded: {raster}"
     lazy_raw = sum((WEB / name).stat().st_size for name in SOUND)
     lazy_gzip = sum(len(gzip.compress((WEB / name).read_bytes(), compresslevel=6, mtime=0)) for name in SOUND)
     assert lazy_raw < 70_000 and lazy_gzip < 22_000, "Sound Lab lazy budget exceeded"
     report = {"status": "PASS", "static_ids": len(parser.ids), "files": len(assets), "raw_bytes": raw,
-              "gzip_bytes": compressed, "external_font_requests": 0, "browser_layout_verified": False,
+              "gzip_bytes": compressed, "raster_bytes": raster, "external_font_requests": 0, "browser_layout_verified": False,
               "voice_hardware_verified": False, "sound_lab_lazy": {"files": len(SOUND), "raw_bytes": lazy_raw, "gzip_bytes": lazy_gzip},
               "scope": "Static references, SVG parsing and separate home / lazy Sound Lab source-byte budgets"}
     output = ROOT / "artifacts"; output.mkdir(exist_ok=True)

@@ -1,8 +1,9 @@
 "use strict";
 // Only the public UI shell is cached. Never cache API replies, chats,
 // verification data, manuals, checkout pages or codes. No offline writes queue.
-const CACHE = "konaet-music-shell-2.2.0";
+const CACHE = "konaet-music-shell-2.3.1-glass";
 const ASSETS = ["/", "/static/style.css", "/static/glass.css", "/static/workspace.css", "/static/workspace.js", "/static/app.js", "/static/mark.svg",
+  "/static/studio-shell.js", "/static/studio-room.webp",
   "/static/app-icon.svg", "/static/logic-map.svg", "/static/app.webmanifest", "/static/code-identity.svg", "/static/instrument-guitar.svg",
   "/static/instrument-electric.svg", "/static/instrument-keys.svg", "/static/instrument-drums.svg", "/static/instrument-wind.svg"];
 self.addEventListener("install", event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())); });
