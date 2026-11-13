@@ -19,11 +19,22 @@ generation tool. It contains no third-party movie artwork, logos or client
 portraits. `emporio/web/studio-room.webp` is the optimized publication asset;
 the design reference supplied by the user was not redistributed.
 
-Segoe UI/Arial provide the main interface type without downloading fonts.
-Large serif marketing headlines were replaced by short sans-serif headings.
-Supporting labels use a larger size and the search controls retain 16 px input
-text on mobile. These choices do not constitute a measured accessibility or
-performance certification.
+Manrope is bundled locally as one variable Latin WOFF2, with Segoe UI/Arial as
+fallbacks and `font-display: swap`. No font request goes to a third-party host.
+The shared `typography.css` owns the store and drawer scale; audio-only type
+stays in the lazy Sound Lab stylesheet. Legacy workspace rules no longer set
+competing text sizes. [Font source, hash and license](FONT-PROVENANCE.md).
+
+The main title is 38 px on a large display and 28–33 px at smaller breakpoints;
+body text is 14 px, navigation and filters 13 px, and assistant replies 15 px.
+Supporting text is generally 11–12 px, with 16 px text-entry controls on mobile.
+The light assistant drawer has a dark accent instead of inheriting the pale
+page accent. The voice mark is a bounded 19 px SVG mask, replacing unbounded
+Unicode bars. The hero is shorter so more of the catalog is visible.
+
+These choices do not constitute a measured accessibility or performance
+certification. A DOM/CSS diagnostic checks the 1920, 1280 and 390 px rules;
+it does not replace visual inspection in an actual browser.
 
 ## Validation
 
@@ -35,7 +46,8 @@ two orientations, matching the generated quote URL in all 18 checks.
 
 The source checker validates IDs, local HTML/CSS assets, SVG syntax and transfer
 budgets. The home text bundle has a 170 KB raw / 50 KB gzip limit, the room
-bitmap has a separate 30 KB limit, and audio assets remain lazy with their own
+bitmap has a separate 30 KB limit, the local font has a separate 30 KB limit,
+and audio assets remain lazy with their own
 70 KB raw / 22 KB gzip limits. The text limit was expanded with the explicit
 view navigation; the bitmap is accounted for separately.
 

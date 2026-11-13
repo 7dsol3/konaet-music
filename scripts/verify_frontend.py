@@ -66,6 +66,11 @@ def main():
     # The glass studio adds explicit view navigation and a small room image.
     # Track the bitmap separately instead of hiding it in the text transfer budget.
     raster = sum(p.stat().st_size for p in WEB.iterdir() if p.suffix in {".webp", ".png"})
+    fonts = list(WEB.glob("*.woff2"))
+    font_bytes = sum(p.stat().st_size for p in fonts)
+    assert font_bytes < 30_000, f"Local font budget exceeded: {font_bytes}"
+    assert all(p.read_bytes()[:4] == b"wOF2" for p in fonts), "Invalid WOFF2 font"
+    assert not fonts or "SIL OPEN FONT LICENSE" in (WEB / "FONT-LICENSE.txt").read_text(encoding="utf-8")
     assert raw < 170_000, f"UI source budget exceeded: {raw}"
     assert compressed < 50_000, f"UI compressed budget exceeded: {compressed}"
     assert raster < 30_000, f"UI raster budget exceeded: {raster}"
@@ -73,7 +78,7 @@ def main():
     lazy_gzip = sum(len(gzip.compress((WEB / name).read_bytes(), compresslevel=6, mtime=0)) for name in SOUND)
     assert lazy_raw < 70_000 and lazy_gzip < 22_000, "Sound Lab lazy budget exceeded"
     report = {"status": "PASS", "static_ids": len(parser.ids), "files": len(assets), "raw_bytes": raw,
-              "gzip_bytes": compressed, "raster_bytes": raster, "external_font_requests": 0, "browser_layout_verified": False,
+              "gzip_bytes": compressed, "raster_bytes": raster, "font_bytes": font_bytes, "external_font_requests": 0, "browser_layout_verified": False,
               "voice_hardware_verified": False, "sound_lab_lazy": {"files": len(SOUND), "raw_bytes": lazy_raw, "gzip_bytes": lazy_gzip},
               "scope": "Static references, SVG parsing and separate home / lazy Sound Lab source-byte budgets"}
     output = ROOT / "artifacts"; output.mkdir(exist_ok=True)

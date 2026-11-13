@@ -77,9 +77,10 @@ microphone board or DAC is connected to the server.
 The listening-room design uses a floating glass shell, a tool rail, catalog
 search and separate Discover, Research and Guide areas. The Sound Lab shares
 the material and typography. The room artwork is an original generated WebP
-of about 18 KB; no external fonts, animation framework, video background or
+of about 18 KB; no externally hosted fonts, animation framework, video background or
 per-frame rendering loop is loaded. Text assets are checked against a 50 KB
-gzip budget, with a separate 30 KB bitmap budget. Mobile layouts and
+gzip budget, with separate 30 KB bitmap and local-font budgets. Manrope is
+bundled under its [Open Font License](docs/FONT-PROVENANCE.md). Mobile layouts and
 reduced-motion and reduced-transparency preferences have dedicated styles.
 [Art direction and checks](docs/LISTENING-ROOM.md). Browser rendering across
 devices is not certified by the DOM tests.
