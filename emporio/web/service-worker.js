@@ -1,7 +1,7 @@
 "use strict";
 // Only the public UI shell is cached. Never cache API replies, chats,
 // verification data, manuals, checkout pages or codes. No offline writes queue.
-const CACHE = "konaet-music-shell-2.3.2-type";
+const CACHE = "konaet-music-shell-2.3.3-dock";
 const ASSETS = ["/", "/static/style.css", "/static/glass.css", "/static/workspace.css", "/static/workspace.js", "/static/app.js", "/static/mark.svg",
   "/static/studio-shell.js", "/static/studio-room.webp",
   "/static/typography.css", "/static/manrope-latin.woff2", "/static/waveform.svg",

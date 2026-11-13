@@ -12,6 +12,11 @@ wallet and logic lab. The header provides lighting and connection controls;
 lighting is stored only on the visitor's device. Voice and microphone capture
 remain opt-in. Product artwork depicts instrument families, not product photos.
 
+The desktop rail uses six uniform 44 px icon controls with 23 px SVG artwork.
+Full names appear beside the rail on hover or keyboard focus, instead of
+wrapping inside the narrow capsule. On mobile, the bottom rail uses short,
+single-line captions; the full accessible names remain on the controls.
+
 ## Materials and type
 
 The room photograph was generated for this project with the built-in image
