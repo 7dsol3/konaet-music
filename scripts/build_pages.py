@@ -45,7 +45,7 @@ def build(out: Path, base="/konaet-music/"):
     def paths(text):
         return text.replace('"/static/', '"' + base + 'static/').replace("'/static/", "'" + base + "static/")
     for source in WEB.iterdir():
-        if source.suffix in {".webp", ".png"}:
+        if source.suffix in {".webp", ".png", ".woff2"} or source.name == "FONT-LICENSE.txt":
             shutil.copyfile(source, static / source.name)
             continue
         if source.name!='service-worker.js' and source.suffix in {".css", ".js", ".mjs", ".svg"}:
