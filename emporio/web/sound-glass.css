@@ -1,4 +1,5 @@
 /* The audio workspace shares the listening room without loading the shop code. */
+.sound-shell :is(h1,h2,h3){font-family:'Segoe UI',Arial,sans-serif}.sound-shell :is(h1,h2,h3) em{font-style:normal;font-family:inherit}
 .sound-shell{--paper:#263738;--ink:#edf4eb;--muted:#c0d2c3;--line:#ffffff29;--lime:#d2e5b5;--dark:#18302a;background:#586b66;color:var(--ink)}
 .sound-room{position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(#10262b60,#10252bc2),url('studio-room.webp') center/cover no-repeat}
 .sound-shell header{background:#314644aa;border-color:#fff3;backdrop-filter:blur(18px);max-width:1400px;width:calc(100% - 60px);margin:25px auto 0;border:1px solid #fff4;border-radius:25px;padding:18px 25px;box-shadow:inset 0 1px #ffffff4a}

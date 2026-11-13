@@ -44,6 +44,7 @@
 @media(max-width:760px){.studio-shell .header-actions .voice-open{display:none}}
 
 /* Quiet headings and readable supporting text, including on small screens. */
+.studio-shell :is(h1,h2,h3){font-family:"Segoe UI",Arial,sans-serif;font-weight:450}.studio-shell :is(h1,h2,h3) em{font-family:inherit;font-style:normal}.studio-shell .message.user .message-text,.studio-shell .guide-dialog summary{font-family:"Segoe UI",Arial,sans-serif}
 .studio-dock{left:max(20px,calc((100vw - 1555px)/2))}.studio-dock small{font-size:9px}
 .studio-shell .main-nav button{font-size:12px}.studio-shell .hero .eyebrow{font-size:9px}.studio-shell .hero-description{font-size:12px}.studio-shell .hero-actions .button{font-size:11px}.studio-suggestion strong{font-size:12px}.studio-suggestion small{font-size:10px}.studio-shortlist>p{font-size:10px}.shortlist-heading .eyebrow{font-size:9px}.studio-shell .product-category{font-size:9px}.studio-shell .stock-label{font-size:10px}.studio-shell .section-heading .eyebrow{font-size:9px}
 @media(max-width:760px){.studio-dock{left:12px}.studio-dock small{font-size:8px}.studio-shell .hero-description{font-size:12px}.studio-suggestion strong{font-size:11px}.studio-suggestion small{font-size:9px}.shortlist-heading .eyebrow{font-size:8px}.studio-shell .product-category{font-size:8px}.studio-shell .stock-label{font-size:9px}.studio-shell .product-name{font-size:15px}.studio-shell .hero-actions .button{font-size:11px}.studio-shell .product-price-row{flex-wrap:wrap;justify-content:space-between}}
