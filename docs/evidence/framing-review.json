@@ -1,0 +1,67 @@
+{
+  "viewports": [
+    {
+      "width": 320,
+      "height": 900,
+      "overflow": 0,
+      "title_height": 63.25,
+      "status": "PASS"
+    },
+    {
+      "width": 390,
+      "height": 900,
+      "overflow": 0,
+      "title_height": 67.78125,
+      "status": "PASS"
+    },
+    {
+      "width": 768,
+      "height": 900,
+      "overflow": 0,
+      "title_height": 72.3125,
+      "status": "PASS"
+    },
+    {
+      "width": 1024,
+      "height": 900,
+      "overflow": 0,
+      "title_height": 74.5625,
+      "status": "PASS"
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "overflow": 0,
+      "title_height": 85.875,
+      "status": "PASS"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "overflow": 0,
+      "title_height": 85.875,
+      "status": "PASS"
+    },
+    {
+      "width": 1920,
+      "height": 900,
+      "overflow": 0,
+      "title_height": 85.875,
+      "status": "PASS"
+    }
+  ],
+  "browser": "157.0.8103.78",
+  "flows": [
+    "comparison",
+    "bag",
+    "checkout_preview",
+    "chord_synthesis_and_stop",
+    "settings_open",
+    "palette",
+    "opacity_persistence",
+    "restore_original",
+    "sound_lab_framing"
+  ],
+  "status": "PASS",
+  "scope": "Local standalone Chrome rendering and interaction checks; physical devices not tested."
+}

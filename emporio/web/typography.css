@@ -18,3 +18,52 @@
 @media (max-width:1000px){.studio-shell .hero{grid-template-columns:1fr}.studio-shell .hero-art{left:69%}.studio-shell .hero-copy{max-width:82%}.studio-shell .hero h1{font-size:32px}.studio-shell .hero-description{max-width:280px}.studio-shell .catalog-controls{flex-wrap:wrap}.studio-shell .search-field{flex:1 1 45%}}
 @media (max-width:760px){.studio-shell,.sound-shell{font-size:14px}.studio-shell .announcement,.studio-shell .demo-pill{font-size:10px}.studio-shell .announcement>span:first-child{max-width:155px}.studio-shell .brand{font-size:16px}.studio-shell .brand small{font-size:8px}.studio-shell .header-actions{gap:5px}.studio-shell .bag-button{font-size:12px}.studio-shell .install-app{display:none}.studio-search input{font-size:16px}.studio-shell .hero{min-height:260px;padding:24px 20px}.studio-shell .hero h1{font-size:30px;letter-spacing:-.04em}.studio-shell .hero .eyebrow{font-size:10px;letter-spacing:.08em}.studio-shell .hero-description{font-size:14px;max-width:250px}.studio-shell .hero-copy{max-width:86%}.studio-shell .hero-art{left:72%;opacity:.3}.studio-shell .hero-instrument{height:245px}.studio-shell .hero-actions .button{font-size:13px}.shortlist-heading{display:block}.shortlist-heading .eyebrow{font-size:10px;max-width:none}.shortlist-heading h2{font-size:21px;margin-top:8px}.studio-suggestion strong{font-size:12px}.studio-suggestion small{font-size:11px}.studio-shell .section-heading h2{font-size:24px}.studio-shell .section-heading .eyebrow{font-size:10px}.studio-shell .category-tabs button{font-size:13px;min-height:44px}.studio-shell .catalog-controls :is(input,select){font-size:16px}.studio-shell .budget-field,.studio-shell .available-filter{font-size:12px}.studio-shell .budget-field{max-width:190px}.studio-shell .budget-field input{max-width:100px}.studio-shell .sort-field select{max-width:160px}.studio-shell .filter-button{font-size:13px}.studio-shell .results-line{font-size:11px}.studio-shell .product-name{font-size:16px;line-height:1.4;min-height:48px}.studio-shell .product-category{font-size:10px;letter-spacing:0}.studio-shell .product-price{font-size:15px}.studio-shell .old-price{font-size:11px}.studio-shell .stock-label{font-size:11px}.studio-shell .product-badge{font-size:10px}.studio-shell .product-art{height:170px}.studio-shell .assistant-launcher{font-size:12px;bottom:calc(92px + env(safe-area-inset-bottom,0px))}.studio-shell .mission-main h2{font-size:31px}.studio-shell .mission-description{font-size:14px}.studio-shell .runtime-pill{font-size:11px}.studio-shell .mission-topline .eyebrow{font-size:10px}.studio-shell .mission-topline{flex-wrap:wrap}.studio-shell .mission-topline .eyebrow{max-width:none}.studio-shell .mission-composer select{font-size:16px}.studio-shell .mission-prompts button{font-size:12px}.studio-shell .mission-boundary,.studio-shell .model-explain{font-size:12px}.studio-shell .mission-bottom>span{font-size:10px}.studio-shell .mission-bottom>button{font-size:12px}.studio-shell .research-heading h2{font-size:26px}.studio-shell .research-answer{font-size:15px}.studio-shell .drawer-header h2,.studio-shell .modal-heading h2{font-size:27px}.studio-shell .drawer-header .eyebrow,.studio-shell .modal-heading .eyebrow{font-size:10px}.studio-shell .assistant-controls{font-size:12px;gap:10px}.studio-shell .assistant-controls label{font-size:12px}.studio-shell .assistant-scope-label select{font-size:16px}.studio-shell .message.assistant .message-text{font-size:15px}.studio-shell .assistant-composer textarea{font-size:16px}.studio-shell .site-footer>p,.studio-shell .site-footer>div{font-size:12px}.studio-shell .site-footer>small{font-size:11px}}
 @media (max-width:370px){.studio-shell .hero h1{font-size:28px}.studio-shell .hero-description{max-width:220px}.studio-shell .hero-actions .button{font-size:12px}.studio-shell .product-name{font-size:15px}.studio-shell .product-price{font-size:14px}.studio-shell .product-badge{font-size:9px;max-width:calc(100% - 52px)}}
+
+/* Keep the existing glass room within its frame at every navigation size. */
+.studio-shell .studio-frame{width:min(1400px,calc(100% - 184px));margin:32px auto 45px}
+.studio-shell .studio-dock{left:max(12px,calc((100vw - 1400px)/2 - 80px))}
+.studio-shell .site-header{display:grid;grid-template-columns:auto minmax(160px,1fr) auto auto;gap:18px}
+.studio-shell .site-header>*,.studio-shell main>*,.studio-shell .mission-layout>*,.sound-shell .studio-grid>*{min-width:0}
+.studio-shell .studio-search{width:100%;max-width:none}
+.studio-shell .header-actions{margin-left:0;justify-content:flex-end}
+.studio-shell .hero{min-width:0}.studio-shell .hero-copy{min-width:0}
+.studio-shell .hero-instrument{object-fit:contain}
+.studio-shell .studio-shortlist{min-width:0}
+.studio-shell .studio-suggestion>span:not(.suggestion-icon){min-width:0}
+.studio-shell .product-name{overflow-wrap:anywhere}
+@media(max-width:1480px) and (min-width:761px){
+ .studio-shell .site-header{grid-template-columns:auto minmax(180px,1fr) auto;grid-template-areas:"brand search actions" "navigation navigation navigation";row-gap:9px}
+ .studio-shell .site-header>.brand{grid-area:brand}.studio-shell .studio-search{grid-area:search}
+ .studio-shell .header-actions{grid-area:actions}.studio-shell .main-nav{grid-area:navigation;display:flex;justify-content:center;gap:24px;padding-top:2px}
+ .studio-shell .main-nav #guide-button{display:block}
+}
+@media(max-width:1100px) and (min-width:761px){
+ .studio-shell main{grid-template-columns:minmax(0,1fr);grid-template-areas:"feature" "shortlist" "collection"}
+ .studio-shell[data-desk-view=research] main{grid-template-areas:"workspace" "results"}
+ .studio-shell .hero{grid-template-columns:minmax(0,1.35fr) minmax(160px,.8fr);min-height:282px}
+ .studio-shell .hero-copy{max-width:none}.studio-shell .hero-art{position:relative;inset:auto;opacity:1}
+ .studio-shell .hero-description{max-width:350px}
+ .studio-shell .studio-shortlist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 18px;padding:18px}
+ .studio-shell .shortlist-heading{grid-column:1/-1;display:flex;align-items:center;gap:18px}
+ .studio-shell .shortlist-heading :is(h2,.eyebrow){margin:0}
+ .studio-shell .studio-suggestion{padding:12px 0;align-items:flex-start}
+ .studio-shell .site-header{grid-template-columns:auto minmax(150px,1fr) auto;gap:9px 14px}
+ .studio-shell .header-actions{gap:5px}.studio-shell .header-actions .install-app{display:none}
+}
+@media(max-width:760px){
+ .studio-shell .studio-frame{width:calc(100% - 24px);margin:15px 12px 100px}
+ .studio-shell .studio-dock{left:12px}
+ .studio-shell .site-header{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand actions" "search search";gap:12px 8px}
+ .studio-shell .site-header>.brand{grid-area:brand}.studio-shell .header-actions{grid-area:actions;min-width:0}
+ .studio-shell .studio-search{grid-area:search;margin:0;order:initial;min-width:0}
+ .studio-shell .main-nav{display:none}.studio-shell .header-actions [data-studio-target="connections-open"]{display:none}
+ .studio-shell .hero-copy{max-width:100%}.studio-shell .hero-art{opacity:.16;pointer-events:none}
+ .studio-shell .hero-description{max-width:100%}
+ .studio-shell .studio-shortlist{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .studio-shell .studio-shortlist>.studio-suggestion{grid-column:auto;align-items:flex-start}
+ .studio-shell .studio-shortlist>.studio-suggestion[data-studio-target="bag-button"]{grid-column:1/-1}
+ .studio-shell .studio-suggestion strong{overflow-wrap:normal}
+ .sound-shell header nav{gap:10px 18px;align-items:center}
+}
+@media(min-width:761px) and (max-width:900px){.studio-shell .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.studio-shell .site-header{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand actions" "search search"}.studio-shell .main-nav{display:none}}
+.sound-shell .tag{background:#ffffff12;border:1px solid #ffffff36;color:#e8f2df}

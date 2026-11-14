@@ -59,7 +59,14 @@ and audio assets remain lazy with their own
 70 KB raw / 22 KB gzip limits. The text limit was expanded with the explicit
 view navigation; the bitmap is accounted for separately.
 
-Desktop/mobile visual inspection of the new Music build is still required:
-the connected browser was unavailable in this session. DOM checks do not
-exercise physical microphones, touch devices or CSS layout. Checkout remains
-a demonstration and does not move real money.
+The framing review now renders the standalone build in an isolated Chrome
+session at 320, 390, 768, 1024, 1280, 1440 and 1920 px. It checks horizontal
+overflow, header overlap, separation from the tool rail, tablet columns and
+drawer bounds, and saves screenshots for inspection. It also exercises
+comparison, the bag, checkout preview, appearance persistence/reset and generated
+chord playback/stop. Run `python scripts/check_framing.py --url <preview-url>`
+after serving a standalone build. The recorded result is in
+[evidence/framing-review.json](evidence/framing-review.json).
+
+The review covers browser rendering and generated audio state, not physical
+microphones, speakers or touch hardware. Checkout remains a demonstration.
