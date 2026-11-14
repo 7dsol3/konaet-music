@@ -7,13 +7,14 @@
 
   const KEY = "konaet-appearance-v1";
   const SCHEMA = "konaet.appearance.v1";
-  const DEFAULTS = Object.freeze({palette:"moss", accent:"", surface:"", radius:8, opacity:90, blur:18, scale:100, contrast:false, motion:false, photo:false});
+  const DEFAULTS = Object.freeze({palette:"atelier", finish:"instrument", accent:"", surface:"", radius:8, opacity:90, blur:18, scale:100, contrast:false, motion:false, photo:false});
   const PALETTES = Object.freeze({
-    moss:   {name:"Moss",   background:"#263c3a", surface:"#263a3b", panel:"#304849", ink:"#f2f6ec", muted:"#c5d4c8", accent:"#d8e9bd", edge:"#ffffff42"},
-    ember:  {name:"Ember",  background:"#302c2c", surface:"#302d30", panel:"#463a3b", ink:"#fff3ea", muted:"#e1c9bf", accent:"#ffc09b", edge:"#ffffff42"},
-    cobalt: {name:"Cobalt", background:"#1c3044", surface:"#1b3043", panel:"#294560", ink:"#eff6ff", muted:"#c1d5e6", accent:"#a8dcff", edge:"#ffffff45"},
-    iris:   {name:"Iris",   background:"#2c2841", surface:"#302c48", panel:"#443d60", ink:"#f6f2ff", muted:"#d7cce8", accent:"#dac0ff", edge:"#ffffff45"},
-    paper:  {name:"Paper",  background:"#e8e2d6", surface:"#f5f0e7", panel:"#ece6db", ink:"#203030", muted:"#52605d", accent:"#a64e37", edge:"#273b3540"}
+    atelier:{name:"Atelier", background:"#e9e4db", surface:"#f4f0e8", panel:"#dcd6ca", ink:"#202925", muted:"#5c6862", accent:"#d95638", edge:"#29383140", stage:"#172320"},
+    moss:   {name:"Moss",   background:"#263c3a", surface:"#263a3b", panel:"#304849", ink:"#f2f6ec", muted:"#c5d4c8", accent:"#d8e9bd", edge:"#ffffff42", stage:"#111d1c"},
+    ember:  {name:"Ember",  background:"#302c2c", surface:"#302d30", panel:"#463a3b", ink:"#fff3ea", muted:"#e1c9bf", accent:"#ffc09b", edge:"#ffffff42", stage:"#171417"},
+    cobalt: {name:"Cobalt", background:"#1c3044", surface:"#1b3043", panel:"#294560", ink:"#eff6ff", muted:"#c1d5e6", accent:"#a8dcff", edge:"#ffffff45", stage:"#0d1d2b"},
+    iris:   {name:"Iris",   background:"#2c2841", surface:"#302c48", panel:"#443d60", ink:"#f6f2ff", muted:"#d7cce8", accent:"#dac0ff", edge:"#ffffff45", stage:"#191727"},
+    paper:  {name:"Paper",  background:"#e8e2d6", surface:"#f5f0e7", panel:"#ece6db", ink:"#203030", muted:"#52605d", accent:"#a64e37", edge:"#273b3540", stage:"#182321"}
   });
   const hasOwn = (object, name) => Object.prototype.hasOwnProperty.call(object, name);
   const hex = value => typeof value === "string" && /^#[0-9a-f]{6}$/i.test(value) ? value.toLowerCase() : "";
@@ -23,6 +24,7 @@
     const source = input && typeof input === "object" ? input : {};
     return {
       palette:hasOwn(PALETTES, source.palette) ? source.palette : DEFAULTS.palette,
+      finish:["instrument", "glass", "soft"].includes(source.finish) ? source.finish : DEFAULTS.finish,
       accent:hex(source.accent), surface:hex(source.surface),
       radius:clamp(source.radius, 4, 24, DEFAULTS.radius),
       opacity:clamp(source.opacity, 0, 100, DEFAULTS.opacity),
@@ -49,6 +51,7 @@
     <div class="appearance-body">
       <div class="appearance-preview" aria-hidden="true"><div><span>K / M</span><span>STUDIO / VISUAL 01</span></div><strong>Sound has<br><em>a shape.</em></strong><small>COLOR · TYPE · MATERIAL</small></div>
       <section class="appearance-section" aria-labelledby="appearance-palette-title"><div class="appearance-section-head"><span>01 / COLORWAYS</span><h3 id="appearance-palette-title">Choose a direction</h3></div><div class="appearance-palettes" role="group" aria-label="Color palette">
+        <button type="button" data-appearance-palette="atelier" aria-pressed="false"><i></i><span>Atelier</span></button>
         <button type="button" data-appearance-palette="moss" aria-pressed="false"><i></i><span>Moss</span></button>
         <button type="button" data-appearance-palette="ember" aria-pressed="false"><i></i><span>Ember</span></button>
         <button type="button" data-appearance-palette="cobalt" aria-pressed="false"><i></i><span>Cobalt</span></button>
@@ -58,7 +61,7 @@
         <label><span><strong>Accent</strong><small>Buttons and details</small></span><input id="appearance-accent" type="color" aria-label="Accent color"></label>
         <label><span><strong>Glass tint</strong><small>Balanced across panels</small></span><input id="appearance-surface" type="color" aria-label="Glass tint color"></label>
       </div></section>
-      <section class="appearance-section" aria-labelledby="appearance-material-title"><div class="appearance-section-head"><span>02 / MATERIAL</span><h3 id="appearance-material-title">Shape the space</h3></div><div class="appearance-ranges">
+      <section class="appearance-section" aria-labelledby="appearance-material-title"><div class="appearance-section-head"><span>02 / MATERIAL</span><h3 id="appearance-material-title">Shape the space</h3></div><div class="appearance-finishes" role="group" aria-label="Surface finish"><button type="button" data-appearance-finish="instrument" aria-pressed="false"><span aria-hidden="true">▥</span><strong>Instrument</strong><small>Precise, tactile edges</small></button><button type="button" data-appearance-finish="glass" aria-pressed="false"><span aria-hidden="true">◈</span><strong>Glass</strong><small>Light through panels</small></button><button type="button" data-appearance-finish="soft" aria-pressed="false"><span aria-hidden="true">◉</span><strong>Soft</strong><small>Quiet, rounded relief</small></button></div><div class="appearance-ranges">
         <label><span><strong>Surface opacity</strong><output id="appearance-opacity-value"></output></span><input id="appearance-opacity" type="range" min="0" max="100" step="1"></label>
         <label><span><strong>Glass blur</strong><output id="appearance-blur-value"></output></span><input id="appearance-blur" type="range" min="0" max="36" step="1"></label>
         <label><span><strong>Corner radius</strong><output id="appearance-radius-value"></output></span><input id="appearance-radius" type="range" min="4" max="24" step="1"></label>
@@ -85,6 +88,7 @@
   }
   function syncControls() {
     q(".appearance-palettes").querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.appearancePalette === settings.palette)));
+    q(".appearance-finishes").querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.appearanceFinish === settings.finish)));
     const palette = PALETTES[settings.palette];
     controls.accent.value = settings.accent || palette.accent;
     controls.surface.value = settings.surface || palette.surface;
@@ -100,6 +104,7 @@
     const tint = settings.surface;
     const tokens = {
       "--appearance-background":palette.background,
+      "--appearance-stage":palette.stage,
       "--appearance-surface":tint ? `color-mix(in srgb, ${tint} 25%, ${palette.surface})` : palette.surface,
       "--appearance-panel":tint ? `color-mix(in srgb, ${tint} 25%, ${palette.panel})` : palette.panel,
       "--appearance-ink":palette.ink,
@@ -110,6 +115,7 @@
       "--appearance-scale":String(settings.scale / 100)
     };
     body.dataset.palette = settings.palette;
+    body.dataset.finish = settings.finish;
     for (const [name, value] of Object.entries(tokens)) body.style.setProperty(name, value);
     body.classList.toggle("appearance-high-contrast", settings.contrast);
     body.classList.toggle("appearance-reduce-motion", settings.motion || prefersReducedMotion);
@@ -125,6 +131,16 @@
     settings = {...settings, palette:button.dataset.appearancePalette, accent:"", surface:""};
     apply(); q("#appearance-status").textContent = PALETTES[settings.palette].name + " palette applied.";
   });
+  q(".appearance-finishes").addEventListener("click", event => {
+    const button = event.target.closest("[data-appearance-finish]");
+    if (!button) return;
+    settings.finish = button.dataset.appearanceFinish;
+    apply(); q("#appearance-status").textContent = button.querySelector("strong").textContent + " finish applied.";
+  });
+  document.querySelectorAll("[data-hero-category]").forEach(button => button.addEventListener("click", () => {
+    document.querySelector(`.category-tabs [data-category="${button.dataset.heroCategory}"]`)?.click();
+    document.getElementById("collection")?.scrollIntoView({behavior:settings.motion || prefersReducedMotion ? "auto" : "smooth"});
+  }));
   for (const key of ["accent", "surface", "opacity", "blur", "radius", "scale"]) controls[key].addEventListener("input", event => update(key, key === "accent" || key === "surface" ? hex(event.target.value) : Number(event.target.value)));
   for (const key of ["contrast", "motion", "photo"]) controls[key].addEventListener("change", event => update(key, event.target.checked));
   openButton.addEventListener("click", () => {
