@@ -44,6 +44,20 @@ test('browser core and credit gate have deterministic known output and strict bo
 test('external research failure is explicit and never invents sources',async()=>{
  const r=await put(runtime(),'/api/research',{query:'guitar',scope:'knowledge'});assert.equal(r.sources.length,0);assert.equal(r.providers[0].status,'unavailable');assert.match(r.message,/No answer was invented/);
 });
+test('Portuguese questions respect instrument family, Brazilian budgets and exact model names',async()=>{
+ const r=runtime();
+ const a=await put(r,'/api/chat',{message:'Quero um violão até R$ 1.000,00',locale:'pt'});
+ assert(a.results[0].products.length>0);
+ assert(a.results[0].products.every(p=>p.category_id===5&&p.sale_cents<=100000));
+ assert.match(a.message,/R\$/);
+ const item=catalog.products.find(p=>p.name.includes('Takamine GD20'));assert(item);
+ const detail=await put(r,'/api/chat',{message:'Quanto custa o Takamine GD20?',locale:'pt'});
+ assert.deepEqual(detail.results[0].products.map(p=>p.id),[item.id]);
+ const policies=await r.request('/api/policies?locale=pt');
+ assert.equal(policies.find(p=>p.topic==='hours').title,'Horário de atendimento');
+ const hours=await put(r,'/api/chat',{message:'Qual o horário de atendimento?',locale:'pt'});
+ assert.match(hours.message,/09h/);assert.equal(hours.results.length,0);
+});
 test('real DOM handlers work with the browser runtime, including shareable checkout and receipt',async()=>{
  const w=new Window({url:base,settings:{disableCSSFileLoading:true,disableJavaScriptFileLoading:true}});w.document.write(fs.readFileSync(new URL('../../emporio/web/index.html',import.meta.url),'utf8'));
  for(const d of w.document.querySelectorAll('dialog')){d.showModal=function(){this.setAttribute('open','');};d.close=function(){this.removeAttribute('open');};}

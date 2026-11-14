@@ -52,9 +52,9 @@ is not physical-device telemetry.*
 - Prepare a server-calculated, fifteen-minute checkout preview with a unique KONAET Code.
 - Download the original vector code or open the quote on another device when deployed on HTTPS.
 - Ask KONAET about instruments, prices, installments, store policies and a verified fixture order.
-- Dictate English commands, review the transcript and send it. Spoken replies are opt-in.
+- Use the native Portuguese or English interface; voice drafts and spoken replies follow that language and remain opt-in.
 - Install the responsive PWA on supported devices. Every command also works by typing.
-- Adjust the original liquid glass with optional color, tint, transparency, blur, corner and comfort controls. The look is shared with Sound Lab and can be exported or imported.
+- Choose Prisma or original liquid glass, with color, transparency, blur, corners, refractive light and comfort controls. The look is shared with Sound Lab and can be exported or imported.
 - Research public knowledge, scholarly metadata and code with dated source links.
 - Switch the voice/text assistant between the music desk and explicit research scopes.
 - Inspect actual connection states and export source briefs from the current tab.
@@ -75,17 +75,21 @@ microphone board or DAC is connected to the server.
 [Methods and limits](docs/SOUND-LAB.md) · [Hardware interfaces and equations](docs/AUDIO-HARDWARE.md) ·
 [Production gates](docs/PRODUCTION-GATES.md) · [External-runtime comparison protocol](docs/RUNTIME-COMPARISON.md)
 
-The listening-room design keeps its original floating glass shell, tool rail,
-catalog search and separate Discover, Research and Guide areas. Its default
-appearance stays unchanged; optional controls adjust the glass. The Sound Lab
-shares the settings and typography. The room artwork is an original generated WebP
-of about 18 KB; no externally hosted fonts, animation framework, video background or
-per-frame rendering loop is loaded. Text assets are checked against a 58 KB
-gzip budget, with separate 30 KB bitmap and local-font budgets. Manrope is
-bundled under its [Open Font License](docs/FONT-PROVENANCE.md). Mobile layouts and
-reduced-motion and reduced-transparency preferences have dedicated styles.
-[Art direction and checks](docs/LISTENING-ROOM.md). Browser rendering across
-devices is not certified by the DOM tests.
+The listening room keeps its floating shell, tool rail, catalog search and
+separate Discover, Research and Guide areas. Prisma supplies graphite materials,
+physical controls and selected refractive edges; the original green glass room
+remains selectable. Sound Lab shares the settings and typography. The supplied
+six-board reference is mapped to actual functions in [Prisma Studio](docs/PRISMA-STUDIO.md).
+The native PT/EN interface avoids browser translation altering the layout or
+instrument identifiers. The browser assistant handles Portuguese instrument
+families, Brazilian budget amounts and exact model lookups.
+
+The room artwork is an original WebP of about 18 KB. Fonts are bundled under
+their [Open Font Licenses](docs/FONT-PROVENANCE.md); there are no external font
+requests or animation frameworks. Main text assets have a 280 KB raw / 86 KB
+gzip budget, with separate 30 KB bitmap and 100 KB font budgets. Sound Lab's
+audio engine stays lazy. Browser reviews cover PT/EN at seven widths, alongside
+DOM and audio lifecycle tests. [Art direction and checks](docs/LISTENING-ROOM.md).
 
 ## Run locally
 

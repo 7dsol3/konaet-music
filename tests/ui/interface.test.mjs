@@ -92,21 +92,25 @@ test('studio rail reaches existing wallet, guide and keyboard search; lighting f
   }finally{await e.close();}
 });
 
-test('original glass stays the default while material controls save and restore',async()=>{
+test('Prisma materials save and restore, with original glass still selectable',async()=>{
   const e=await environment();try{
     assert.equal(e.document.body.dataset.glassMaterial,'false');
     assert.equal(e.document.body.dataset.glassAccent,'false');
+    assert.equal(e.document.body.dataset.roomStyle,'prisma');
     const dialog=e.document.querySelector('#glass-settings-dialog');
     dialog.showModal=function(){this.setAttribute('open','');};
     dialog.close=function(){this.removeAttribute('open');this.dispatchEvent(new e.window.Event('close'));};
     e.document.querySelector('[data-glass-open]').click();
     assert.equal(dialog.hasAttribute('open'),true);
+    dialog.querySelector('[data-room-style-option="classic"]').click();
+    assert.equal(e.document.body.dataset.roomStyle,'classic');
     const opacity=dialog.querySelector('#glass-opacity');
     opacity.value='0';opacity.dispatchEvent(new e.window.Event('input',{bubbles:true}));
     assert.equal(e.document.body.dataset.glassMaterial,'true');
     assert.equal(e.document.body.style.getPropertyValue('--kg-opacity'),'0%');
     assert.equal(JSON.parse(e.window.localStorage.getItem('konaet-liquid-glass-v1')).opacity,0);
     dialog.querySelector('#glass-reset').click();
+    assert.equal(e.document.body.dataset.roomStyle,'prisma');
     assert.equal(e.document.body.dataset.glassMaterial,'false');
     assert.equal(e.document.body.dataset.glassAccent,'false');
     assert.equal(dialog.querySelector('#glass-opacity').value,'68');

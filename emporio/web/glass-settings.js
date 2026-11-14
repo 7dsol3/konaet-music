@@ -1,5 +1,5 @@
 "use strict";
-// Shared, local appearance controls. The original glass room is the default.
+// Shared local materials; Prisma and the original glass room use the same settings.
 (() => {
   const body = document.body;
   const triggers = [...document.querySelectorAll("[data-glass-open]")];
@@ -9,7 +9,7 @@
 
   const KEY = "konaet-liquid-glass-v1";
   const SCHEMA = "konaet.liquid-glass.v1";
-  const DEFAULTS = Object.freeze({palette:"original", accent:"", tint:"", opacity:68, blur:28, radius:30, photo:true, contrast:false, motion:false});
+  const DEFAULTS = Object.freeze({style:"prisma", palette:"original", accent:"", tint:"", opacity:68, blur:28, radius:30, edge:2, glow:35, light:"fixed", photo:true, contrast:false, motion:false});
   const THEMES = Object.freeze({
     original:{name:"Original", room:"#263b3a", tint:"#243133", accent:"#d1e7be"},
     amber:{name:"Amber", room:"#3e3030", tint:"#392d2c", accent:"#ffd1a8"},
@@ -18,16 +18,20 @@
     mono:{name:"Mono", room:"#27302f", tint:"#202828", accent:"#f1f1ea"}
   });
   const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+  const themeFor = value => value.style === "prisma" && value.palette === "original" ? {name:"Prisma",room:"#0b0c0e",tint:"#17181b",accent:"#ff8a54"} : THEMES[value.palette];
   const validHex = value => typeof value === "string" && /^#[0-9a-f]{6}$/i.test(value) ? value.toLowerCase() : "";
   const bounded = (value, low, high, fallback) => Number.isFinite(Number(value)) ? Math.min(high, Math.max(low, Math.round(Number(value)))) : fallback;
   function clean(input) {
     const source = input && typeof input === "object" ? input : {};
     return {
+      style:source.style === "classic" ? "classic" : "prisma",
       palette:hasOwn(THEMES, source.palette) ? source.palette : DEFAULTS.palette,
       accent:validHex(source.accent), tint:validHex(source.tint),
       opacity:bounded(source.opacity, 0, 100, DEFAULTS.opacity),
       blur:bounded(source.blur, 0, 40, DEFAULTS.blur),
       radius:bounded(source.radius, 12, 42, DEFAULTS.radius),
+      edge:bounded(source.edge,1,4,DEFAULTS.edge), glow:bounded(source.glow,0,100,DEFAULTS.glow),
+      light:["fixed","follow","spin"].includes(source.light) ? source.light : DEFAULTS.light,
       photo:source.photo !== false, contrast:source.contrast === true, motion:source.motion === true
     };
   }
@@ -38,7 +42,8 @@
   function inkOn(hex) {
     const rgb = [1,3,5].map(index => parseInt(hex.slice(index,index+2),16) / 255);
     const light = rgb.map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
-    return light[0] * .2126 + light[1] * .7152 + light[2] * .0722 > .42 ? "#203a31" : "#ffffff";
+    const luminance=light[0] * .2126 + light[1] * .7152 + light[2] * .0722;
+    return (luminance+.05)/.0605 >= 1.05/(luminance+.05) ? "#141b23" : "#ffffff";
   }
 
   const dialog = document.createElement("dialog");
@@ -49,6 +54,7 @@
     <div class="glass-settings-head"><div><small>KONAET / LIQUID GLASS</small><h2 id="glass-settings-title">Make the room yours.</h2><p>The original glass design stays one click away. Changes are saved in this browser and shared with Sound Lab.</p></div><button class="glass-settings-close" type="button" aria-label="Close appearance settings">×</button></div>
     <div class="glass-settings-body">
       <div class="glass-settings-preview" aria-hidden="true"><span>LIVE MATERIAL PREVIEW / KONAET</span><strong>Sound through <em>glass.</em></strong></div>
+      <section class="glass-settings-section"><small>STUDIO FINISH</small><div class="glass-style-options" role="group" aria-label="Studio finish"><button type="button" data-room-style-option="prisma" aria-pressed="false">Prisma</button><button type="button" data-room-style-option="classic" aria-pressed="false">Original glass</button></div></section>
       <section class="glass-settings-section" aria-labelledby="glass-palette-title"><small>01 / COLOR</small><h3 id="glass-palette-title">Choose a palette</h3><div class="glass-palette-grid" role="group" aria-label="Color palette">
         <button type="button" data-glass-palette="original" aria-pressed="false"><i></i><span>Original</span></button>
         <button type="button" data-glass-palette="amber" aria-pressed="false"><i></i><span>Amber</span></button>
@@ -57,10 +63,11 @@
         <button type="button" data-glass-palette="mono" aria-pressed="false"><i></i><span>Mono</span></button>
       </div><div class="glass-color-grid"><label><span><strong>Accent</strong><small>Light and actions</small></span><input id="glass-accent" type="color" aria-label="Accent color"></label><label><span><strong>Glass tint</strong><small>Panels and frame</small></span><input id="glass-tint" type="color" aria-label="Glass tint color"></label></div></section>
       <section class="glass-settings-section" aria-labelledby="glass-material-title"><small>02 / GLASS</small><h3 id="glass-material-title">Tune the material</h3><div class="glass-range-list">
-        <label><span><strong>Transparency</strong><output id="glass-opacity-value"></output></span><input id="glass-opacity" type="range" min="0" max="100" step="1"></label>
+        <label><span><strong>Glass opacity</strong><output id="glass-opacity-value"></output></span><input id="glass-opacity" type="range" min="0" max="100" step="1"></label>
         <label><span><strong>Background blur</strong><output id="glass-blur-value"></output></span><input id="glass-blur" type="range" min="0" max="40" step="1"></label>
         <label><span><strong>Corner shape</strong><output id="glass-radius-value"></output></span><input id="glass-radius" type="range" min="12" max="42" step="1"></label>
       </div></section>
+      <section class="glass-settings-section"><small>PRISMA / REFRACTION</small><h3>Light on the edge</h3><div class="glass-light-modes" role="group" aria-label="Refraction movement"><button type="button" data-prisma-light="fixed">Fixed</button><button type="button" data-prisma-light="follow">Follow cursor</button><button type="button" data-prisma-light="spin">Rotate</button></div><div class="glass-range-list"><label><span><strong>Edge thickness</strong><output id="glass-edge-value"></output></span><input id="glass-edge" type="range" min="1" max="4" step="1"></label><label><span><strong>Edge glow</strong><output id="glass-glow-value"></output></span><input id="glass-glow" type="range" min="0" max="100" step="1"></label></div></section>
       <section class="glass-settings-section" aria-labelledby="glass-comfort-title"><small>03 / COMFORT</small><h3 id="glass-comfort-title">See it your way</h3><div class="glass-switches">
         <label><span><strong>Room background</strong><small>Show the studio behind the glass</small></span><input id="glass-photo" type="checkbox"></label>
         <label><span><strong>Sharper outlines</strong><small>Increase separation between panels</small></span><input id="glass-contrast" type="checkbox"></label>
@@ -72,30 +79,38 @@
   const q = selector => dialog.querySelector(selector);
   const inputs = {
     accent:q("#glass-accent"), tint:q("#glass-tint"), opacity:q("#glass-opacity"),
-    blur:q("#glass-blur"), radius:q("#glass-radius"), photo:q("#glass-photo"),
+    blur:q("#glass-blur"), radius:q("#glass-radius"), edge:q("#glass-edge"),glow:q("#glass-glow"),photo:q("#glass-photo"),
     contrast:q("#glass-contrast"), motion:q("#glass-motion")
   };
   let settings = read();
   let opener = null;
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   function sync() {
-    const theme = THEMES[settings.palette];
+    const theme = themeFor(settings);
+    q(".glass-style-options").querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.roomStyleOption === settings.style)));
+    q(".glass-light-modes").querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.prismaLight === settings.light)));
     q(".glass-palette-grid").querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.glassPalette === settings.palette)));
     inputs.accent.value = settings.accent || theme.accent;
     inputs.tint.value = settings.tint || theme.tint;
-    for (const name of ["opacity","blur","radius"]) inputs[name].value = settings[name];
+    for (const name of ["opacity","blur","radius","edge","glow"]) inputs[name].value = settings[name];
     for (const name of ["photo","contrast","motion"]) inputs[name].checked = settings[name];
     q("#glass-opacity-value").value = settings.opacity + "%";
     q("#glass-blur-value").value = settings.blur + " px";
     q("#glass-radius-value").value = settings.radius + " px";
+    q("#glass-edge-value").value = settings.edge + " px";
+    q("#glass-glow-value").value = settings.glow + "%";
   }
   function apply(save = true) {
-    const theme = THEMES[settings.palette];
+    const theme = themeFor(settings);
     const accent = settings.accent || theme.accent;
     const materialChanged = settings.palette !== "original" || !!settings.tint || settings.opacity !== DEFAULTS.opacity || settings.blur !== DEFAULTS.blur || settings.radius !== DEFAULTS.radius;
     const accentChanged = settings.palette !== "original" || !!settings.accent;
     body.dataset.glassMaterial = String(materialChanged);
     body.dataset.glassAccent = String(accentChanged);
+    body.dataset.roomStyle = settings.style;
+    body.dataset.prismaLight = settings.motion || prefersReducedMotion ? "fixed" : settings.light;
+    body.style.setProperty("--prisma-edge", settings.edge + "px");
+    body.style.setProperty("--prisma-glow", String(settings.glow / 100));
     body.style.setProperty("--kg-room", theme.room);
     body.style.setProperty("--kg-tint", settings.tint || theme.tint);
     body.style.setProperty("--kg-accent", accent);
@@ -106,7 +121,7 @@
     body.classList.toggle("glass-no-photo", !settings.photo);
     body.classList.toggle("glass-high-contrast", settings.contrast);
     body.classList.toggle("glass-reduce-motion", settings.motion || prefersReducedMotion);
-    themeMeta?.setAttribute("content", materialChanged ? theme.room : originalThemeColor);
+    themeMeta?.setAttribute("content", materialChanged || settings.style === "prisma" ? theme.room : originalThemeColor);
     sync();
     if (save) { try { localStorage.setItem(KEY, JSON.stringify(settings)); } catch { /* Controls still work for this tab. */ } }
   }
@@ -125,9 +140,11 @@
     settings = {...settings, palette:button.dataset.glassPalette, accent:"", tint:""};
     apply(); q("#glass-status").textContent = THEMES[settings.palette].name + " palette applied.";
   });
-  for (const name of ["accent","tint","opacity","blur","radius"]) inputs[name].addEventListener("input", event => update(name, name === "accent" || name === "tint" ? validHex(event.target.value) : Number(event.target.value)));
+  q(".glass-style-options").addEventListener("click", event => { const button=event.target.closest("[data-room-style-option]");if(button)update("style",button.dataset.roomStyleOption); });
+  q(".glass-light-modes").addEventListener("click", event => { const button=event.target.closest("[data-prisma-light]");if(button)update("light",button.dataset.prismaLight); });
+  for (const name of ["accent","tint","opacity","blur","radius","edge","glow"]) inputs[name].addEventListener("input", event => update(name, name === "accent" || name === "tint" ? validHex(event.target.value) : Number(event.target.value)));
   for (const name of ["photo","contrast","motion"]) inputs[name].addEventListener("change", event => update(name, event.target.checked));
-  q("#glass-reset").addEventListener("click", () => { settings = {...DEFAULTS}; apply(); q("#glass-status").textContent = "Original glass room restored."; });
+  q("#glass-reset").addEventListener("click", () => { settings = {...DEFAULTS}; apply(); q("#glass-status").textContent = "Studio defaults restored."; });
   q("#glass-export").addEventListener("click", () => {
     const url = URL.createObjectURL(new Blob([JSON.stringify({schema:SCHEMA,...settings},null,2)],{type:"application/json"}));
     const link = document.createElement("a"); link.href = url; link.download = "konaet-glass-look.json"; link.click();

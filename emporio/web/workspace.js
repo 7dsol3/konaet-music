@@ -3,8 +3,9 @@
   const q = s => document.querySelector(s);
   const node = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
   const button = (text, cls, run) => { const b = node("button", cls, text); b.type = "button"; b.addEventListener("click", run); return b; };
-  const funds = cents => new Intl.NumberFormat("en-US", {style:"currency",currency:"BRL"}).format(cents/100);
-  const stamp = value => { const d = new Date(value); return Number.isNaN(d.valueOf()) ? "Date not provided" : d.toLocaleString("en-US", {dateStyle:"medium",timeStyle:"short"}); };
+  const currentLocale = () => window.KonaetI18n?.locale() === "pt" ? "pt-BR" : "en-US";
+  const funds = cents => new Intl.NumberFormat(currentLocale(), {style:"currency",currency:"BRL"}).format(cents/100);
+  const stamp = value => { const d = new Date(value); return Number.isNaN(d.valueOf()) ? "Date not provided" : d.toLocaleString(currentLocale(), {dateStyle:"medium",timeStyle:"short"}); };
   const state = {busy:false, generation:0, recent:[], result:null, caps:null};
   async function request(path, options={}) {
     if (window.KonaetRuntime) return window.KonaetRuntime.request(path, options);
@@ -79,7 +80,7 @@
   q("#connections-refresh").addEventListener("click",()=>connections(true));
   function receiptControls(root,intent) {
     root.replaceChildren();
-    root.append(node("p","sandbox-receipt",(intent.status==="paid_test"?"TEST APPROVED":"TEST DECLINED")+"\n"+funds(intent.amount_cents)+" · sandbox credits\n"+(window.KonaetRuntime?"Browser-only record; no server seal":"Server seal: "+(intent.seal_verified?"verified":"not yet available"))+"\nNo money moved. No bank settlement. No stock reservation."));
+    const receipt=node("p","sandbox-receipt",(intent.status==="paid_test"?"TEST APPROVED":"TEST DECLINED")+"\n"+funds(intent.amount_cents)+" · sandbox credits\n"+(window.KonaetRuntime?"Browser-only record; no server seal":"Server seal: "+(intent.seal_verified?"verified":"not yet available"))+"\nNo money moved. No bank settlement. No stock reservation.");receipt.dataset.status=intent.status;root.append(receipt);
     const actions=node("div","sandbox-actions");
     if(intent.receipt)actions.append(button("Download test receipt ↓","button secondary",()=>{const copy={...intent};delete copy.sovereign_opening;download("konaet-test-receipt.json",JSON.stringify(copy,null,2));}));
     if(intent.sovereign_opening)actions.append(button("Export private Sovereign opening ↓","button secondary",()=>download("konaet-private-test-opening.json",JSON.stringify(intent.sovereign_opening.private_opening,null,2))));

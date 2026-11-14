@@ -1,5 +1,6 @@
 // Standalone demonstration: all balances/receipts are editable browser data.
 // No account credentials, customer records, server seals or model keys are bundled.
+import {POLICIES_PT} from './policy-pt.mjs';
 export const QUALITIES={major:[0,4,7],minor:[0,3,7],sus2:[0,2,7],sus4:[0,5,7],diminished:[0,3,6]};
 const NOTES=['C','C#','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
 const clone=x=>structuredClone(x), money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'BRL'}).format(n/100);
@@ -100,7 +101,7 @@ export function createRuntime({catalog,base,storage,crypto,fetch,qrcode,now=()=>
     if(p==='/api/cart'){if(method==='PUT'){check(integer(b.product_id,1,1e6)&&integer(b.quantity,0,20),'Invalid item or quantity.');const item=product(b.product_id);check(!b.quantity||item.available&&item.stock>=b.quantity,'This quantity is unavailable.');check(!b.quantity||s.cart[b.product_id]||Object.keys(s.cart).length<12,'A bag can hold up to twelve instruments.');if(b.quantity)s.cart[b.product_id]=b.quantity;else delete s.cart[b.product_id];save();}return cart();}
     if(p==='/api/checkout')return prepare(b);
     if(p.startsWith('/api/checkout/')){const q=quotes.get(p.split('/')[3]);check(q,'Quote not found. Use its complete link or prepare a new one.');check(!q.error,q.error);check(Date.parse(q.expires_at)>now(),'This quote has expired. Prepare a new one.');return clone(q);}
-    if(p==='/api/policies')return clone(catalog.policies);
+    if(p==='/api/policies')return clone(catalog.policies.map(item=>u.searchParams.get('locale')==='pt'&&POLICIES_PT[item.topic]?{...item,title:POLICIES_PT[item.topic][0],summary:POLICIES_PT[item.topic][1]}:item));
     if(p==='/api/verify')return{verified:false,message:'Private order records are available only in the downloadable Python application. They are never published in this browser demo.'};
     if(p==='/api/research')return research(b,options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(12000)]):AbortSignal.timeout(12000));
     if(p==='/api/hardware/simulate')return simulate(b);
@@ -108,10 +109,18 @@ export function createRuntime({catalog,base,storage,crypto,fetch,qrcode,now=()=>
     if(p==='/api/music/explain')return explain(b);
     if(p==='/api/chat'){
       check(typeof b.message==='string'&&b.message.length<=2000,'Use a message under 2,000 characters.');
-      const text=b.message.toLowerCase(),policy=catalog.policies.find(p=>text.includes(p.topic)||text.includes(p.title.toLowerCase()));
-      const aliases={guitar:'guitar',acoustic:'acoustic',bass:'bass',piano:'piano',keyboard:'keys',drum:'drum',ukulele:'ukulele',violin:'violin',trumpet:'brass',flute:'woodwind',saxophone:'woodwind'},word=Object.keys(aliases).find(w=>text.includes(w)),budget=text.match(/(?:under|below|budget|up to)\s*(?:r\$|brl|\$)?\s*([\d,]+(?:\.\d{1,2})?)/i);
-      const params=new URLSearchParams({available_only:'true',sort:'price_asc'});if(word)params.set('query',aliases[word]);if(budget)params.set('max_price_brl',budget[1].replaceAll(',',''));const found=shop(params).products.slice(0,4);
-      const selected=policy?[]:found,message=policy?policy.summary:found.length?'From the bundled case catalog:\n'+found.map(p=>p.name+' — '+money(p.sale_cents)).join('\n')+'\nUse View to inspect details, add an instrument to your bag or compare results.':'No bundled instrument meets that search. Try a different category or budget.';
+      const pt=b.locale==='pt',text=b.message.toLowerCase(),flat=text.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      const topics={about:['endereco','contato','address'],hours:['horario','funciona','opening'],payments:['pix','parcel','pagamento','payment'],returns:['devolu','troca','return'],delivery:['frete','entrega','rastre','shipping'],promotions:['promoc','desconto','promotion'],warranty:['garantia','warranty'],privacy:['privacidade','privacy'],handoff:['humano','atendente','human']};
+      const policy=catalog.policies.find(item=>flat.includes(item.topic)||flat.includes(item.title.toLowerCase())||(topics[item.topic]||[]).some(word=>flat.includes(word)));
+      const aliases={violao:5,violoes:5,acoustic:5,guitarra:1,electric:1,baixo:2,bass:2,piano:4,teclado:4,keyboard:4,bateria:3,drum:3,ukulele:9,violino:8,violin:8,trompete:7,trumpet:7,flauta:6,flute:6,saxofone:6,saxophone:6},word=Object.keys(aliases).find(word=>flat.includes(word));
+      const normal=value=>value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+      const exact=products.find(item=>normal(flat).includes(normal(item.name)))||products.find(item=>normal(item.name).split(' ').some(token=>/\d/.test(token)&&token.length>=3&&normal(flat).split(' ').includes(token)));
+      const budget=flat.match(/(?:under|below|budget(?: of)?|up to|ate|menos de|orcamento(?: de)?)\s*(?:r\$|brl|\$)?\s*(\d[\d.,]*)/i);
+      const params=new URLSearchParams({available_only:exact?'false':'true',sort:'price_asc'});
+      if(exact)params.set('query',exact.name);else if(word)params.set('category_id',String(aliases[word]));else if(flat.includes('guitar'))params.set('query','guitar');
+      if(budget){let amount=budget[1];if(amount.includes(',')&&amount.includes('.'))amount=amount.lastIndexOf(',')>amount.lastIndexOf('.')?amount.replaceAll('.','').replace(',','.'):amount.replaceAll(',','');else if(amount.includes(','))amount=/,\d{1,2}$/.test(amount)?amount.replace(',','.'):amount.replaceAll(',','');else if(pt&&/^\d{1,3}(?:\.\d{3})+$/.test(amount))amount=amount.replaceAll('.','');if(Number.isFinite(Number(amount)))params.set('max_price_brl',amount);}
+      const found=shop(params).products.slice(0,4),selected=policy?[]:found,format=n=>new Intl.NumberFormat(pt?'pt-BR':'en-US',{style:'currency',currency:'BRL'}).format(n/100);
+      const message=policy?(pt&&POLICIES_PT[policy.topic]?POLICIES_PT[policy.topic][1]:policy.summary):found.length?(pt?'No catálogo de demonstração:\n':'From the bundled case catalog:\n')+found.map(item=>item.name+' — '+format(item.sale_cents)).join('\n')+(pt?'\nAbra os detalhes, adicione à sacola ou compare os modelos.':'\nUse View to inspect details, add an instrument to your bag or compare results.'):(pt?'Nenhum instrumento corresponde a essa busca. Tente outra categoria ou valor.':'No bundled instrument meets that search. Try a different category or budget.');
       const result={mode:'local',message,tools:[{tool:policy?'bundled_policies':'bundled_catalog',status:'checked'}],results:selected.length?[{kind:'catalog',products:selected}]:[],sources:policy?policy.pages.map(page=>({type:'policy',label:'Store manual · page '+page,page})):[],latency_ms:0,audit_hash:await hash(message)};
       s.history.push({role:'user',content:b.message},{role:'assistant',content:message});s.history=s.history.slice(-30);save();return result;
     }

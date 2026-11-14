@@ -25,8 +25,11 @@ The project-authored Empório and KONAET Music application files are distributed
 | Playwright | Apache-2.0 | Optional isolated-browser development checks |
 | ReportLab / PyMuPDF | BSD / AGPL-3.0 or commercial terms | Local documentation build and PDF rendering only; not application runtime dependencies |
 
-The interface uses system fonts, CSS, and project-authored SVGs. It makes no CDN
-requests. The Sentinel anti-cheat and ARC research runtimes were inspected for
+The interface uses locally bundled Inter, Space Grotesk and Manrope under their
+SIL Open Font Licenses, system fallbacks, CSS and project-authored SVGs. Font
+notices accompany the assets; see `docs/FONT-PROVENANCE.md`. The user's Prisma
+Pack informed the material layer; see `docs/PRISMA-STUDIO.md`. There are no CDN
+font requests. The Sentinel anti-cheat and ARC research runtimes were inspected for
 architectural context; their models, assets, game logic and proprietary source
 were not incorporated into this service. The provenance record identifies the
 one frozen source component that is actually used.
