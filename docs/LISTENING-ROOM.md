@@ -1,21 +1,35 @@
 # The KONAET listening room
 
-The store is organized as a workspace: a floating translucent frame, a tool
-rail, a searchable instrument shelf and a small panel of useful starting points.
+The store is organized as an instrument index: one measured grid, a small tool
+rail, a searchable shelf and clear starting points beside the featured instrument.
 Discover, Research and Guide are separate views of the same page. Their
 navigation changes visibility; it does not replace the commerce or research
 engines. The Sound Lab remains a separate page and keeps its local audio path.
 
 The global search submits the existing structured catalog filters. `/` focuses
 it when focus is outside a form or dialog. The rail opens the existing test
-wallet and logic lab. The header provides lighting and connection controls;
-lighting is stored only on the visitor's device. Voice and microphone capture
-remain opt-in. Product artwork depicts instrument families, not product photos.
+wallet and logic lab. The header provides lighting, appearance and connection
+controls; preferences are stored only on the visitor's device. The appearance
+drawer includes five palettes, two custom colors, surface opacity, corner and
+reading-size controls, reduced motion, sharper contrast, background photography,
+reset and portable JSON export/import. Both pages use the same settings.
+Voice and microphone capture remain opt-in. Product artwork depicts instrument
+families, not product photos.
 
-The desktop rail uses six uniform 44 px icon controls with 23 px SVG artwork.
-Full names appear beside the rail on hover or keyboard focus, instead of
-wrapping inside the narrow capsule. On mobile, the bottom rail uses short,
-single-line captions; the full accessible names remain on the controls.
+The desktop rail uses compact icon controls with full names on hover or keyboard
+focus. Mobile uses a bottom navigation row with short captions and accessible
+names on the controls. Catalog categories read as an index rather than a second
+row of pill buttons. Product artwork has one consistent frame and clear text below.
+
+## Direction and references
+
+The layout takes cues from real instrument interfaces: the product focus of
+[Moog's synthesizer collection](https://www.moogmusic.com/synthesizers/), the
+disciplined catalog navigation of [Teenage Engineering's store](https://teenage.engineering/store),
+and the selective material effects described in [Aceternity's Liquid Glass](https://ui.aceternity.com/components/liquid-glass).
+These are structural references, not copied pages or imported templates. KONAET
+keeps its own content, instrumentation, colors and functional boundaries. Glass
+appears where it helps navigation or focus; the product grid stays legible.
 
 ## Materials and type
 
@@ -30,12 +44,12 @@ The shared `typography.css` owns the store and drawer scale; audio-only type
 stays in the lazy Sound Lab stylesheet. Legacy workspace rules no longer set
 competing text sizes. [Font source, hash and license](FONT-PROVENANCE.md).
 
-The main title is 38 px on a large display and 28–33 px at smaller breakpoints;
+The main title scales with viewport width and the visitor's reading-size control;
 body text is 14 px, navigation and filters 13 px, and assistant replies 15 px.
 Supporting text is generally 11–12 px, with 16 px text-entry controls on mobile.
-The light assistant drawer has a dark accent instead of inheriting the pale
-page accent. The voice mark is a bounded 19 px SVG mask, replacing unbounded
-Unicode bars. The hero is shorter so more of the catalog is visible.
+The light assistant drawer has a dark accent instead of inheriting the page
+accent. The voice mark is a bounded 19 px SVG mask, replacing unbounded
+Unicode bars. The featured instrument stays prominent above the catalog.
 
 These choices do not constitute a measured accessibility or performance
 certification. A DOM/CSS diagnostic checks the 1920, 1280 and 390 px rules;
@@ -50,11 +64,11 @@ lifecycles. The three QR artworks are independently decoded at three sizes and
 two orientations, matching the generated quote URL in all 18 checks.
 
 The source checker validates IDs, local HTML/CSS assets, SVG syntax and transfer
-budgets. The home text bundle has a 170 KB raw / 50 KB gzip limit, the room
+budgets. The home text bundle has a 225 KB raw / 62 KB gzip limit, the room
 bitmap has a separate 30 KB limit, the local font has a separate 30 KB limit,
 and audio assets remain lazy with their own
-70 KB raw / 22 KB gzip limits. The text limit was expanded with the explicit
-view navigation; the bitmap is accounted for separately.
+70 KB raw / 22 KB gzip limits. The text limit includes the shared appearance
+engine and responsive editorial layer; the bitmap is accounted for separately.
 
 Desktop/mobile visual inspection of the new Music build is still required:
 the connected browser was unavailable in this session. DOM checks do not

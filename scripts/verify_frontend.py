@@ -63,7 +63,7 @@ def main():
     assets = [p for p in WEB.iterdir() if p.suffix in {".html", ".js", ".mjs", ".css", ".svg", ".webmanifest"} and p.name not in {"api.html", "language.js"} | SOUND]
     raw = sum(p.stat().st_size for p in assets)
     compressed = sum(len(gzip.compress(p.read_bytes(), compresslevel=6, mtime=0)) for p in assets)
-    # The glass studio adds explicit view navigation and a small room image.
+    # The appearance system adds a shared palette engine and one settings drawer.
     # Track the bitmap separately instead of hiding it in the text transfer budget.
     raster = sum(p.stat().st_size for p in WEB.iterdir() if p.suffix in {".webp", ".png"})
     fonts = list(WEB.glob("*.woff2"))
@@ -71,8 +71,8 @@ def main():
     assert font_bytes < 30_000, f"Local font budget exceeded: {font_bytes}"
     assert all(p.read_bytes()[:4] == b"wOF2" for p in fonts), "Invalid WOFF2 font"
     assert not fonts or "SIL OPEN FONT LICENSE" in (WEB / "FONT-LICENSE.txt").read_text(encoding="utf-8")
-    assert raw < 170_000, f"UI source budget exceeded: {raw}"
-    assert compressed < 50_000, f"UI compressed budget exceeded: {compressed}"
+    assert raw < 225_000, f"UI source budget exceeded: {raw}"
+    assert compressed < 62_000, f"UI compressed budget exceeded: {compressed}"
     assert raster < 30_000, f"UI raster budget exceeded: {raster}"
     lazy_raw = sum((WEB / name).stat().st_size for name in SOUND)
     lazy_gzip = sum(len(gzip.compress((WEB / name).read_bytes(), compresslevel=6, mtime=0)) for name in SOUND)
