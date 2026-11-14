@@ -116,6 +116,7 @@
     };
     body.dataset.palette = settings.palette;
     body.dataset.finish = settings.finish;
+    body.dataset.clearGlass = String(settings.finish === "glass" && settings.opacity < 35 && ["atelier", "paper"].includes(settings.palette) && !settings.photo);
     for (const [name, value] of Object.entries(tokens)) body.style.setProperty(name, value);
     body.classList.toggle("appearance-high-contrast", settings.contrast);
     body.classList.toggle("appearance-reduce-motion", settings.motion || prefersReducedMotion);

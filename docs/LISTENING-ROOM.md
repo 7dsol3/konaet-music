@@ -13,6 +13,8 @@ controls; preferences are stored only on the visitor's device. The appearance
 drawer includes six palettes and three material finishes, two custom colors,
 surface opacity, blur, corner and reading-size controls, reduced motion, sharper contrast, background photography,
 reset and portable JSON export/import. Both pages use the same settings.
+The lighting button changes the stage and product illumination. At zero glass
+opacity on a light palette, labels switch to dark ink to remain readable.
 Voice and microphone capture remain opt-in. Product artwork depicts instrument
 families, not product photos.
 
