@@ -25,7 +25,7 @@ def run(url: str):
         browser = playwright.chromium.launch(headless=True, **options)
         report["browser"] = browser.version
         for width in WIDTHS:
-            context = browser.new_context(viewport={"width": width, "height": 900}, service_workers="block")
+            context = browser.new_context(viewport={"width": width, "height": 900}, locale="en-US", service_workers="block")
             page = context.new_page()
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))

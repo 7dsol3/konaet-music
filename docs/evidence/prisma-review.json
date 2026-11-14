@@ -1,0 +1,150 @@
+{
+  "status": "PASS",
+  "browser": "157.0.8103.78",
+  "layouts": [
+    {
+      "locale": "pt-BR",
+      "width": 320,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 390,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 768,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 1024,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 1280,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 1440,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "pt-BR",
+      "width": 1920,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "en-US",
+      "width": 320,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "en-US",
+      "width": 390,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "en-US",
+      "width": 768,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "en-US",
+      "width": 1024,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "en-US",
+      "width": 1280,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "en-US",
+      "width": 1440,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    },
+    {
+      "locale": "en-US",
+      "width": 1920,
+      "height": 900,
+      "views": 8,
+      "overflow": 0,
+      "status": "PASS"
+    }
+  ],
+  "flows": [
+    "empty_results_and_reset",
+    "header_catalog_search",
+    "comparison_preserved_across_views",
+    "bag_quantity",
+    "checkout_art_download",
+    "sandbox_approve",
+    "wallet_topup",
+    "sandbox_decline",
+    "logic_trace_with_changed_capacity",
+    "connection_states",
+    "portuguese_assistant_budget_and_exact_model",
+    "unavailable_research_has_no_invented_sources",
+    "language_switch_and_persistence",
+    "original_glass_available",
+    "look_export_import_and_invalid_file",
+    "reduced_motion",
+    "look_shared_with_sound_lab",
+    "chord_play_and_stop",
+    "checked_music_explanation",
+    "metronome_start_stop",
+    "digital_core_generation_and_play",
+    "parameters_and_wav_download",
+    "local_wav_load_play_and_clear"
+  ],
+  "scope": "Standalone preview rendered in isolated Chrome; source and DOM contracts checked separately.",
+  "not_verified": [
+    "physical microphone/speaker fidelity",
+    "touch hardware",
+    "production payments",
+    "all external provider availability"
+  ]
+}

@@ -50,7 +50,7 @@ def build(out: Path, base="/konaet-music/"):
             continue
         if source.name!='service-worker.js' and source.suffix in {".css", ".js", ".mjs", ".svg"}:
             (static / source.name).write_text(paths(source.read_text(encoding="utf-8")), encoding="utf-8")
-    for name in ("bootstrap.js", "browser-runtime.mjs"):
+    for name in ("bootstrap.js", "browser-runtime.mjs", "policy-pt.mjs"):
         shutil.copyfile(SOURCE / name, static / name)
     shutil.copytree(SOURCE / "vendor", static / "vendor", dirs_exist_ok=True)
     shutil.copyfile(SOURCE / "catalog.json", out / "catalog.json")

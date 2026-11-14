@@ -10,7 +10,8 @@ const make = (tag, cls = "", text) => {
 const action = (text, cls, handler) => {
   const b = make("button", cls, text); b.type = "button"; b.addEventListener("click", handler); return b;
 };
-const money = (cents) => new Intl.NumberFormat("en-US", { style: "currency", currency: "BRL" }).format(cents / 100);
+const currentLocale = () => window.KonaetI18n?.locale() || "en";
+const money = (cents) => new Intl.NumberFormat(currentLocale() === "pt" ? "pt-BR" : "en-US", { style: "currency", currency: "BRL" }).format(cents / 100);
 const art = (p) => "/static/instrument-" + (p.category_id === 3 ? "drums" : p.category_id === 4 ? "keys" : [6, 7].includes(p.category_id) ? "wind" : [1, 2].includes(p.category_id) ? "electric" : "guitar") + ".svg";
 const imageFor = (p) => { const img = make("img"); img.src = art(p); img.alt = "Instrument family illustration, not a product photograph"; img.loading = "lazy"; return img; };
 const state = { products: [], cache: new Map(), shown: 12, category: "", compared: new Set(), cart: null, busy: false,
@@ -63,7 +64,7 @@ function productCard(p) {
   const detail = action("", "detail-trigger", () => showProduct(p)); detail.setAttribute("aria-label", "View " + p.name); visual.append(detail);
   if (p.discount_percent) visual.append(make("span", "product-badge promotion", p.discount_percent + "% active offer"));
   else if (!p.available) visual.append(make("span", "product-badge", p.status === "coming_soon" ? "Coming soon" : "Unavailable"));
-  const compare = action(state.compared.has(p.id) ? "✓" : "+", "compare-check", () => toggleCompare(p.id));
+  const compare = action(state.compared.has(p.id) ? "Selected" : "Compare", "compare-check", () => toggleCompare(p.id));
   compare.setAttribute("aria-label", "Compare " + p.name); compare.setAttribute("aria-pressed", String(state.compared.has(p.id))); compare.dataset.compareId = p.id; visual.append(compare);
   const meta = make("div", "product-meta"); meta.append(make("p", "product-category", p.category));
   meta.append(action(p.name, "product-name", () => showProduct(p)));
@@ -75,7 +76,7 @@ function renderCatalog() {
   const grid = $("#catalog-grid"); grid.replaceChildren();
   const shown = state.products.slice(0, state.shown);
   for (const p of shown) grid.append(productCard(p));
-  if (!shown.length) { const empty = make("div", "empty-state"); empty.append(make("h3", "", "A different direction?"), make("p", "", "Try another model, category or budget. We only show what is in the supplied catalog.")); grid.append(empty); }
+  if (!shown.length) { const empty = make("div", "empty-state"); empty.append(make("h3", "", "No instruments found"), make("p", "", "Try another model, category or budget."), action("Reset filters", "button secondary", () => {$("#catalog-query").value="";$("#catalog-budget").value="";$("#available-only").checked=false;document.querySelector('.category-tabs [data-category=""]').click();})); grid.append(empty); }
   $("#catalog-count").textContent = "Showing " + shown.length + " of " + state.products.length + " instruments";
   $("#load-more").hidden = state.shown >= state.products.length;
 }
@@ -127,11 +128,11 @@ function renderCompareTray() {
     const remove = action("×", "", () => toggleCompare(id)); remove.setAttribute("aria-label", "Remove " + (p?.name || id) + " from comparison"); el.append(remove); picks.append(el);
   }
   for (const button of document.querySelectorAll("[data-compare-id]")) {
-    const selected = state.compared.has(Number(button.dataset.compareId)); button.textContent = selected ? "✓" : "+"; button.setAttribute("aria-pressed", String(selected));
+    const selected = state.compared.has(Number(button.dataset.compareId)); button.textContent = selected ? "Selected" : "Compare"; button.setAttribute("aria-pressed", String(selected));
   }
 }
 async function showComparison() {
-  if (state.compared.size < 2) { toast("Choose two or three instruments using the + on each card."); return; }
+  if (state.compared.size < 2) { toast("Use Compare on two or three instrument cards."); return; }
   try {
     const data = await api("/api/compare?ids=" + [...state.compared].join(",")); cacheProducts(data.products);
     const table = make("table", "comparison-table"), caption = make("caption", "sr-only", "Recorded specifications of selected instruments"); table.append(caption);
@@ -251,8 +252,8 @@ function appendMessage(role, text, result) {
 }
 function speak(text) {
   if (!$("#read-aloud").checked || !("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(text.slice(0, 1400)); utterance.lang = "en-US"; utterance.rate = 1;
-  const voice = window.speechSynthesis.getVoices().find(v => /^en[-_]/i.test(v.lang)); if (voice) utterance.voice = voice; window.speechSynthesis.speak(utterance);
+  window.speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(text.slice(0, 1400)); utterance.lang = currentLocale() === "pt" ? "pt-BR" : "en-US"; utterance.rate = 1;
+  const voice = window.speechSynthesis.getVoices().find(v => v.lang.toLowerCase().startsWith(currentLocale())); if (voice) utterance.voice = voice; window.speechSynthesis.speak(utterance);
 }
 async function localCommand(text) {
   const clean = text.trim().toLowerCase().replace(/[.!?]+$/, "");
@@ -282,7 +283,7 @@ async function send(text) {
   $("#message-input").value = ""; const userItem = appendMessage("user", text); state.history.push({ role: "user", content: text });
   const thinking = make("div", "thinking", scope === "shop" ? "Checking the catalog and store guide…" : "Retrieving the selected public sources…"); $("#messages").append(thinking);
   try {
-    const result = scope === "shop" ? await api("/api/chat", { method: "POST", body: JSON.stringify({ message: text, locale: "en" }) }) : await api("/api/research", {method:"POST",body:JSON.stringify({query:text,scope,synthesize:$("#workspace-synthesize").checked})});
+    const result = scope === "shop" ? await api("/api/chat", { method: "POST", body: JSON.stringify({ message: text, locale: currentLocale() }) }) : await api("/api/research", {method:"POST",body:JSON.stringify({query:text,scope,synthesize:$("#workspace-synthesize").checked})});
     thinking.remove(); appendMessage("assistant", result.message, result); state.history.push({ role: "assistant", content: result.message });
     $("#assistant-mode").textContent = result.mode === "research_model" ? "MODEL + RETRIEVED SOURCES" : result.mode === "research_excerpts" ? "LIVE SOURCE BRIEF" : result.mode === "openai_compatible" ? "MODEL + VERIFIED TOOLS" : result.mode === "local_fallback" ? "LOCAL FALLBACK" : "LOCAL RULES + VERIFIED TOOLS"; speak(result.message);
     if (scope !== "shop") document.dispatchEvent(new CustomEvent("konaet:research-result", {detail:result}));
@@ -292,7 +293,7 @@ async function send(text) {
 function setupVoice() {
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!Recognition) { $("#microphone-button").disabled = true; $("#voice-status").textContent = "Voice input is not supported by this browser. You can type every command."; return; }
-  const recognition = new Recognition(); state.recognition = recognition; recognition.lang = "en-US"; recognition.interimResults = true; recognition.continuous = false; recognition.maxAlternatives = 1;
+  const recognition = new Recognition(); state.recognition = recognition; recognition.lang = currentLocale() === "pt" ? "pt-BR" : "en-US"; recognition.interimResults = true; recognition.continuous = false; recognition.maxAlternatives = 1;
   recognition.onstart = () => { state.listening = true; $("#microphone-button").setAttribute("aria-pressed", "true"); $("#microphone-button").setAttribute("aria-label", "Stop voice input"); $("#voice-status").textContent = "Listening in English… Your words will appear below."; $("#voice-status").classList.add("listening"); window.speechSynthesis?.cancel(); };
   recognition.onresult = (event) => { const text = Array.from(event.results).map(r => r[0].transcript).join(" "); $("#message-input").value = text.slice(0, 2000); };
   recognition.onerror = (event) => { $("#voice-status").textContent = event.error === "not-allowed" ? "Microphone permission was not granted. Type your message instead." : "Voice could not complete. Please try again or type your message."; };
@@ -302,7 +303,7 @@ function setupVoice() {
 
 async function showGuide() {
   try {
-    const policies = await api("/api/policies?locale=en"), root = $("#policy-list"); root.replaceChildren();
+    const policies = await api("/api/policies?locale=" + currentLocale()), root = $("#policy-list"); root.replaceChildren();
     for (const p of policies) { const d = make("details"), link = make("a", "", "Original manual · pages " + p.pages.join(", ") + " ↗"); link.href = "/manual#page=" + p.pages[0]; link.target = "_blank"; link.rel = "noopener"; d.append(make("summary", "", p.title), make("p", "", p.summary), link); root.append(d); } openDialog("guide-dialog");
   } catch (error) { toast(error.message); }
 }
@@ -365,4 +366,5 @@ async function initialize() {
   document.documentElement.dataset.konaetReady = "true";
   document.dispatchEvent(new CustomEvent("konaet:ready"));
 }
+window.addEventListener("konaet:language",()=>{renderCatalog();renderCompareTray();if(state.cart)renderBag();});
 initialize();
