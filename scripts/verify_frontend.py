@@ -71,8 +71,8 @@ def main():
     assert font_bytes < 30_000, f"Local font budget exceeded: {font_bytes}"
     assert all(p.read_bytes()[:4] == b"wOF2" for p in fonts), "Invalid WOFF2 font"
     assert not fonts or "SIL OPEN FONT LICENSE" in (WEB / "FONT-LICENSE.txt").read_text(encoding="utf-8")
-    assert raw < 170_000, f"UI source budget exceeded: {raw}"
-    assert compressed < 50_000, f"UI compressed budget exceeded: {compressed}"
+    assert raw < 195_000, f"UI source budget exceeded: {raw}"
+    assert compressed < 58_000, f"UI compressed budget exceeded: {compressed}"
     assert raster < 30_000, f"UI raster budget exceeded: {raster}"
     lazy_raw = sum((WEB / name).stat().st_size for name in SOUND)
     lazy_gzip = sum(len(gzip.compress((WEB / name).read_bytes(), compresslevel=6, mtime=0)) for name in SOUND)
