@@ -54,6 +54,7 @@ is not physical-device telemetry.*
 - Ask KONAET about instruments, prices, installments, store policies and a verified fixture order.
 - Dictate English commands, review the transcript and send it. Spoken replies are opt-in.
 - Install the responsive PWA on supported devices. Every command also works by typing.
+- Adjust the original liquid glass with optional color, tint, transparency, blur, corner and comfort controls. The look is shared with Sound Lab and can be exported or imported.
 - Research public knowledge, scholarly metadata and code with dated source links.
 - Switch the voice/text assistant between the music desk and explicit research scopes.
 - Inspect actual connection states and export source briefs from the current tab.
@@ -74,11 +75,12 @@ microphone board or DAC is connected to the server.
 [Methods and limits](docs/SOUND-LAB.md) · [Hardware interfaces and equations](docs/AUDIO-HARDWARE.md) ·
 [Production gates](docs/PRODUCTION-GATES.md) · [External-runtime comparison protocol](docs/RUNTIME-COMPARISON.md)
 
-The listening-room design uses a floating glass shell, a tool rail, catalog
-search and separate Discover, Research and Guide areas. The Sound Lab shares
-the material and typography. The room artwork is an original generated WebP
+The listening-room design keeps its original floating glass shell, tool rail,
+catalog search and separate Discover, Research and Guide areas. Its default
+appearance stays unchanged; optional controls adjust the glass. The Sound Lab
+shares the settings and typography. The room artwork is an original generated WebP
 of about 18 KB; no externally hosted fonts, animation framework, video background or
-per-frame rendering loop is loaded. Text assets are checked against a 50 KB
+per-frame rendering loop is loaded. Text assets are checked against a 58 KB
 gzip budget, with separate 30 KB bitmap and local-font budgets. Manrope is
 bundled under its [Open Font License](docs/FONT-PROVENANCE.md). Mobile layouts and
 reduced-motion and reduced-transparency preferences have dedicated styles.

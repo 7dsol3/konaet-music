@@ -7,6 +7,7 @@ const html = fs.readFileSync(new URL('../../emporio/web/index.html', import.meta
 const script = fs.readFileSync(new URL('../../emporio/web/app.js', import.meta.url), 'utf8');
 const workspaceScript = fs.readFileSync(new URL('../../emporio/web/workspace.js', import.meta.url), 'utf8');
 const shellScript = fs.readFileSync(new URL('../../emporio/web/studio-shell.js', import.meta.url), 'utf8');
+const glassScript = fs.readFileSync(new URL('../../emporio/web/glass-settings.js', import.meta.url), 'utf8');
 const first = { id:83, name:'Memphis AC-39', category_id:5, category:'Acoustic guitars', available:true, status:'active', stock:9,
   price_cents:65000, sale_cents:65000, discount_percent:0, specs:{strings:6,material:'Nylon'} };
 const second = {...first,id:85,name:'Tagima TW-25',price_cents:89000,sale_cents:89000};
@@ -56,7 +57,7 @@ async function environment({recognition=true, message='Two acoustic guitars meet
     else throw Error('Unexpected route: '+url);
     return {ok:true,json:async()=>structuredClone(data)};
   };
-  window.eval(script);window.eval(workspaceScript);window.eval(shellScript);await flush();
+  window.eval(script);window.eval(workspaceScript);window.eval(shellScript);window.eval(glassScript);await flush();
   return {window,document:window.document,requests,get chats(){return chats;},get speechStarts(){return speechStarts;},get recognition(){return recognitionInstance;},async close(){await window.happyDOM.close();}};
 }
 async function flush(){for(let i=0;i<6;i++)await new Promise(resolve=>setTimeout(resolve,5));}
@@ -88,6 +89,27 @@ test('studio rail reaches existing wallet, guide and keyboard search; lighting f
     assert.equal(e.document.body.classList.contains('ambient'),true);
     assert.equal(e.document.querySelector('#studio-light').getAttribute('aria-pressed'),'true');
     e.document.querySelector('#studio-light').click();assert.equal(e.document.body.classList.contains('ambient'),false);
+  }finally{await e.close();}
+});
+
+test('original glass stays the default while material controls save and restore',async()=>{
+  const e=await environment();try{
+    assert.equal(e.document.body.dataset.glassMaterial,'false');
+    assert.equal(e.document.body.dataset.glassAccent,'false');
+    const dialog=e.document.querySelector('#glass-settings-dialog');
+    dialog.showModal=function(){this.setAttribute('open','');};
+    dialog.close=function(){this.removeAttribute('open');this.dispatchEvent(new e.window.Event('close'));};
+    e.document.querySelector('[data-glass-open]').click();
+    assert.equal(dialog.hasAttribute('open'),true);
+    const opacity=dialog.querySelector('#glass-opacity');
+    opacity.value='0';opacity.dispatchEvent(new e.window.Event('input',{bubbles:true}));
+    assert.equal(e.document.body.dataset.glassMaterial,'true');
+    assert.equal(e.document.body.style.getPropertyValue('--kg-opacity'),'0%');
+    assert.equal(JSON.parse(e.window.localStorage.getItem('konaet-liquid-glass-v1')).opacity,0);
+    dialog.querySelector('#glass-reset').click();
+    assert.equal(e.document.body.dataset.glassMaterial,'false');
+    assert.equal(e.document.body.dataset.glassAccent,'false');
+    assert.equal(dialog.querySelector('#glass-opacity').value,'68');
   }finally{await e.close();}
 });
 

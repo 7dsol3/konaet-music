@@ -1,0 +1,68 @@
+/* The original liquid-glass layout is the untouched default. Rules below only
+   change existing surfaces after a visitor adjusts the glass controls. */
+.studio-shell[data-glass-material=true],.sound-shell[data-glass-material=true]{background:var(--kg-room)}
+.studio-shell[data-glass-material=true] .studio-frame{background:color-mix(in srgb,var(--kg-tint) var(--kg-opacity),transparent);backdrop-filter:blur(var(--kg-blur)) saturate(.9);border-radius:var(--kg-radius)}
+.studio-shell[data-glass-material=true] .studio-dock{background:color-mix(in srgb,var(--kg-tint) var(--kg-opacity),transparent);backdrop-filter:blur(var(--kg-blur));border-radius:var(--kg-radius)}
+.studio-shell[data-glass-material=true] .hero{background:radial-gradient(ellipse at 85% 80%,color-mix(in srgb,var(--kg-accent) 22%,transparent),transparent 65%),color-mix(in srgb,var(--kg-tint) var(--kg-opacity),transparent);backdrop-filter:blur(var(--kg-blur));border-radius:max(12px,calc(var(--kg-radius) - 9px))}
+.studio-shell[data-glass-material=true] :is(.studio-shortlist,.catalog-controls,.product-card,.mission-control,.research-panel,.source-card){background:color-mix(in srgb,var(--kg-tint) var(--kg-opacity),transparent);backdrop-filter:blur(var(--kg-blur));border-radius:max(12px,calc(var(--kg-radius) - 9px))}
+.studio-shell[data-glass-material=true] .product-art{background:color-mix(in srgb,var(--kg-tint) 35%,transparent)}
+.studio-shell[data-glass-accent=true] :is(.primary,.category-tabs button.active,.add-small,.compare-check){background:var(--kg-accent);border-color:var(--kg-accent);color:var(--kg-accent-ink)}
+.studio-shell[data-glass-accent=true] :is(.hero h1 em,.section-heading h2 em,.research-heading em,.mission-main h2 em){color:var(--kg-accent)}
+.studio-shell[data-glass-accent=true] .status-dot{background:var(--kg-accent)}
+.sound-shell[data-glass-material=true] :is(header,.studio,.panel,.coach,.hardware){background:color-mix(in srgb,var(--kg-tint) var(--kg-opacity),transparent);backdrop-filter:blur(var(--kg-blur));border-radius:max(12px,calc(var(--kg-radius) - 5px))}
+.sound-shell[data-glass-material=true] footer{background:color-mix(in srgb,var(--kg-tint) var(--kg-opacity),transparent);backdrop-filter:blur(var(--kg-blur))}
+.sound-shell[data-glass-accent=true] :is(.intro h1 em,h2 em){color:var(--kg-accent)}
+.sound-shell[data-glass-accent=true] :is(.primary,.actions>button:not(.link),.master button,.tempo-row button){background:var(--kg-accent);border-color:var(--kg-accent);color:var(--kg-accent-ink)}
+.sound-shell[data-glass-accent=true] #waveform{stroke:var(--kg-accent)}
+.glass-no-photo :is(.studio-atmosphere,.sound-room){display:none}
+.glass-no-photo.studio-shell,.glass-no-photo.sound-shell{background:var(--kg-room,#263b3a)}
+.studio-shell.ambient[data-glass-material=true] .studio-frame{background:color-mix(in srgb,var(--kg-tint) var(--kg-opacity),#0c1e24)}
+.glass-high-contrast :is(.studio-frame,.hero,.studio-shortlist,.product-card,.catalog-controls,.studio,.panel,.coach,.hardware){border-color:#f1f8ed!important;border-width:2px!important}
+.glass-reduce-motion,.glass-reduce-motion *, .glass-reduce-motion *::before,.glass-reduce-motion *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+
+/* One bounded settings drawer, styled like the existing glass room. */
+.glass-settings-dialog{position:fixed;inset:0 0 0 auto;width:min(480px,100vw);height:100dvh;max-height:100dvh;margin:0;padding:0;border:1px solid #ffffffb0;border-right:0;border-radius:26px 0 0 26px;background:#e5ede5ed;color:#203a31;box-shadow:-20px 0 70px #0c211e8c;backdrop-filter:blur(28px) saturate(1.12);font:13px/1.5 var(--font-ui,Arial,sans-serif);overflow:auto}
+.glass-settings-dialog::backdrop{background:#0a1c1ac2;backdrop-filter:blur(5px)}
+.glass-settings-dialog *{box-sizing:border-box}
+.glass-settings-dialog button{cursor:pointer;font:inherit}
+.glass-settings-dialog :is(button,input):focus-visible{outline:3px solid #527a5d;outline-offset:3px}
+.glass-settings-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;padding:28px 28px 22px;border-bottom:1px solid #9db4a6a8}
+.glass-settings-head small,.glass-settings-section>small{display:block;color:#527262;font-size:10px;font-weight:800;letter-spacing:.15em}
+.glass-settings-head h2{margin:8px 0 9px;font-size:32px;line-height:1.05;letter-spacing:-.055em}
+.glass-settings-head p{margin:0;max-width:325px;color:#536d5f;font-size:12px}
+.glass-settings-close{min-width:38px;height:38px;padding:0;border:1px solid #a8bcac;border-radius:50%;background:#ffffff79;color:#203a31;font-size:24px!important;line-height:1}
+.glass-settings-body{padding:22px 28px 30px}
+.glass-settings-preview{position:relative;min-height:124px;padding:18px 20px;border:1px solid #ffffff75;border-radius:19px;background:color-mix(in srgb,var(--kg-tint,#243133) var(--kg-opacity,68%),transparent),linear-gradient(125deg,#526a62,#263839);backdrop-filter:blur(var(--kg-blur,28px));color:#f1f5ed;box-shadow:inset 0 1px #ffffff8b,0 10px 24px #1f42343a}
+.glass-settings-preview span{display:block;font-size:10px;letter-spacing:.2em;color:#c8d9cb}
+.glass-settings-preview strong{display:block;margin-top:21px;font-size:28px;line-height:1.1;letter-spacing:-.04em}
+.glass-settings-preview strong em{font-style:normal;color:var(--kg-accent,#d1e7be)}
+.glass-settings-section{padding:24px 0;border-bottom:1px solid #a9bcada8}
+.glass-settings-section h3{margin:6px 0 16px;font-size:18px;letter-spacing:-.03em}
+.glass-palette-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.glass-palette-grid button{min-width:0;padding:6px;border:1px solid #9fb4a6;border-radius:11px;background:#ffffff6d;color:#243c30;text-align:left}
+.glass-palette-grid button[aria-pressed=true]{border:2px solid #32644a;padding:5px}
+.glass-palette-grid i{display:block;height:38px;margin-bottom:6px;border-radius:6px;background:linear-gradient(135deg,#243133 55%,#d1e7be 56%)}
+.glass-palette-grid [data-glass-palette=amber] i{background:linear-gradient(135deg,#413232 55%,#ffd1a8 56%)}
+.glass-palette-grid [data-glass-palette=cobalt] i{background:linear-gradient(135deg,#1d3348 55%,#a9dbff 56%)}
+.glass-palette-grid [data-glass-palette=violet] i{background:linear-gradient(135deg,#302942 55%,#ddc0ff 56%)}
+.glass-palette-grid [data-glass-palette=mono] i{background:linear-gradient(135deg,#202828 55%,#f1f1ea 56%)}
+.glass-palette-grid span{display:block;overflow:hidden;text-overflow:ellipsis;font-size:10px;font-weight:750}
+.glass-color-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.glass-color-grid label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid #a9bcad;border-radius:11px;background:#ffffff50}
+.glass-color-grid strong,.glass-range-list strong,.glass-switches strong{display:block;font-size:12px}
+.glass-color-grid small,.glass-switches small{display:block;color:#637e6d;font-size:10px;margin-top:2px}
+.glass-color-grid input{width:35px;height:35px;border:0;background:none;padding:0;cursor:pointer}
+.glass-range-list{display:grid;gap:17px}
+.glass-range-list label>span{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px}
+.glass-range-list output{color:#506d5a;font-size:11px}
+.glass-range-list input{display:block;width:100%;accent-color:#426d4e}
+.glass-switches{display:grid;gap:8px}
+.glass-switches label{display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:46px}
+.glass-switches input{width:19px;height:19px;accent-color:#426d4e}
+.glass-settings-actions{display:flex;flex-wrap:wrap;gap:9px;border:0}
+.glass-settings-actions button{min-height:38px;padding:8px 13px;border:1px solid #96b09c;border-radius:11px;background:#ffffff91;color:#254330;font-weight:750}
+.glass-settings-actions p{flex:0 0 100%;margin:5px 0 0;color:#526d5a;font-size:11px}
+.sound-shell nav [data-glass-open]{min-height:38px;padding:7px 12px;border:1px solid #ffffff4d;border-radius:19px;background:#ffffff16;color:#edf5e9;font-size:12px}
+@media(max-width:760px){.glass-settings-dialog{border-radius:18px 0 0 18px}.glass-settings-head{padding:22px 20px 18px}.glass-settings-body{padding:18px 20px 25px}.studio-shell .header-actions [data-glass-open]{width:36px;min-width:36px}}
+@media(max-width:390px){.glass-palette-grid{gap:4px}.glass-palette-grid button{padding:4px}.glass-palette-grid button[aria-pressed=true]{padding:3px}.glass-palette-grid span{font-size:9px}.glass-color-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-transparency:reduce){.glass-settings-dialog{background:#e5ede5;backdrop-filter:none}.glass-settings-preview{background:#263839;backdrop-filter:none}.studio-shell[data-glass-material=true] :is(.studio-frame,.studio-dock,.hero,.studio-shortlist,.catalog-controls,.product-card,.mission-control,.research-panel,.source-card),.sound-shell[data-glass-material=true] :is(header,.studio,.panel,.coach,.hardware,footer){background:var(--kg-tint);backdrop-filter:none}}
